@@ -1,0 +1,166 @@
+{
+  "_comment": "Skeleton data file for /cabinet-refinishing-{town_slug}/ pages (Section 4.11 of the spec). Each entry must produce >=80-100% unique content per town to avoid doorway-page penalties. Placeholder fields are marked - replace before publishing. Neighbor towns are geographic approximations for internal-linking purposes; adjust if Jeremiah prefers different pairings.",
+
+  "towns": [
+    {
+      "town": "Medford",
+      "town_slug": "medford",
+      "is_primary_focus": true,
+      "neighbors": ["Malden", "Somerville", "Arlington"],
+      "housing_stock_note": "PLACEHOLDER - draft unique copy: Medford's mix of pre-1978 colonials and condo conversions near Tufts and the Mystic River means many kitchens still have original solid-wood cabinet boxes worth preserving rather than replacing.",
+      "icp_focus": "Equity-Rich Homeowner - pre-1978, 3-4BR colonial",
+      "local_photo": {
+        "status": "placeholder",
+        "path": "/assets/img/projects/medford-cabinet-01.jpg",
+        "caption": "PLACEHOLDER - add real before/after photo from a Medford project"
+      },
+      "testimonial": {
+        "status": "placeholder - do not fabricate",
+        "name": "PLACEHOLDER NAME",
+        "neighborhood": "PLACEHOLDER NEIGHBORHOOD (e.g. Medford Hillside, Wellington)",
+        "quote": "PLACEHOLDER QUOTE - replace with a real, attributed review before publishing"
+      },
+      "mini_faq_anchors": ["#2k-durability", "#lead-safe", "#cost"]
+    },
+    {
+      "town": "Malden",
+      "town_slug": "malden",
+      "is_primary_focus": false,
+      "neighbors": ["Medford", "Everett", "Stoneham"],
+      "housing_stock_note": "PLACEHOLDER - draft unique copy: Malden's dense mix of 2-6 unit multi-family triple-deckers and condo-converted units means cabinet refinishing is a fast, lower-disruption upgrade for both owner-occupants and investor-owners ahead of a tenant turnover.",
+      "icp_focus": "Condo Upgrader / Property Manager - multi-family 1-2BR and 2-6 unit",
+      "local_photo": {
+        "status": "placeholder",
+        "path": "/assets/img/projects/malden-cabinet-01.jpg",
+        "caption": "PLACEHOLDER - add real before/after photo from a Malden project"
+      },
+      "testimonial": {
+        "status": "placeholder - do not fabricate",
+        "name": "PLACEHOLDER NAME",
+        "neighborhood": "PLACEHOLDER NEIGHBORHOOD",
+        "quote": "PLACEHOLDER QUOTE - replace with a real, attributed review before publishing"
+      },
+      "mini_faq_anchors": ["#process-disruption", "#material-compatibility", "#cost"]
+    },
+    {
+      "town": "Everett",
+      "town_slug": "everett",
+      "is_primary_focus": false,
+      "neighbors": ["Malden", "Somerville", "Medford"],
+      "housing_stock_note": "PLACEHOLDER - draft unique copy: Everett's stock of 2-6 unit multi-family homes along the Lower Broadway and Glendale corridors makes cabinet refinishing a popular turnover-ready upgrade for landlords between tenants.",
+      "icp_focus": "Property Manager / Landlord - multi-family 2-6 units, recurring turnover",
+      "local_photo": {
+        "status": "placeholder",
+        "path": "/assets/img/projects/everett-cabinet-01.jpg",
+        "caption": "PLACEHOLDER - add real before/after photo from an Everett project"
+      },
+      "testimonial": {
+        "status": "placeholder - do not fabricate",
+        "name": "PLACEHOLDER NAME",
+        "neighborhood": "PLACEHOLDER NEIGHBORHOOD",
+        "quote": "PLACEHOLDER QUOTE - replace with a real, attributed review before publishing"
+      },
+      "mini_faq_anchors": ["#process-disruption", "#cost", "#financing"]
+    },
+    {
+      "town": "Arlington",
+      "town_slug": "arlington",
+      "is_primary_focus": true,
+      "neighbors": ["Medford", "Somerville", "Winchester"],
+      "housing_stock_note": "PLACEHOLDER - draft unique copy: Arlington's larger single-family colonials near the Minuteman Bikeway often have generously sized original kitchens, where a factory-grade spray finish can transform a full wall of cabinetry without the cost of a layout change.",
+      "icp_focus": "Equity-Rich Homeowner - pre-1978, 3-4BR colonial",
+      "local_photo": {
+        "status": "placeholder",
+        "path": "/assets/img/projects/arlington-cabinet-01.jpg",
+        "caption": "PLACEHOLDER - add real before/after photo from an Arlington project"
+      },
+      "testimonial": {
+        "status": "placeholder - do not fabricate",
+        "name": "PLACEHOLDER NAME",
+        "neighborhood": "PLACEHOLDER NEIGHBORHOOD",
+        "quote": "PLACEHOLDER QUOTE - replace with a real, attributed review before publishing"
+      },
+      "mini_faq_anchors": ["#2k-durability", "#cost", "#financing"]
+    },
+    {
+      "town": "Somerville",
+      "town_slug": "somerville",
+      "is_primary_focus": false,
+      "neighbors": ["Cambridge", "Medford", "Everett"],
+      "housing_stock_note": "PLACEHOLDER - draft unique copy: Somerville's iconic triple-deckers and condo-converted units near Union and Davis Square mean kitchens are often compact - refinishing existing cabinet boxes keeps the layout intact while delivering a high-impact visual update before a sale or refresh.",
+      "icp_focus": "Condo Upgrader - condo/multi-unit, 1-2BR, pre-listing refresh",
+      "local_photo": {
+        "status": "placeholder",
+        "path": "/assets/img/projects/somerville-cabinet-01.jpg",
+        "caption": "PLACEHOLDER - add real before/after photo from a Somerville project"
+      },
+      "testimonial": {
+        "status": "placeholder - do not fabricate",
+        "name": "PLACEHOLDER NAME",
+        "neighborhood": "PLACEHOLDER NEIGHBORHOOD (e.g. Union Square, Davis Square)",
+        "quote": "PLACEHOLDER QUOTE - replace with a real, attributed review before publishing"
+      },
+      "mini_faq_anchors": ["#material-compatibility", "#cost", "#process-disruption"]
+    },
+    {
+      "town": "Cambridge",
+      "town_slug": "cambridge",
+      "is_primary_focus": false,
+      "neighbors": ["Somerville", "Arlington", "Medford"],
+      "housing_stock_note": "PLACEHOLDER - draft unique copy: Cambridge's triple-deckers and condo conversions near Porter and Inman Square share Somerville's compact-kitchen profile, but the city's higher home values (ZHVI ~$1.04M) make a factory-finish refresh an especially high-ROI improvement ahead of a sale or refinance.",
+      "icp_focus": "Condo Upgrader / Pre-Sale Seller",
+      "local_photo": {
+        "status": "placeholder",
+        "path": "/assets/img/projects/cambridge-cabinet-01.jpg",
+        "caption": "PLACEHOLDER - add real before/after photo from a Cambridge project"
+      },
+      "testimonial": {
+        "status": "placeholder - do not fabricate",
+        "name": "PLACEHOLDER NAME",
+        "neighborhood": "PLACEHOLDER NEIGHBORHOOD (e.g. Porter Square, Inman Square)",
+        "quote": "PLACEHOLDER QUOTE - replace with a real, attributed review before publishing"
+      },
+      "mini_faq_anchors": ["#cost", "#2k-durability", "#financing"]
+    },
+    {
+      "town": "Woburn",
+      "town_slug": "woburn",
+      "is_primary_focus": false,
+      "neighbors": ["Winchester", "Stoneham", "Burlington"],
+      "housing_stock_note": "PLACEHOLDER - draft unique copy: Woburn's blend of 1950s-1970s ranch and colonial homes alongside 2-6 unit multi-family properties gives homeowners and landlords alike a fast, lower-cost alternative to a full kitchen remodel.",
+      "icp_focus": "Equity-Rich Homeowner / Property Manager - mixed housing stock",
+      "local_photo": {
+        "status": "placeholder",
+        "path": "/assets/img/projects/woburn-cabinet-01.jpg",
+        "caption": "PLACEHOLDER - add real before/after photo from a Woburn project"
+      },
+      "testimonial": {
+        "status": "placeholder - do not fabricate",
+        "name": "PLACEHOLDER NAME",
+        "neighborhood": "PLACEHOLDER NEIGHBORHOOD",
+        "quote": "PLACEHOLDER QUOTE - replace with a real, attributed review before publishing"
+      },
+      "mini_faq_anchors": ["#cost", "#process-disruption", "#financing"]
+    },
+    {
+      "town": "Winchester",
+      "town_slug": "winchester",
+      "is_primary_focus": true,
+      "neighbors": ["Arlington", "Woburn", "Stoneham"],
+      "housing_stock_note": "PLACEHOLDER - draft unique copy: Winchester's larger single-family colonials, often with original solid-wood kitchens, are a strong fit for factory-grade refinishing - preserving period character and high-quality cabinet boxes that newer mass-produced cabinetry can't match.",
+      "icp_focus": "Equity-Rich Homeowner - pre-1978, 3-4BR colonial, highest home equity in primary zone",
+      "local_photo": {
+        "status": "placeholder",
+        "path": "/assets/img/projects/winchester-cabinet-01.jpg",
+        "caption": "PLACEHOLDER - add real before/after photo from a Winchester project"
+      },
+      "testimonial": {
+        "status": "placeholder - do not fabricate",
+        "name": "PLACEHOLDER NAME",
+        "neighborhood": "PLACEHOLDER NEIGHBORHOOD",
+        "quote": "PLACEHOLDER QUOTE - replace with a real, attributed review before publishing"
+      },
+      "mini_faq_anchors": ["#2k-durability", "#warranty", "#cost"]
+    }
+  ]
+}

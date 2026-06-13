@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jerry &amp; Co. Home Improvement — Factory-Grade Cabinet Refinishing &amp; Home Refresh, Greater Boston</title>
+<meta name="description" content="Factory-grade cabinet refinishing, bathroom refresh, and painting for Medford, Malden, Arlington, Somerville, Cambridge, Everett, Woburn &amp; Winchester. Lead-safe, fully insured, MA HIC #208336.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap');
+
+:root{
+  --bone:#F7F3EA;
+  --bone-deep:#EFE7D6;
+  --ink:#14241F;
+  --ink-soft:#1E332D;
+  --forest:#1E3934;
+  --gold:#C8A055;
+  --gold-deep:#8A6A33;
+  --text:#20281F;
+  --text-muted:#6E6A5E;
+  --line:rgba(30,57,52,0.14);
+  --line-dark:rgba(247,243,234,0.16);
+  --radius:14px;
+  --radius-sm:8px;
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--bone);
+  color:var(--text);
+  font-family:'Inter',system-ui,sans-serif;
+  font-size:16px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+img,svg{display:block;max-width:100%;}
+a{color:inherit;}
+
+h1,h2,h3{
+  font-family:'Fraunces',serif;
+  font-weight:500;
+  line-height:1.15;
+  margin:0;
+  color:var(--forest);
+}
+.eyebrow{
+  font-family:'Inter',sans-serif;
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:var(--gold-deep);
+  margin:0 0 0.75rem;
+}
+.section-lede{
+  max-width:46ch;
+  color:var(--text-muted);
+  margin:0.9rem 0 0;
+}
+
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px;}
+section{padding:88px 0;}
+.section-head{max-width:640px;margin:0 auto 48px;text-align:center;}
+.section-head.left{margin:0 0 48px;text-align:left;}
+
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{
+  outline:2px solid var(--gold-deep);
+  outline-offset:2px;
+}
+
+/* ---------- Buttons ---------- */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-family:'Inter',sans-serif;
+  font-weight:600;
+  font-size:15px;
+  padding:14px 28px;
+  border-radius:999px;
+  border:1px solid transparent;
+  cursor:pointer;
+  text-decoration:none;
+  transition:transform 0.15s ease, opacity 0.15s ease;
+}
+.btn:hover{transform:translateY(-1px);}
+.btn-gold{background:var(--gold);color:var(--ink);}
+.btn-gold:hover{opacity:0.92;}
+.btn-outline{background:transparent;color:var(--bone);border-color:var(--line-dark);}
+.btn-outline:hover{background:rgba(247,243,234,0.06);}
+.btn-outline-dark{background:transparent;color:var(--forest);border-color:var(--line);}
+.btn-outline-dark:hover{background:rgba(30,57,52,0.05);}
+.btn-block{width:100%;justify-content:center;}
+
+/* ---------- Header ---------- */
+header{
+  position:sticky;top:0;z-index:50;
+  background:var(--ink);
+  border-bottom:1px solid var(--line-dark);
+}
+.nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 24px;max-width:1120px;margin:0 auto;
+  color:var(--bone);
+}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--bone);}
+.logo-mark{width:34px;height:28px;color:var(--bone);}
+.brand-text{font-family:'Fraunces',serif;font-size:19px;letter-spacing:0.04em;}
+.brand-sub{display:block;font-family:'Inter',sans-serif;font-size:9px;letter-spacing:0.22em;color:var(--gold);margin-top:2px;}
+.nav-links{display:flex;align-items:center;gap:28px;font-size:14px;font-weight:500;}
+.nav-links a{text-decoration:none;color:var(--bone);opacity:0.8;transition:opacity 0.15s;}
+.nav-links a:hover{opacity:1;}
+.nav-cta{display:flex;align-items:center;gap:20px;}
+
+@media (max-width:880px){
+  .nav-links{display:none;}
+}
+
+/* ---------- Hero ---------- */
+.hero{
+  background:var(--ink);
+  color:var(--bone);
+  padding:72px 0 96px;
+}
+.hero-grid{
+  display:grid;grid-template-columns:1.1fr 1fr;gap:64px;align-items:center;
+}
+.hero h1{
+  color:var(--bone);
+  font-size:clamp(2.4rem,5vw,3.6rem);
+  letter-spacing:-0.01em;
+}
+.hero h1 em{
+  font-style:italic;color:var(--gold);
+}
+.hero p.lede{
+  max-width:42ch;color:rgba(247,243,234,0.78);font-size:18px;margin:20px 0 32px;
+}
+.hero-actions{display:flex;flex-wrap:wrap;gap:14px;}
+.hero-meta{
+  display:flex;gap:28px;margin-top:40px;flex-wrap:wrap;
+}
+.hero-meta div{font-size:13px;color:rgba(247,243,234,0.6);}
+.hero-meta strong{display:block;font-family:'Fraunces',serif;font-size:24px;color:var(--bone);font-weight:500;}
+
+@media (max-width:880px){
+  .hero-grid{grid-template-columns:1fr;gap:40px;}
+}
+
+/* ---------- Before/After slider (signature element) ---------- */
+.ba-card{
+  background:var(--ink-soft);
+  border:1px solid var(--line-dark);
+  border-radius:var(--radius);
+  padding:14px;
+}
+.ba{
+  position:relative;
+  aspect-ratio:4/3;
+  border-radius:var(--radius-sm);
+  overflow:hidden;
+  user-select:none;
+}
+.ba-layer{position:absolute;inset:0;display:flex;flex-direction:column;}
+.ba-cab{flex:1;display:flex;}
+.ba-counter{height:18%;}
+.door{flex:1;position:relative;border-right:2px solid rgba(20,36,31,0.35);}
+.door:last-child{border-right:none;}
+.knob{
+  position:absolute;width:9px;height:9px;border-radius:50%;
+  top:50%;right:14px;transform:translateY(-50%);
+}
+/* AFTER (factory spray finish) */
+.ba-after .door{background:linear-gradient(160deg,#2C4A43 0%,#1E3934 55%,#152724 100%);}
+.ba-after .door::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(115deg,rgba(255,255,255,0.16) 0%,rgba(255,255,255,0) 35%);
+}
+.ba-after .knob{background:var(--gold);}
+.ba-after .ba-counter{background:#0F1C18;}
+/* BEFORE (worn oak) */
+.ba-before-fill .door{background:linear-gradient(160deg,#CDAE7E 0%,#B8966A 55%,#A1815A 100%);filter:saturate(0.85);}
+.ba-before-fill .knob{background:#8C7350;}
+.ba-before-fill .ba-counter{background:#9C8366;}
+
+.ba-before{position:absolute;inset:0;clip-path:inset(0 50% 0 0);}
+.ba-range{
+  position:absolute;inset:0;width:100%;height:100%;
+  margin:0;opacity:0;cursor:ew-resize;
+  -webkit-appearance:none;appearance:none;
+}
+.ba-handle{
+  position:absolute;top:0;bottom:0;left:50%;width:2px;
+  background:var(--gold);transform:translateX(-1px);pointer-events:none;
+}
+.ba-grip{
+  position:absolute;top:50%;left:50%;width:36px;height:36px;
+  transform:translate(-50%,-50%);border-radius:50%;
+  background:var(--gold);display:flex;align-items:center;justify-content:center;
+  pointer-events:none;
+}
+.ba-grip svg{width:16px;height:16px;color:var(--ink);}
+.ba-tag{
+  position:absolute;top:14px;font-size:11px;font-weight:600;letter-spacing:0.12em;
+  text-transform:uppercase;padding:5px 12px;border-radius:999px;
+  background:rgba(20,36,31,0.55);color:var(--bone);pointer-events:none;
+}
+.ba-tag.after{right:14px;}
+.ba-tag.before{left:14px;}
+.ba-caption{
+  font-size:13px;color:rgba(247,243,234,0.55);margin:14px 4px 2px;text-align:center;
+}
+
+/* ---------- Trust bar ---------- */
+.trust{
+  background:var(--bone-deep);
+  border-bottom:1px solid var(--line);
+}
+.trust-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:22px 0;flex-wrap:wrap;gap:18px;
+}
+.trust-item{
+  display:flex;align-items:center;gap:10px;font-size:13px;font-weight:500;color:var(--forest);
+}
+.trust-item svg{width:18px;height:18px;color:var(--gold-deep);flex-shrink:0;}
+
+/* ---------- Services grid ---------- */
+.services-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:20px;
+}
+.service-card{
+  background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+  padding:28px 24px;display:flex;flex-direction:column;gap:10px;position:relative;
+}
+.service-card.featured{
+  border:2px solid var(--gold);background:linear-gradient(180deg,#FFFDF7 0%,#fff 100%);
+}
+.badge-featured{
+  position:absolute;top:-12px;left:24px;background:var(--gold);color:var(--ink);
+  font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;
+  padding:5px 12px;border-radius:999px;
+}
+.service-card h3{font-size:19px;}
+.service-card .price{font-size:13px;color:var(--gold-deep);font-weight:600;}
+.service-card p{font-size:14px;color:var(--text-muted);margin:0;}
+.service-card .tag{font-size:12px;color:var(--text-muted);margin-top:auto;padding-top:10px;border-top:1px solid var(--line);}
+
+@media (max-width:880px){
+  .services-grid{grid-template-columns:1fr 1fr;}
+}
+@media (max-width:560px){
+  .services-grid{grid-template-columns:1fr;}
+}
+
+/* ---------- Process ---------- */
+.process-band{background:var(--ink);color:var(--bone);}
+.process-band h2{color:var(--bone);}
+.process-band .eyebrow{color:var(--gold);}
+.process-list{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:18px;margin-top:8px;
+}
+.process-step{
+  border:1px solid var(--line-dark);border-radius:var(--radius);padding:22px 18px;
+}
+.process-num{
+  font-family:'Fraunces',serif;font-size:28px;color:var(--gold);margin-bottom:10px;
+}
+.process-step h3{color:var(--bone);font-size:16px;margin-bottom:6px;}
+.process-step p{font-size:13px;color:rgba(247,243,234,0.65);margin:0;}
+
+@media (max-width:880px){
+  .process-list{grid-template-columns:1fr 1fr;}
+}
+@media (max-width:560px){
+  .process-list{grid-template-columns:1fr;}
+}
+
+/* ---------- Gallery ---------- */
+.filter-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:32px;}
+.filter-btn{
+  font-family:'Inter',sans-serif;font-size:13px;font-weight:500;
+  padding:9px 18px;border-radius:999px;border:1px solid var(--line);
+  background:#fff;color:var(--text-muted);cursor:pointer;transition:all 0.15s;
+}
+.filter-btn.active{background:var(--forest);color:var(--bone);border-color:var(--forest);}
+.gallery-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:18px;
+}
+.gallery-item{
+  aspect-ratio:4/5;border:1.5px dashed var(--line);border-radius:var(--radius);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:10px;background:var(--bone-deep);text-align:center;padding:20px;
+  transition:opacity 0.2s,transform 0.2s;
+}
+.gallery-item svg{width:28px;height:28px;color:var(--gold-deep);}
+.gallery-item .g-label{font-size:13px;font-weight:600;color:var(--forest);}
+.gallery-item .g-sub{font-size:12px;color:var(--text-muted);}
+.gallery-item.hidden{display:none;}
+
+@media (max-width:880px){
+  .gallery-grid{grid-template-columns:1fr 1fr;}
+}
+@media (max-width:560px){
+  .gallery-grid{grid-template-columns:1fr;}
+}
+
+/* ---------- Service area ---------- */
+.area-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;}
+.chip-group{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;}
+.chip{
+  font-size:13px;font-weight:500;padding:8px 16px;border-radius:999px;
+}
+.chip-primary{background:var(--forest);color:var(--bone);}
+.chip-secondary{border:1px solid var(--line);color:var(--text-muted);background:#fff;}
+.area-note{font-size:13px;color:var(--text-muted);margin-top:18px;}
+
+@media (max-width:880px){
+  .area-grid{grid-template-columns:1fr;gap:32px;}
+}
+
+/* ---------- Estimate form ---------- */
+.estimate-band{background:var(--bone-deep);}
+.estimate-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:56px;align-items:start;}
+.estimate-info h2{font-size:clamp(1.8rem,3.5vw,2.4rem);}
+.estimate-stats{display:flex;flex-direction:column;gap:18px;margin-top:28px;}
+.estimate-stat{display:flex;gap:14px;align-items:flex-start;}
+.estimate-stat .num{
+  font-family:'Fraunces',serif;font-size:26px;color:var(--gold-deep);min-width:64px;
+}
+.estimate-stat p{margin:0;font-size:14px;color:var(--text-muted);}
+.estimate-stat strong{display:block;color:var(--forest);font-size:15px;margin-bottom:2px;}
+
+.form-card{
+  background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+  padding:32px;
+}
+.form-card h3{font-size:18px;margin-bottom:4px;}
+.form-card .sub{font-size:13px;color:var(--text-muted);margin:0 0 24px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+.form-row.single{grid-template-columns:1fr;}
+.field{display:flex;flex-direction:column;gap:6px;}
+.field label{font-size:12px;font-weight:600;color:var(--forest);letter-spacing:0.03em;}
+.field input,.field select,.field textarea{
+  font-family:'Inter',sans-serif;font-size:14px;
+  border:1px solid var(--line);border-radius:var(--radius-sm);
+  padding:11px 12px;background:var(--bone);color:var(--text);
+}
+.field textarea{resize:vertical;min-height:84px;}
+.form-foot{font-size:12px;color:var(--text-muted);margin-top:14px;text-align:center;}
+.form-success{
+  display:none;text-align:center;padding:40px 20px;
+}
+.form-success.show{display:block;}
+.form-success svg{width:40px;height:40px;color:var(--gold-deep);margin:0 auto 14px;}
+.form-success h3{margin-bottom:8px;}
+.form-success p{color:var(--text-muted);font-size:14px;margin:0;}
+
+@media (max-width:880px){
+  .estimate-grid{grid-template-columns:1fr;gap:36px;}
+  .form-row{grid-template-columns:1fr;}
+}
+
+/* ---------- Close / tiers ---------- */
+.tiers-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:8px;}
+.tier-card{
+  border:1px solid var(--line);border-radius:var(--radius);padding:26px 22px;background:#fff;
+}
+.tier-card.best{border:2px solid var(--gold);}
+.tier-name{
+  font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;
+  color:var(--gold-deep);margin-bottom:8px;
+}
+.tier-card h3{font-size:18px;margin-bottom:8px;}
+.tier-card p{font-size:14px;color:var(--text-muted);margin:0;}
+
+@media (max-width:880px){
+  .tiers-grid{grid-template-columns:1fr;}
+}
+
+.close-cta{
+  background:var(--ink);color:var(--bone);text-align:center;
+}
+.close-cta h2{color:var(--bone);}
+.close-cta p{color:rgba(247,243,234,0.7);max-width:48ch;margin:14px auto 32px;}
+
+/* ---------- Footer ---------- */
+footer{background:var(--ink);border-top:1px solid var(--line-dark);color:rgba(247,243,234,0.65);}
+.footer-grid{
+  display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:48px;padding:56px 0 32px;
+}
+.footer-brand{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.footer-brand .logo-mark{color:var(--bone);}
+.footer-brand .brand-text{color:var(--bone);}
+.footer-col h4{
+  font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--bone);margin:0 0 14px;
+}
+.footer-col ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:9px;font-size:14px;}
+.footer-col a{text-decoration:none;color:rgba(247,243,234,0.65);transition:color 0.15s;}
+.footer-col a:hover{color:var(--bone);}
+.footer-bottom{
+  border-top:1px solid var(--line-dark);padding:22px 0;
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;
+  font-size:12px;color:rgba(247,243,234,0.45);
+}
+
+@media (max-width:880px){
+  .footer-grid{grid-template-columns:1fr;gap:32px;padding:48px 0 24px;}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{transition:none !important;scroll-behavior:auto !important;}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header>
+  <nav class="nav">
+    <a class="brand" href="#top">
+      <svg class="logo-mark" viewBox="0 0 100 80" aria-hidden="true">
+        <path d="M8 46 L50 10 L92 46" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M22 46 L50 22" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M32 46 L32 70 L72 70" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="46" y="50" width="11" height="11" fill="#C8A055"/>
+      </svg>
+      <span>
+        <span class="brand-text">Jerry &amp; Co.</span>
+        <span class="brand-sub">Home improvement</span>
+      </span>
+    </a>
+    <div class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#process">Process</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#area">Service area</a>
+    </div>
+    <div class="nav-cta">
+      <a class="btn btn-gold" href="#estimate">Get free estimate</a>
+    </div>
+  </nav>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow">Featured this season — cabinet refinishing</p>
+      <h1>Factory-grade finishes, <em>without</em> the factory wait.</h1>
+      <p class="lede">We help Greater Boston homeowners refresh kitchens, bathrooms, and exteriors with factory-grade finishes — lead-safe, on time, and done right the first time.</p>
+      <div class="hero-actions">
+        <a class="btn btn-gold" href="#estimate">Get my free video estimate</a>
+        <a class="btn btn-outline" href="#cabinet-feature">See the spray finish</a>
+      </div>
+      <div class="hero-meta">
+        <div><strong>2019</strong>Operating in Greater Boston</div>
+        <div><strong>MA HIC<br>#208336</strong>Licensed &amp; insured</div>
+        <div><strong>2–5 days</strong>Typical cabinet refinish</div>
+      </div>
+    </div>
+    <div>
+      <div class="ba-card">
+        <div class="ba" id="ba">
+          <div class="ba-layer ba-after" aria-hidden="true">
+            <div class="ba-cab">
+              <div class="door"><span class="knob"></span></div>
+              <div class="door"><span class="knob"></span></div>
+              <div class="door"><span class="knob"></span></div>
+              <div class="door"><span class="knob"></span></div>
+            </div>
+            <div class="ba-counter"></div>
+          </div>
+          <div class="ba-layer ba-before-fill ba-before" id="baBefore" aria-hidden="true">
+            <div class="ba-cab">
+              <div class="door"><span class="knob"></span></div>
+              <div class="door"><span class="knob"></span></div>
+              <div class="door"><span class="knob"></span></div>
+              <div class="door"><span class="knob"></span></div>
+            </div>
+            <div class="ba-counter"></div>
+          </div>
+          <span class="ba-tag before">Before</span>
+          <span class="ba-tag after">After</span>
+          <div class="ba-handle" id="baHandle"></div>
+          <div class="ba-grip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="8 7 4 12 8 17"></polyline><polyline points="16 7 20 12 16 17"></polyline></svg>
+          </div>
+          <input type="range" class="ba-range" id="baRange" min="0" max="100" value="50" aria-label="Drag to compare cabinet finish before and after">
+        </div>
+        <p class="ba-caption">Drag to compare — swap in your own project photos here</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TRUST BAR ================= -->
+<div class="trust">
+  <div class="wrap trust-row">
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z"/></svg>
+      MA HIC #208336 — licensed &amp; verified
+    </div>
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg>
+      EPA RRP lead-safe certified
+    </div>
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M4 9h16"/></svg>
+      Fully insured, owner on every job
+    </div>
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+      Serving the ICC zone since 2019
+    </div>
+  </div>
+</div>
+
+<!-- ================= SERVICES ================= -->
+<section id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Service portfolio</p>
+      <h2>Refresh and renovation, organized by the work it actually takes.</h2>
+      <p class="section-lede" style="margin-left:auto;margin-right:auto;">Every project starts the same way — a free video walkthrough and a three-tier proposal. Cabinet refinishing is our focus this season.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card featured" id="cabinet-feature">
+        <span class="badge-featured">Featured</span>
+        <h3>Cabinet refinishing</h3>
+        <p class="price">$1,800 – $9,500</p>
+        <p>Factory-grade 2K polyurethane spray finish on existing cabinet boxes — the look of new cabinets, the cost of paint.</p>
+        <p class="tag">2–5 days · highest-margin craft differentiator</p>
+      </div>
+      <div class="service-card">
+        <h3>Gut-free bathroom refresh</h3>
+        <p class="price">$2,800 – $6,500</p>
+        <p>New tile, fixtures, and paint without demo — a faster, lower-cost path to a bathroom that feels new.</p>
+        <p class="tag">2–5 days · pairs well with cabinet refinishing</p>
+      </div>
+      <div class="service-card">
+        <h3>Interior &amp; exterior painting</h3>
+        <p class="price">$1,400 – $6,500</p>
+        <p>Lead-safe interior and exterior painting, prepped and finished to a standard that holds up.</p>
+        <p class="tag">1–4 days · most flexible scheduling</p>
+      </div>
+      <div class="service-card">
+        <h3>Full bathroom renovation</h3>
+        <p class="price">$6,500 – $18,000</p>
+        <p>Complete gut renovation — subfloor, waterproofing, tile, and finish — for bathrooms that need to start over.</p>
+        <p class="tag">5–12 days · written contract per MA law</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROCESS ================= -->
+<section class="process-band" id="process">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">How it works</p>
+      <h2>The Jerry &amp; Co. factory-finish process</h2>
+      <p class="section-lede" style="margin-left:auto;margin-right:auto;color:rgba(247,243,234,0.65);">Every cabinet refinishing project follows the same five stages — no surprises, no guesswork.</p>
+    </div>
+    <div class="process-list">
+      <div class="process-step">
+        <div class="process-num">01</div>
+        <h3>Video walkthrough</h3>
+        <p>A 20-minute video call gets us a line-item estimate the same day — no waiting on a site visit.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-num">02</div>
+        <h3>Prep &amp; containment</h3>
+        <p>Cabinets are removed, labeled, and your kitchen is fully masked and dust-contained.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-num">03</div>
+        <h3>Hand sand &amp; repair</h3>
+        <p>Every surface is sanded and any dents, gaps, or chips are filled and leveled.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-num">04</div>
+        <h3>2K spray finish</h3>
+        <p>A factory-grade polyurethane finish is sprayed in a controlled environment for a smooth, durable result.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-num">05</div>
+        <h3>Cure &amp; walkthrough</h3>
+        <p>Doors cure, hardware is reinstalled, and we walk the finished space with you before we call it done.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GALLERY ================= -->
+<section id="gallery">
+  <div class="wrap">
+    <div class="section-head left">
+      <p class="eyebrow">Recent work</p>
+      <h2>Before &amp; after, by project type</h2>
+      <p class="section-lede">Filter by service to see real transformations from across the ICC zone.</p>
+    </div>
+    <div class="filter-row" role="group" aria-label="Filter gallery by project type">
+      <button class="filter-btn active" data-filter="all">All projects</button>
+      <button class="filter-btn" data-filter="cabinet">Cabinet refinishing</button>
+      <button class="filter-btn" data-filter="bathroom">Bathroom refresh</button>
+      <button class="filter-btn" data-filter="painting">Painting</button>
+      <button class="filter-btn" data-filter="kitchen">Kitchen</button>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item" data-cat="cabinet">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span class="g-label">Cabinet refinishing</span>
+        <span class="g-sub">Add before/after photo — Medford, MA</span>
+      </div>
+      <div class="gallery-item" data-cat="bathroom">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span class="g-label">Bathroom refresh</span>
+        <span class="g-sub">Add before/after photo — Wilmington, MA</span>
+      </div>
+      <div class="gallery-item" data-cat="painting">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span class="g-label">Exterior painting</span>
+        <span class="g-sub">Add before/after photo — Lexington, MA</span>
+      </div>
+      <div class="gallery-item" data-cat="kitchen">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span class="g-label">Kitchen refresh</span>
+        <span class="g-sub">Add before/after photo — Somerville, MA</span>
+      </div>
+      <div class="gallery-item" data-cat="cabinet">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span class="g-label">Cabinet refinishing</span>
+        <span class="g-sub">Add before/after photo — Arlington, MA</span>
+      </div>
+      <div class="gallery-item" data-cat="bathroom">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span class="g-label">Bathroom renovation</span>
+        <span class="g-sub">Add before/after photo — Dracut, MA</span>
+      </div>
+      <div class="gallery-item" data-cat="painting">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span class="g-label">Interior painting</span>
+        <span class="g-sub">Add before/after photo — Charlestown, Boston</span>
+      </div>
+      <div class="gallery-item" data-cat="kitchen">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span class="g-label">Cabinet + paint bundle</span>
+        <span class="g-sub">Add before/after photo — Malden, MA</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SERVICE AREA ================= -->
+<section id="area" style="background:var(--bone-deep);">
+  <div class="wrap area-grid">
+    <div>
+      <p class="eyebrow">Where we work</p>
+      <h2>Greater Boston's Inner Core, plus the north suburban ring</h2>
+      <p class="section-lede">Our primary coverage is the ICC inner arc — the highest-demand renovation market in Greater Boston.</p>
+      <div class="chip-group">
+        <span class="chip chip-primary">Medford</span>
+        <span class="chip chip-primary">Malden</span>
+        <span class="chip chip-primary">Everett</span>
+        <span class="chip chip-primary">Arlington</span>
+        <span class="chip chip-primary">Somerville</span>
+        <span class="chip chip-primary">Cambridge</span>
+        <span class="chip chip-primary">Woburn</span>
+        <span class="chip chip-primary">Winchester</span>
+      </div>
+    </div>
+    <div>
+      <p class="eyebrow">Secondary zone</p>
+      <h2 style="font-size:1.4rem;">North suburban ring</h2>
+      <p class="section-lede">Lower-competition towns with active renovation cycles and strong school-driven demand.</p>
+      <div class="chip-group">
+        <span class="chip chip-secondary">Stoneham</span>
+        <span class="chip chip-secondary">Burlington</span>
+        <span class="chip chip-secondary">Wilmington</span>
+        <span class="chip chip-secondary">Reading</span>
+      </div>
+      <p class="area-note">Not seeing your town? <a href="#estimate" style="color:var(--gold-deep);font-weight:600;">Ask us</a> — we may still be able to help.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ESTIMATE / DISCOVERY FORM ================= -->
+<section class="estimate-band" id="estimate">
+  <div class="wrap estimate-grid">
+    <div class="estimate-info">
+      <p class="eyebrow">Get started</p>
+      <h2>Tell us about your project — we'll do the rest.</h2>
+      <p class="section-lede">A few details now means a same-day, line-item estimate with no obligation.</p>
+      <div class="estimate-stats">
+        <div class="estimate-stat">
+          <div class="num">5 min</div>
+          <p><strong>Fast acknowledgment</strong>Every inquiry gets a text confirmation within 5 minutes.</p>
+        </div>
+        <div class="estimate-stat">
+          <div class="num">1 hr</div>
+          <p><strong>Personal callback</strong>We follow up by phone within the hour to schedule your video walkthrough.</p>
+        </div>
+        <div class="estimate-stat">
+          <div class="num">3</div>
+          <p><strong>Good, better, best</strong>Every proposal includes three options, so you choose what fits your project and budget.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-card">
+      <div id="formIntro">
+        <h3>Project discovery</h3>
+        <p class="sub">Takes about 2 minutes. The more detail you give us, the more accurate your estimate.</p>
+        <form id="estimateForm">
+          <div class="form-row">
+            <div class="field">
+              <label for="name">Full name</label>
+              <input type="text" id="name" name="name" required>
+            </div>
+            <div class="field">
+              <label for="phone">Phone</label>
+              <input type="tel" id="phone" name="phone" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required>
+            </div>
+            <div class="field">
+              <label for="town">Town</label>
+              <select id="town" name="town" required>
+                <option value="">Select your town</option>
+                <option>Medford</option>
+                <option>Malden</option>
+                <option>Everett</option>
+                <option>Arlington</option>
+                <option>Somerville</option>
+                <option>Cambridge</option>
+                <option>Woburn</option>
+                <option>Winchester</option>
+                <option>Stoneham</option>
+                <option>Burlington</option>
+                <option>Wilmington</option>
+                <option>Reading</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label for="project">Project type</label>
+              <select id="project" name="project">
+                <option selected>Cabinet refinishing</option>
+                <option>Bathroom refresh (no demo)</option>
+                <option>Full bathroom renovation</option>
+                <option>Interior / exterior painting</option>
+                <option>Kitchen refresh package</option>
+                <option>Something else</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="timeline">Timeline</label>
+              <select id="timeline" name="timeline">
+                <option>As soon as possible</option>
+                <option>Within 30 days</option>
+                <option>1–3 months</option>
+                <option>Just exploring options</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label for="size">Project size</label>
+              <input type="text" id="size" name="size" placeholder="e.g. 24 cabinet doors + drawers">
+            </div>
+            <div class="field">
+              <label for="color">Desired finish / color</label>
+              <input type="text" id="color" name="color" placeholder="e.g. deep forest green, matte">
+            </div>
+          </div>
+          <div class="form-row single">
+            <div class="field">
+              <label for="details">Anything else we should know?</label>
+              <textarea id="details" name="details" placeholder="Current condition, scheduling notes, photos to follow, etc."></textarea>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-gold btn-block">Request my free video estimate</button>
+          <p class="form-foot">No spam, no obligation. We'll text and call from (978) 930-3412.</p>
+        </form>
+      </div>
+      <div class="form-success" id="formSuccess">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>
+        <h3>Thanks — we've got it.</h3>
+        <p>You'll get a text confirmation within 5 minutes and a call within the hour to schedule your free video walkthrough.</p>
+      </div>
+      <!-- Connect this form to HousecallPro / your CRM by replacing the JS handler below with a POST to your intake endpoint. -->
+    </div>
+  </div>
+</section>
+
+<!-- ================= CLOSE / TIERS ================= -->
+<section class="close-cta">
+  <div class="wrap">
+    <p class="eyebrow">Most jobs go to whoever responds first</p>
+    <h2>Every estimate comes in three options.</h2>
+    <p>So you're never stuck choosing between "do it cheap" and "do it right." Pick the tier that fits your budget — and upgrade only what matters.</p>
+    <div class="tiers-grid">
+      <div class="tier-card">
+        <div class="tier-name">Good</div>
+        <h3>Refresh the finish</h3>
+        <p>Spray existing cabinet doors and boxes in your chosen color — the core factory-grade transformation.</p>
+      </div>
+      <div class="tier-card best">
+        <div class="tier-name">Better</div>
+        <h3>Finish + hardware</h3>
+        <p>Everything in Good, plus new soft-close hinges and updated hardware for a complete refresh.</p>
+      </div>
+      <div class="tier-card">
+        <div class="tier-name">Best</div>
+        <h3>Full kitchen system</h3>
+        <p>Everything in Better, plus interior shelving refresh and matching island or pantry cabinetry.</p>
+      </div>
+    </div>
+    <div style="margin-top:36px;">
+      <a class="btn btn-gold" href="#estimate">Get my free video estimate</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="wrap footer-grid">
+    <div>
+      <div class="footer-brand">
+        <svg class="logo-mark" viewBox="0 0 100 80" aria-hidden="true">
+          <path d="M8 46 L50 10 L92 46" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M22 46 L50 22" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M32 46 L32 70 L72 70" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+          <rect x="46" y="50" width="11" height="11" fill="#C8A055"/>
+        </svg>
+        <span class="brand-text">Jerry &amp; Co.</span>
+      </div>
+      <p style="max-width:36ch;font-size:14px;">Premium finish and renovation specialist serving Medford, Malden, Everett, Arlington, Somerville, Cambridge, Woburn, and Winchester, MA.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li>(978) 930-3412</li>
+        <li>jerryandcohomeservices.com</li>
+        <li>@improvewithjerryandco</li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Site</h4>
+      <ul>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#area">Service area</a></li>
+        <li><a href="#estimate">Get an estimate</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <span>© 2026 Jerry &amp; Co. Home Improvement LLC · MA HIC #208336</span>
+    <span>All work performed lead-safe per EPA RRP rule</span>
+  </div>
+</footer>
+
+<script>
+// Before / after slider
+(function(){
+  var range = document.getElementById('baRange');
+  var before = document.getElementById('baBefore');
+  var handle = document.getElementById('baHandle');
+  function update(){
+    var v = range.value;
+    before.style.clipPath = 'inset(0 ' + (100 - v) + '% 0 0)';
+    handle.style.left = v + '%';
+  }
+  range.addEventListener('input', update);
+  update();
+})();
+
+// Gallery filter
+(function(){
+  var buttons = document.querySelectorAll('.filter-btn');
+  var items = document.querySelectorAll('.gallery-item');
+  buttons.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      buttons.forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      var filter = btn.getAttribute('data-filter');
+      items.forEach(function(item){
+        if(filter === 'all' || item.getAttribute('data-cat') === filter){
+          item.classList.remove('hidden');
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+    });
+  });
+})();
+
+// Estimate form submission (front-end only — wire to CRM)
+(function(){
+  var form = document.getElementById('estimateForm');
+  var intro = document.getElementById('formIntro');
+  var success = document.getElementById('formSuccess');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    intro.style.display = 'none';
+    success.classList.add('show');
+  });
+})();
+</script>
+
+</body>
+</html>
