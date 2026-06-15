@@ -1,0 +1,366 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import CTABand from '../components/CTABand.astro';
+import Accordion from '../components/Accordion.astro';
+import SchemaLD from '../components/SchemaLD.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+
+const title = 'Cabinet Refinishing FAQ — Jerry & Co. Home Improvement';
+const description =
+  "Answers to the most common questions about cabinet refinishing cost, process, coatings, and condo logistics — from Greater Boston's owner-operated refinishing specialist.";
+
+const durabilityFAQs = [
+  {
+    id: 'dur-1',
+    question: 'How long does the refinished finish last?',
+    answer: `<p>Our 2K polyurethane finish is the same coating system used in commercial cabinetry manufacturing — not house paint. With normal care, you can expect the finish to hold strong for 10 or more years without peeling, yellowing, or chipping.</p><p>We back every cabinet refinishing project with a 2-year workmanship guarantee against peeling, adhesion failure, or finish defects attributable to workmanship.</p>`,
+  },
+  {
+    id: 'dur-2',
+    question: 'How does the finish hold up in a busy kitchen?',
+    answer: `<p>2K polyurethane cures to a hard, cross-linked film that resists moisture, cooking oils, grease splatter, and household cleaners far better than standard water-based cabinet paint. It's the same durability standard used in commercial kitchen cabinetry — designed to be wiped down daily for years without degrading.</p>`,
+  },
+  {
+    id: 'dur-3',
+    question: 'Can I clean the cabinets normally after refinishing?',
+    answer: `<p>Yes — after a 7-day full cure, surfaces can be wiped with mild dish soap and water, or any pH-neutral household cleaner. Avoid abrasive scrubbers or solvent-based cleaners.</p><p>Light, dry cleaning can begin 24–48 hours after re-hang. We provide care instructions with every completed project.</p>`,
+  },
+  {
+    id: 'dur-4',
+    question: 'What happens if a door chips or scratches later?',
+    answer: `<p>Every project includes a labeled touch-up bottle matched precisely to your finish color. We also offer one complimentary in-person touch-up visit within the 2-year guarantee period — so a small scuff never becomes a bigger deal.</p>`,
+  },
+];
+
+const materialsFAQs = [
+  {
+    id: 'mat-1',
+    question: 'What coating do you use on the cabinets?',
+    answer: `<p>We use a 2-component (2K) polyurethane topcoat applied via HVLP spray — the same system used by factory cabinet manufacturers. Unlike single-component paints that dry by evaporation, 2K coatings cure through a chemical reaction, producing a film that's significantly harder, more water-resistant, and more durable.</p>`,
+  },
+  {
+    id: 'mat-2',
+    question: 'Is the product low-VOC and safe for use inside my home?',
+    answer: `<p>We are EPA RRP Lead-Safe certified and use low-VOC coatings throughout. We also set up full containment and ventilation during in-unit application to manage odor and overspray. Most clients report their unit smells completely normal by evening on spray day.</p>`,
+  },
+  {
+    id: 'mat-3',
+    question: 'Why spray application instead of brush-and-roll?',
+    answer: `<p>Spray application produces a level, drip-free, factory-smooth film with zero brush marks or roller texture. Cabinet doors are removed from your unit, sprayed in a controlled environment, and re-hung after curing. This is how factories finish new cabinets — and it's why the result looks genuinely new rather than "painted."</p>`,
+  },
+  {
+    id: 'mat-4',
+    question: 'Do you use a primer before applying the topcoat?',
+    answer: `<p>Yes — every project follows a full prep sequence: sanding, degreasing, bonding primer, and at least two topcoats of 2K polyurethane. Skipping primer or cutting topcoat stages is the most common reason cheap refinishing jobs peel within a year. We don't skip steps.</p>`,
+  },
+];
+
+const processDisruptionFAQs = [
+  {
+    id: 'proc-1',
+    question: 'How long will my kitchen be out of commission?',
+    answer: `<p>Most cabinet refinishing projects run 2–5 days from start to finish. Kitchen access is limited primarily on spray days (typically days 2–3 of the project), but the kitchen is fully functional again by day 4 or 5 at the latest. We'll give you a day-by-day project timeline before work begins.</p>`,
+  },
+  {
+    id: 'proc-2',
+    question: 'Do you work inside my unit the whole time?',
+    answer: `<p>Not entirely — and that's intentional. Cabinet doors and drawer fronts are removed and taken outside your unit (to a spray area in your building's designated space or our vehicle) for topcoat application. This keeps the vast majority of spray odor and overspray out of your living space.</p><p>In-unit work includes prep, sanding, priming, and painting the cabinet boxes (the frames that stay mounted). We fully mask and protect all surrounding surfaces before touching anything.</p>`,
+  },
+  {
+    id: 'proc-3',
+    question: 'How much space does your setup require inside my unit?',
+    answer: `<p>Our in-unit prep station fits comfortably in roughly a 6×8 ft area within the kitchen. We protect countertops, appliances, and flooring with drop cloths and paper masking before any work begins — nothing in your kitchen gets paint on it.</p>`,
+  },
+  {
+    id: 'proc-4',
+    question: 'Will my neighbors notice or be affected?',
+    answer: `<p>We keep in-unit work to normal business hours and schedule the noisiest prep work (sanding) for mid-day when most neighbors are out. Odor from in-unit box coating is brief and typically dissipates within a few hours with windows open.</p><p>For buildings with strict noise policies, we can provide a one-page project notice you can share with adjacent neighbors or your building manager in advance.</p>`,
+  },
+];
+
+const condoFAQs = [
+  {
+    id: 'condo-1',
+    question: 'Do you have experience working in condo buildings?',
+    answer: `<p>Yes — condo and apartment buildings make up the majority of our work across Greater Boston. We're familiar with freight elevator scheduling, certificate of insurance requirements, building-hours restrictions, and noise ordinances common to condo associations. We don't treat a condo job like a house job.</p>`,
+  },
+  {
+    id: 'condo-2',
+    question: 'Can you coordinate directly with my building management or HOA?',
+    answer: `<p>Absolutely. Before a project begins we can communicate with your building manager or HOA contact to confirm elevator reservations, waste disposal procedures, and any required unit-neighbor notices. We can provide a written project schedule and our insurance documentation directly to your building office.</p>`,
+  },
+  {
+    id: 'condo-3',
+    question: 'My building requires a Certificate of Insurance — can you provide one?',
+    answer: `<p>Yes. We carry general liability insurance and can provide a COI naming your building or property management company as an additional insured upon request. Just let us know when you book.</p>`,
+  },
+  {
+    id: 'condo-4',
+    question: 'Does this work require drilling into shared walls or touching building systems?',
+    answer: `<p>No — cabinet refinishing is entirely surface work. We access only the inside of your unit and do not touch shared walls, structural elements, plumbing, or electrical systems. It's one of the reasons refinishing is approved far more easily by condo boards than full kitchen renovations.</p>`,
+  },
+  {
+    id: 'condo-5',
+    question: 'How long do you need the freight elevator?',
+    answer: `<p>We typically need the freight elevator for 30–60 minutes at project start (bringing equipment in) and again at close (removing equipment and door panels for spray). We're fully flexible to work within your building's elevator reservation windows — just let us know the available slots when you book.</p>`,
+  },
+];
+
+const costFAQs = [
+  {
+    id: 'cost-1',
+    question: 'What does cabinet refinishing typically cost?',
+    answer: `<p>Cabinet refinishing with Jerry & Co. typically runs <strong>$1,800–$9,500</strong> depending on the number of doors, drawer fronts, and whether the cabinet boxes are included. We provide a firm, itemized quote before any work begins — no estimate ranges that balloon into something else.</p>`,
+  },
+  {
+    id: 'cost-2',
+    question: 'How does refinishing compare to full cabinet replacement?',
+    answer: `<p>Full cabinet replacement in Greater Boston typically runs <strong>$20,000–$50,000+</strong> once you factor in cabinetry, demo, labor, and the 6–12 week wait for custom cabinet orders. Refinishing delivers a factory-smooth finish in the color of your choice in 2–5 days, for a fraction of the cost.</p><p>See the full breakdown: <a href="/cabinet-refinishing-vs-replacement/">Refinishing vs. Replacement →</a></p>`,
+  },
+  {
+    id: 'cost-3',
+    question: 'Do you offer financing?',
+    answer: `<p>We're actively working on financing options for qualified projects. Ask about this when you request your estimate — we can discuss what works best for your project budget and timeline.</p>`,
+  },
+  {
+    id: 'cost-4',
+    question: 'Do you offer a guarantee on the work?',
+    answer: `<p>Yes. Every cabinet refinishing project comes with a <strong>2-year workmanship guarantee</strong> against peeling, adhesion failure, or finish defects attributable to workmanship. The guarantee includes a labeled touch-up bottle matched to your finish and one complimentary in-person touch-up visit within the guarantee period.</p>`,
+  },
+  {
+    id: 'cost-5',
+    question: 'Is the estimate free?',
+    answer: `<p>Always. Your estimate is free with no obligation. We offer video estimates so you can get an accurate price without scheduling an in-person visit — request one at any time from the estimate form on this site.</p>`,
+  },
+];
+
+const allGroups = [
+  ...durabilityFAQs,
+  ...materialsFAQs,
+  ...processDisruptionFAQs,
+  ...condoFAQs,
+  ...costFAQs,
+];
+
+const faqSchemaData = {
+  mainEntity: allGroups.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.answer.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim(),
+    },
+  })),
+};
+
+const breadcrumbSchemaData = {
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.jerryandcohomeservices.com' },
+    { '@type': 'ListItem', position: 2, name: 'FAQ', item: 'https://www.jerryandcohomeservices.com/faq/' },
+  ],
+};
+
+const crumbs = [
+  { label: 'Home', href: '/' },
+  { label: 'FAQ' },
+];
+---
+
+<Base title={title} description={description}>
+  <Fragment slot="head">
+    <SchemaLD type="FAQPage" data={faqSchemaData} />
+    <SchemaLD type="BreadcrumbList" data={breadcrumbSchemaData} />
+  </Fragment>
+
+  <Header />
+
+  <!-- Page hero -->
+  <section class="page-hero">
+    <div class="wrap">
+      <Breadcrumb crumbs={crumbs} />
+      <p class="eyebrow">Questions & Answers</p>
+      <h1>Cabinet Refinishing FAQ</h1>
+      <p class="lede">
+        Everything homeowners and condo residents ask before booking — answered straight, no fluff.
+        If something's missing, <a href="/#estimate">send us your question</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- Quick nav -->
+  <div class="faq-nav-band">
+    <div class="wrap">
+      <nav class="faq-nav" aria-label="Jump to section">
+        <a href="#durability">Durability</a>
+        <a href="#materials">Materials</a>
+        <a href="#process-disruption">Process</a>
+        <a href="#condo">Condo & Buildings</a>
+        <a href="#cost">Cost & Financing</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- ===== DURABILITY ===== -->
+  <section id="durability" class="faq-group">
+    <div class="wrap faq-wrap">
+      <div class="faq-group-head">
+        <p class="eyebrow">Section 01</p>
+        <h2>Durability & Longevity</h2>
+        <p class="group-lede">How the finish holds up over time — and what we do when it doesn't.</p>
+      </div>
+      <Accordion items={durabilityFAQs} groupLabel="Durability & Longevity" />
+    </div>
+  </section>
+
+  <!-- ===== MATERIALS ===== -->
+  <section id="materials" class="faq-group faq-group--alt">
+    <div class="wrap faq-wrap">
+      <div class="faq-group-head">
+        <p class="eyebrow">Section 02</p>
+        <h2>Materials & Coatings</h2>
+        <p class="group-lede">What goes on your cabinets and why it matters.</p>
+      </div>
+      <Accordion items={materialsFAQs} groupLabel="Materials & Coatings" />
+    </div>
+  </section>
+
+  <!-- ===== PROCESS & DISRUPTION ===== -->
+  <section id="process-disruption" class="faq-group">
+    <div class="wrap faq-wrap">
+      <div class="faq-group-head">
+        <p class="eyebrow">Section 03</p>
+        <h2>Process & Disruption</h2>
+        <p class="group-lede">What the workdays actually look like inside your home.</p>
+      </div>
+      <Accordion items={processDisruptionFAQs} groupLabel="Process & Disruption" />
+    </div>
+  </section>
+
+  <!-- ===== CONDO & BUILDING ===== -->
+  <section id="condo" class="faq-group faq-group--alt">
+    <div class="wrap faq-wrap">
+      <div class="faq-group-head">
+        <p class="eyebrow">Section 04</p>
+        <h2>Condo & Building Logistics</h2>
+        <p class="group-lede">We've done this in dozens of buildings — here's how we handle the rules.</p>
+      </div>
+      <Accordion items={condoFAQs} groupLabel="Condo & Building Logistics" />
+    </div>
+  </section>
+
+  <!-- ===== COST & FINANCING ===== -->
+  <section id="cost" class="faq-group">
+    <div class="wrap faq-wrap">
+      <div class="faq-group-head">
+        <p class="eyebrow">Section 05</p>
+        <h2>Cost & Financing</h2>
+        <p class="group-lede">Straight numbers, no ranges that become something else at invoice.</p>
+      </div>
+      <Accordion items={costFAQs} groupLabel="Cost & Financing" />
+    </div>
+  </section>
+
+  <CTABand
+    eyebrow="Still have questions?"
+    headline="Get a free estimate — and ask us anything"
+    ctaText="Request my estimate"
+    ctaHref="/#estimate"
+  />
+
+  <Footer />
+</Base>
+
+<style>
+  /* Page hero */
+  .page-hero {
+    background: var(--bone);
+    padding: clamp(64px, 8vw, 112px) 0 clamp(48px, 6vw, 80px);
+    border-bottom: 1px solid var(--line);
+  }
+  .page-hero h1 {
+    margin: 0 0 20px;
+    max-width: 18ch;
+  }
+  .page-hero .lede a {
+    color: var(--gold-deep);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  /* Quick nav band */
+  .faq-nav-band {
+    background: var(--bone-deep);
+    border-bottom: 1px solid var(--line);
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 90;
+  }
+  .faq-nav {
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .faq-nav::-webkit-scrollbar { display: none; }
+  .faq-nav a {
+    display: block;
+    padding: 14px 20px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-decoration: none;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .faq-nav a:hover {
+    color: var(--text);
+    border-bottom-color: var(--gold);
+  }
+
+  /* FAQ group sections */
+  .faq-group {
+    padding: clamp(56px, 7vw, 96px) 0;
+    background: var(--bone);
+  }
+  .faq-group--alt {
+    background: #F2EDE3;
+  }
+  .faq-wrap {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: clamp(40px, 5vw, 80px);
+    align-items: start;
+  }
+  .faq-group-head {
+    position: sticky;
+    top: 52px;
+  }
+  .faq-group-head h2 {
+    font-size: clamp(1.375rem, 2.2vw, 1.875rem);
+    margin: 0 0 12px;
+  }
+  .group-lede {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin: 0;
+    max-width: 26ch;
+  }
+
+  @media (max-width: 760px) {
+    .faq-wrap {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+    .faq-group-head {
+      position: static;
+    }
+    .faq-group-head h2 { font-size: 1.375rem; }
+  }
+</style>

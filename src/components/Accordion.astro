@@ -1,0 +1,120 @@
+---
+interface Item {
+  question: string;
+  answer: string;
+  id: string;
+}
+
+interface Props {
+  items: Item[];
+  groupLabel: string;
+}
+
+const { items, groupLabel } = Astro.props;
+---
+
+<div class="accordion" aria-label={groupLabel}>
+  {items.map((item) => (
+    <div class="accordion-item">
+      <button
+        class="accordion-trigger"
+        aria-expanded="false"
+        aria-controls={`panel-${item.id}`}
+        id={`trigger-${item.id}`}
+      >
+        <span>{item.question}</span>
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="6 9 12 15 18 9" />
+        </svg>
+      </button>
+      <div
+        class="accordion-panel"
+        id={`panel-${item.id}`}
+        role="region"
+        aria-labelledby={`trigger-${item.id}`}
+        hidden
+      >
+        <div class="accordion-body" set:html={item.answer} />
+      </div>
+    </div>
+  ))}
+</div>
+
+<style>
+  .accordion {
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .accordion-item + .accordion-item {
+    border-top: 1px solid var(--line);
+  }
+  .accordion-trigger {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 20px 24px;
+    background: var(--bone);
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text);
+    letter-spacing: -0.01em;
+    line-height: 1.4;
+    transition: background 0.15s;
+    gap: 16px;
+  }
+  .accordion-trigger:hover { background: var(--bone-deep); }
+  .accordion-trigger:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: -2px;
+  }
+  .icon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    color: var(--gold);
+    transition: transform 0.25s ease;
+  }
+  .accordion-trigger[aria-expanded="true"] .icon {
+    transform: rotate(180deg);
+  }
+  .accordion-panel {
+    background: var(--bone);
+    border-top: 1px solid var(--line);
+  }
+  .accordion-panel[hidden] { display: none; }
+  .accordion-body {
+    padding: 16px 24px 24px;
+    font-size: 0.9375rem;
+    line-height: 1.72;
+    color: var(--text-muted);
+    max-width: 68ch;
+  }
+  .accordion-body p { margin: 0 0 12px; }
+  .accordion-body p:last-child { margin: 0; }
+  .accordion-body ul { padding-left: 20px; margin: 8px 0 12px; }
+  .accordion-body li { margin-bottom: 6px; }
+  .accordion-body a { color: var(--gold-deep); text-decoration: underline; text-underline-offset: 2px; }
+  .accordion-body strong { color: var(--text); font-weight: 600; }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.accordion-trigger').forEach((trigger) => {
+    if (trigger.dataset.aInit) return;
+    trigger.dataset.aInit = '1';
+    trigger.addEventListener('click', () => {
+      const expanded = trigger.getAttribute('aria-expanded') === 'true';
+      const panelId = trigger.getAttribute('aria-controls');
+      const panel = panelId ? document.getElementById(panelId) : null;
+      if (panel) {
+        panel.hidden = expanded;
+        trigger.setAttribute('aria-expanded', String(!expanded));
+      }
+    });
+  });
+</script>
