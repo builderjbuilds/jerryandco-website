@@ -30,7 +30,7 @@
   --radius-xs:   6px;
 
   /* ── Rhythm ────────────────────────────────────── */
-  --section-pad: clamp(88px, 11vw, 160px);
+  --section-pad: clamp(48px, 6vw, 80px);
 
   /* ── Typography ─────────────────────────────────── */
   --font-serif: 'Fraunces', serif;
