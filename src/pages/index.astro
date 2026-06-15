@@ -4,6 +4,8 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import TrustBar from '../components/TrustBar.astro';
 import CTABand from '../components/CTABand.astro';
+import HeroCarousel from '../components/HeroCarousel.astro';
+import MultiStepForm from '../components/MultiStepForm.astro';
 
 const title = 'Cabinet Refinishing & Home Refresh for Boston Condo Owners | Jerry & Co.';
 const description = 'Factory-grade 2K polyurethane cabinet refinishing and bathroom refresh for condo owners across the Greater Boston ICC zone. HOA-compliant, low-VOC, done in 2–5 days. MA HIC #208336.';
@@ -13,58 +15,7 @@ const description = 'Factory-grade 2K polyurethane cabinet refinishing and bathr
   <Header />
 
   <!-- ===== HERO ===== -->
-  <section class="hero" id="top">
-    <div class="wrap hero-grid">
-      <div>
-        <p class="eyebrow">For condo owners in Greater Boston</p>
-        <h1>Factory-grade finishes built for Boston condo living — done in days, not weeks, with <em>zero neighbor drama.</em></h1>
-        <p class="lede">We work within HOA guidelines, building curfews, and elevator scheduling. No dust, no odor, no disruption to your neighbors.</p>
-        <div class="hero-actions">
-          <a class="btn btn-gold" href="#estimate">Get my free video estimate</a>
-          <a class="btn btn-outline" href="#gallery">See the spray finish</a>
-        </div>
-        <p class="hero-credibility">Trusted in Somerville, Cambridge, and Medford triple-deckers and condo conversions since 2019.</p>
-        <div class="hero-meta">
-          <div><strong>2019</strong>Operating in Greater Boston</div>
-          <div><strong>MA HIC<br/>#208336</strong>Licensed &amp; insured</div>
-          <div><strong>2–5 days</strong>Typical cabinet refinish</div>
-        </div>
-      </div>
-      <div>
-        <!-- BeforeAfter island stub — replaced in Phase 5 -->
-        <div class="ba-card" id="ba-hero-stub">
-          <div class="ba" id="ba">
-            <div class="ba-layer ba-after" aria-hidden="true">
-              <div class="ba-cab">
-                <div class="door"><span class="knob"></span></div>
-                <div class="door"><span class="knob"></span></div>
-                <div class="door"><span class="knob"></span></div>
-                <div class="door"><span class="knob"></span></div>
-              </div>
-              <div class="ba-counter"></div>
-            </div>
-            <div class="ba-layer ba-before-fill ba-before" id="baBefore" aria-hidden="true">
-              <div class="ba-cab">
-                <div class="door"><span class="knob"></span></div>
-                <div class="door"><span class="knob"></span></div>
-                <div class="door"><span class="knob"></span></div>
-                <div class="door"><span class="knob"></span></div>
-              </div>
-              <div class="ba-counter"></div>
-            </div>
-            <span class="ba-tag before">Before</span>
-            <span class="ba-tag after">After</span>
-            <div class="ba-handle" id="baHandle"></div>
-            <div class="ba-grip">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="8 7 4 12 8 17"></polyline><polyline points="16 7 20 12 16 17"></polyline></svg>
-            </div>
-            <input type="range" class="ba-range" id="baRange" min="0" max="100" value="50" aria-label="Drag to compare cabinet finish before and after">
-          </div>
-          <p class="ba-caption">Drag to compare — factory spray finish vs. worn original</p>
-        </div>
-      </div>
-    </div>
-  </section>
+  <HeroCarousel />
 
   <!-- ===== TRUST BAR ===== -->
   <TrustBar />
@@ -173,7 +124,7 @@ const description = 'Factory-grade 2K polyurethane cabinet refinishing and bathr
           <p>Doors cure, hardware is reinstalled, and we walk the finished space with you. Final walkthrough includes elevator condition check and hallway inspection before we leave.</p>
         </div>
       </div>
-      <div class="process-link-row"><a href="/our-process/" class="btn btn-outline">See our full process →</a></div>
+      <div class="process-link-row"><a href="/our-process/" class="btn btn-outline" data-ph-event="cta_clicked" data-ph-label="process_see_full">See our full process →</a></div>
     </div>
   </section>
 
@@ -237,7 +188,7 @@ const description = 'Factory-grade 2K polyurethane cabinet refinishing and bathr
           <span class="g-sub">Winchester — cabinets + paint bundle</span>
         </div>
       </div>
-      <div class="gallery-link-row"><a href="/gallery/" class="btn btn-outline-dark">View full gallery →</a></div>
+      <div class="gallery-link-row"><a href="/gallery/" class="btn btn-outline-dark" data-ph-event="cta_clicked" data-ph-label="gallery_view_full">View full gallery →</a></div>
     </div>
   </section>
 
@@ -298,95 +249,7 @@ const description = 'Factory-grade 2K polyurethane cabinet refinishing and bathr
         </div>
       </div>
 
-      <!-- MultiStepForm island stub — replaced in Phase 2 -->
-      <div class="form-card">
-        <div id="formIntro">
-          <h3>Project discovery</h3>
-          <p class="sub">Takes about 2 minutes. The more detail you give us, the more accurate your estimate.</p>
-          <form id="estimateForm" data-netlify="true" name="estimate">
-            <div class="form-row">
-              <div class="field">
-                <label for="name">Full name</label>
-                <input type="text" id="name" name="name" required />
-              </div>
-              <div class="field">
-                <label for="phone">Phone</label>
-                <input type="tel" id="phone" name="phone" required />
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="field">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required />
-              </div>
-              <div class="field">
-                <label for="town">Town</label>
-                <select id="town" name="town" required>
-                  <option value="">Select your town</option>
-                  <option>Medford</option>
-                  <option>Malden</option>
-                  <option>Everett</option>
-                  <option>Arlington</option>
-                  <option>Somerville</option>
-                  <option>Cambridge</option>
-                  <option>Woburn</option>
-                  <option>Winchester</option>
-                  <option>Stoneham</option>
-                  <option>Burlington</option>
-                  <option>Wilmington</option>
-                  <option>Reading</option>
-                  <option>Other</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="field">
-                <label for="project">Project type</label>
-                <select id="project" name="project">
-                  <option selected>Cabinet refinishing</option>
-                  <option>Bathroom refresh (no demo)</option>
-                  <option>Full bathroom renovation</option>
-                  <option>Interior painting</option>
-                  <option>Kitchen refresh package</option>
-                  <option>Something else</option>
-                </select>
-              </div>
-              <div class="field">
-                <label for="timeline">Timeline</label>
-                <select id="timeline" name="timeline">
-                  <option>As soon as possible</option>
-                  <option>Within 30 days</option>
-                  <option>1–3 months</option>
-                  <option>Just exploring options</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="field">
-                <label for="size">Project size</label>
-                <input type="text" id="size" name="size" placeholder="e.g. 18 cabinet doors, 2-BR condo unit, 4th floor" />
-              </div>
-              <div class="field">
-                <label for="color">Desired finish / color</label>
-                <input type="text" id="color" name="color" placeholder="e.g. deep forest green, matte" />
-              </div>
-            </div>
-            <div class="form-row single">
-              <div class="field">
-                <label for="details">Building access notes</label>
-                <textarea id="details" name="details" placeholder="HOA requirements, building management contact, elevator reservation window, noise curfew, etc."></textarea>
-              </div>
-            </div>
-            <button type="submit" class="btn btn-gold btn-block">Request my free video estimate</button>
-            <p class="form-foot">No spam, no obligation. You'll hear from us within 5 minutes.</p>
-          </form>
-        </div>
-        <div class="form-success" id="formSuccess">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>
-          <h3>Thanks — we've got it.</h3>
-          <p>You'll get a text confirmation within 5 minutes and a call within the hour to schedule your free video walkthrough.</p>
-        </div>
-      </div>
+      <MultiStepForm />
     </div>
   </section>
 
@@ -414,7 +277,7 @@ const description = 'Factory-grade 2K polyurethane cabinet refinishing and bathr
         </div>
       </div>
       <div class="tiers-footer">
-        <a class="btn btn-gold" href="#estimate">Get my free video estimate</a>
+        <a class="btn btn-gold" href="#estimate" data-ph-event="cta_clicked" data-ph-label="tiers_get_estimate">Get my free video estimate</a>
         <p class="tiers-note">Every tier includes: zero lobby or hallway staging, low-VOC materials only, same-day cleanup, and a certificate of insurance for your HOA.</p>
         <div class="tiers-links">
           <a href="/financing/">Ask about financing →</a>
@@ -429,66 +292,6 @@ const description = 'Factory-grade 2K polyurethane cabinet refinishing and bathr
 </Base>
 
 <style>
-  /* ── Hero ─────────────────────────────────────────── */
-  .hero {
-    background: var(--ink);
-    color: var(--bone);
-    padding: clamp(56px, 7vw, 96px) 0 clamp(64px, 8vw, 104px);
-  }
-  .hero-grid {
-    display: grid;
-    grid-template-columns: 1.25fr 1fr;
-    gap: clamp(48px, 6vw, 96px);
-    align-items: center;
-  }
-  .hero h1 {
-    color: var(--bone);
-    margin-bottom: var(--sp-4);
-  }
-  .hero h1 em {
-    font-style: italic;
-    color: var(--gold);
-    font-weight: 400;
-  }
-  .hero .lede {
-    color: rgba(247, 243, 234, 0.75);
-    max-width: 48ch;
-    margin-bottom: var(--sp-5);
-    font-size: clamp(1rem, 1.5vw, 1.2rem);
-    line-height: 1.7;
-  }
-  .hero-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--sp-2);
-    margin-bottom: var(--sp-5);
-  }
-  .hero-credibility {
-    font-size: 13px;
-    color: rgba(247, 243, 234, 0.45);
-    line-height: 1.6;
-    max-width: 48ch;
-    margin-bottom: var(--sp-5);
-    letter-spacing: 0.01em;
-  }
-  .hero-meta {
-    display: flex;
-    gap: clamp(24px, 4vw, 48px);
-    padding-top: var(--sp-4);
-    border-top: 1px solid var(--line-dark);
-    flex-wrap: wrap;
-  }
-  .hero-meta div { font-size: 13px; color: rgba(247, 243, 234, 0.5); line-height: 1.5; }
-  .hero-meta strong {
-    display: block;
-    font-family: var(--font-serif);
-    font-size: clamp(1.4rem, 2.5vw, 1.75rem);
-    color: var(--bone);
-    font-weight: 500;
-    letter-spacing: -0.02em;
-    margin-bottom: 2px;
-  }
-
   /* ── Condo strip ─────────────────────────────────── */
   .condo-strip {
     background: var(--bone-deep);
@@ -602,7 +405,6 @@ const description = 'Factory-grade 2K polyurethane cabinet refinishing and bathr
 
   /* ── Responsive ──────────────────────────────────── */
   @media (max-width: 900px) {
-    .hero-grid { grid-template-columns: 1fr; }
     .condo-strip-grid { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 560px) {
@@ -612,21 +414,6 @@ const description = 'Factory-grade 2K polyurethane cabinet refinishing and bathr
 </style>
 
 <script>
-  // Before/after slider
-  (function () {
-    const range = document.getElementById('baRange') as HTMLInputElement | null;
-    const before = document.getElementById('baBefore');
-    const handle = document.getElementById('baHandle');
-    if (!range || !before || !handle) return;
-    function update() {
-      const v = range!.value;
-      (before as HTMLElement).style.clipPath = `inset(0 ${100 - Number(v)}% 0 0)`;
-      (handle as HTMLElement).style.left = v + '%';
-    }
-    range.addEventListener('input', update);
-    update();
-  })();
-
   // Gallery filter
   (function () {
     const buttons = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
@@ -645,19 +432,6 @@ const description = 'Factory-grade 2K polyurethane cabinet refinishing and bathr
           }
         });
       });
-    });
-  })();
-
-  // Estimate form submission
-  (function () {
-    const form = document.getElementById('estimateForm');
-    const intro = document.getElementById('formIntro');
-    const success = document.getElementById('formSuccess');
-    if (!form || !intro || !success) return;
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      (intro as HTMLElement).style.display = 'none';
-      success.classList.add('show');
     });
   })();
 </script>

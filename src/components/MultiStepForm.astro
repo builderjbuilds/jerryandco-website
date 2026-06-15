@@ -1,0 +1,595 @@
+---
+const formId = import.meta.env.FORMSPARK_FORM_ID ?? '';
+const formAction = formId ? `https://submit-form.com/${formId}` : '';
+
+const towns = [
+  'Medford', 'Malden', 'Everett', 'Arlington', 'Somerville', 'Cambridge',
+  'Woburn', 'Winchester', 'Stoneham', 'Burlington', 'Wilmington', 'Reading', 'Other',
+];
+---
+
+<div class="form-card msf" id="msf" data-form-action={formAction}>
+
+  <!-- Progress bar -->
+  <div class="msf-progress">
+    <div class="msf-track">
+      <div class="msf-fill" id="msfFill" style="width: 25%"></div>
+    </div>
+    <div class="msf-labels">
+      <span class="msf-label msf-label--active" data-step-label="1">Project</span>
+      <span class="msf-label" data-step-label="2">Details</span>
+      <span class="msf-label" data-step-label="3">Access</span>
+      <span class="msf-label" data-step-label="4">Contact</span>
+    </div>
+  </div>
+
+  <!-- ── Step 1: Project type ──────────────────────── -->
+  <div class="msf-step" id="msfStep1" data-step="1">
+    <h3>What can we help with?</h3>
+    <p class="sub">Cabinet Refinishing is our focus this season — done in 2–5 days.</p>
+
+    <div class="type-cards" role="group" aria-label="Project type">
+      <label class="type-card" for="type-cabinet">
+        <input type="radio" name="project_type" id="type-cabinet" value="cabinet-refinishing" checked />
+        <span class="type-card-name">Cabinet Refinishing</span>
+        <span class="type-card-note">Most popular ⭐</span>
+      </label>
+      <label class="type-card" for="type-bathroom">
+        <input type="radio" name="project_type" id="type-bathroom" value="bathroom-refresh" />
+        <span class="type-card-name">Bathroom Refresh</span>
+        <span class="type-card-note">No demo, no permits</span>
+      </label>
+      <label class="type-card" for="type-painting">
+        <input type="radio" name="project_type" id="type-painting" value="interior-painting" />
+        <span class="type-card-name">Interior Painting</span>
+        <span class="type-card-note">1–4 days</span>
+      </label>
+      <label class="type-card" for="type-reno">
+        <input type="radio" name="project_type" id="type-reno" value="full-bathroom-reno" />
+        <span class="type-card-name">Full Bathroom Reno</span>
+        <span class="type-card-note">Full gut + finish</span>
+      </label>
+      <label class="type-card" for="type-kitchen">
+        <input type="radio" name="project_type" id="type-kitchen" value="kitchen-refresh" />
+        <span class="type-card-name">Kitchen Refresh</span>
+        <span class="type-card-note">Cabinets + paint bundle</span>
+      </label>
+      <label class="type-card" for="type-other">
+        <input type="radio" name="project_type" id="type-other" value="something-else" />
+        <span class="type-card-name">Something else</span>
+        <span class="type-card-note">Tell us →</span>
+      </label>
+    </div>
+
+    <button type="button" class="btn btn-gold btn-block msf-next" data-next="2" data-ph-step="1">
+      Continue →
+    </button>
+  </div>
+
+  <!-- ── Step 2: Property & details ───────────────── -->
+  <div class="msf-step" id="msfStep2" data-step="2" hidden>
+    <h3>Your property</h3>
+
+    <div class="msf-field-group">
+      <div class="msf-field-label">Property type</div>
+      <div class="chip-field" role="group" aria-label="Property type">
+        <label class="fchip" for="pt-condo">
+          <input type="radio" name="property_type" id="pt-condo" value="own-condo" checked />
+          <span>Own condo</span>
+        </label>
+        <label class="fchip" for="pt-renting">
+          <input type="radio" name="property_type" id="pt-renting" value="renting" />
+          <span>Renting &amp; renovating</span>
+        </label>
+        <label class="fchip" for="pt-landlord">
+          <input type="radio" name="property_type" id="pt-landlord" value="landlord" />
+          <span>Landlord/multi-unit</span>
+        </label>
+        <label class="fchip" for="pt-sfh">
+          <input type="radio" name="property_type" id="pt-sfh" value="single-family" />
+          <span>Single-family home</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="form-row single">
+      <div class="field">
+        <label for="msf-town">Town</label>
+        <select name="town" id="msf-town">
+          <option value="">Select your town</option>
+          {towns.map((t) => (
+            <option value={t.toLowerCase().replace(/[\s/]+/g, '-')}>{t}</option>
+          ))}
+        </select>
+      </div>
+    </div>
+
+    <div class="msf-field-group">
+      <div class="msf-field-label">Timeline</div>
+      <div class="chip-field" role="group" aria-label="Timeline">
+        <label class="fchip" for="tl-asap">
+          <input type="radio" name="timeline" id="tl-asap" value="asap" checked />
+          <span>ASAP</span>
+        </label>
+        <label class="fchip" for="tl-30">
+          <input type="radio" name="timeline" id="tl-30" value="within-30-days" />
+          <span>Within 30 days</span>
+        </label>
+        <label class="fchip" for="tl-3mo">
+          <input type="radio" name="timeline" id="tl-3mo" value="1-3-months" />
+          <span>1–3 months</span>
+        </label>
+        <label class="fchip" for="tl-exploring">
+          <input type="radio" name="timeline" id="tl-exploring" value="just-exploring" />
+          <span>Just exploring</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="form-row single">
+      <div class="field">
+        <label for="msf-size">Project size <span class="field-opt">(optional)</span></label>
+        <input type="text" name="project_size" id="msf-size" placeholder="e.g. 18 cabinet doors, 2-BR condo unit, 4th floor" autocomplete="off" />
+      </div>
+    </div>
+    <div class="form-row single">
+      <div class="field">
+        <label for="msf-color">Desired finish / color <span class="field-opt">(optional)</span></label>
+        <input type="text" name="finish_color" id="msf-color" placeholder="e.g. deep forest green, matte white" autocomplete="off" />
+      </div>
+    </div>
+
+    <div class="msf-nav">
+      <button type="button" class="msf-back" data-back="1">← Back</button>
+      <button type="button" class="btn btn-gold msf-next" data-next="3" data-ph-step="2">Continue →</button>
+    </div>
+  </div>
+
+  <!-- ── Step 3: Building access ───────────────────── -->
+  <div class="msf-step" id="msfStep3" data-step="3" hidden>
+    <h3>Building access &amp; notes</h3>
+
+    <div class="form-row single">
+      <div class="field">
+        <label for="msf-notes">Notes <span class="field-opt">(optional)</span></label>
+        <textarea
+          name="building_notes"
+          id="msf-notes"
+          rows="4"
+          placeholder="HOA requirements, building management contact, elevator reservation window, noise curfew, etc."
+        ></textarea>
+      </div>
+    </div>
+
+    <div class="msf-photo-note">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="3" y="8" width="18" height="14" rx="2"/>
+        <path d="M16 8V6a4 4 0 00-8 0v2"/>
+      </svg>
+      <p>Snap a few photos and email them to <a href="mailto:jerry@jerryandcohomeservices.com">jerry@jerryandcohomeservices.com</a> after submitting — it speeds up your estimate.</p>
+    </div>
+
+    <div class="msf-nav">
+      <button type="button" class="msf-back" data-back="2">← Back</button>
+      <button type="button" class="btn btn-gold msf-next" data-next="4" data-ph-step="3">Continue →</button>
+    </div>
+  </div>
+
+  <!-- ── Step 4: Contact (last) ────────────────────── -->
+  <div class="msf-step" id="msfStep4" data-step="4" hidden>
+    <h3>Almost done — how do we reach you?</h3>
+    <p class="sub">You'll hear from us within 5 minutes of submitting.</p>
+
+    <form
+      id="msfContactForm"
+      name="estimate"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+      novalidate
+    >
+      <!-- Hidden inputs: populated by JS before submit (Netlify crawler detection) -->
+      <input type="hidden" name="project_type" />
+      <input type="hidden" name="property_type" />
+      <input type="hidden" name="town" />
+      <input type="hidden" name="timeline" />
+      <input type="hidden" name="project_size" />
+      <input type="hidden" name="finish_color" />
+      <input type="hidden" name="building_notes" />
+      <!-- Honeypot -->
+      <input type="text" name="bot-field" class="msf-bot" aria-hidden="true" tabindex="-1" autocomplete="off" />
+
+      <div class="form-row">
+        <div class="field">
+          <label for="msf-name">Full name</label>
+          <input type="text" id="msf-name" name="name" required autocomplete="name" />
+        </div>
+        <div class="field">
+          <label for="msf-phone">Phone</label>
+          <input type="tel" id="msf-phone" name="phone" required autocomplete="tel" />
+        </div>
+      </div>
+      <div class="form-row single">
+        <div class="field">
+          <label for="msf-email">Email</label>
+          <input type="email" id="msf-email" name="email" required autocomplete="email" />
+        </div>
+      </div>
+
+      <div class="msf-error" id="msfError" hidden>
+        <p>Something went wrong — please try again or call <a href="tel:+13476026801">(347) 602-6801</a>.</p>
+      </div>
+
+      <button type="submit" class="btn btn-gold btn-block" id="msfSubmit">
+        Request my free video estimate
+      </button>
+      <p class="form-foot">No spam, no obligation. You'll hear from us within 5 minutes.</p>
+    </form>
+
+    <div class="msf-back-row">
+      <button type="button" class="msf-back" data-back="3">← Back</button>
+    </div>
+  </div>
+
+  <!-- ── Success ───────────────────────────────────── -->
+  <div class="msf-success" id="msfSuccess" hidden>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="9"/>
+      <path d="M8 12l3 3 5-6"/>
+    </svg>
+    <h3>Thanks — we've got it.</h3>
+    <p>You'll get a text confirmation within 5 minutes and a call within the hour to schedule your free video walkthrough.</p>
+  </div>
+
+</div>
+
+<style>
+  /* ── Progress ───────────────────────── */
+  .msf-progress { margin-bottom: var(--sp-5); }
+  .msf-track {
+    height: 3px;
+    background: var(--line);
+    border-radius: 999px;
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+  .msf-fill {
+    height: 100%;
+    background: var(--gold);
+    border-radius: 999px;
+    transition: width 0.35s ease;
+  }
+  .msf-labels { display: flex; justify-content: space-between; }
+  .msf-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    opacity: 0.4;
+    transition: opacity 0.2s, color 0.2s;
+  }
+  .msf-label--active { color: var(--gold-deep); opacity: 1; }
+
+  /* ── Step headings ──────────────────── */
+  .msf h3 {
+    font-size: 1.25rem;
+    margin-bottom: var(--sp-1);
+    color: var(--forest);
+    letter-spacing: -0.015em;
+  }
+
+  /* ── Type cards ─────────────────────── */
+  .type-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--sp-2);
+    margin: var(--sp-4) 0;
+  }
+  .type-card {
+    display: block;
+    border: 1.5px solid rgba(30, 57, 52, 0.15);
+    border-radius: var(--radius-sm);
+    padding: var(--sp-3);
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+    position: relative;
+  }
+  .type-card:hover {
+    border-color: rgba(200, 160, 85, 0.5);
+    box-shadow: 0 2px 12px rgba(200, 160, 85, 0.1);
+  }
+  .type-card:has(input:checked) {
+    border-color: var(--gold);
+    background: rgba(200, 160, 85, 0.06);
+  }
+  .type-card input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    width: 1px;
+    height: 1px;
+  }
+  .type-card-name {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--forest);
+    margin-bottom: 3px;
+  }
+  .type-card-note {
+    font-size: 11px;
+    color: var(--text-muted);
+    display: block;
+  }
+
+  /* ── Chip field ─────────────────────── */
+  .msf-field-group { margin-bottom: var(--sp-3); }
+  .msf-field-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--forest);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: var(--sp-1);
+  }
+  .chip-field {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .fchip {
+    display: inline-flex;
+    align-items: center;
+    border: 1.5px solid rgba(30, 57, 52, 0.15);
+    border-radius: 999px;
+    padding: 7px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.15s;
+    position: relative;
+  }
+  .fchip:hover { border-color: var(--forest); color: var(--forest); }
+  .fchip:has(input:checked) {
+    border-color: var(--forest);
+    background: var(--forest);
+    color: var(--bone);
+  }
+  .fchip input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    width: 1px;
+    height: 1px;
+  }
+
+  /* ── Misc field helpers ─────────────── */
+  .field-opt {
+    font-size: 10px;
+    font-weight: 400;
+    color: var(--text-muted);
+    text-transform: lowercase;
+    letter-spacing: 0;
+  }
+
+  /* ── Photo note ─────────────────────── */
+  .msf-photo-note {
+    display: flex;
+    gap: var(--sp-2);
+    align-items: flex-start;
+    margin-top: var(--sp-4);
+    padding: var(--sp-3);
+    background: var(--bone);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--line);
+  }
+  .msf-photo-note svg {
+    width: 18px;
+    height: 18px;
+    color: var(--gold-deep);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .msf-photo-note p {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin: 0;
+  }
+  .msf-photo-note a { color: var(--gold-deep); font-weight: 600; text-decoration: none; }
+  .msf-photo-note a:hover { text-decoration: underline; }
+
+  /* ── Nav row ────────────────────────── */
+  .msf-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: var(--sp-4);
+    gap: var(--sp-3);
+  }
+  .msf-back {
+    background: none;
+    border: none;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.15s;
+  }
+  .msf-back:hover { color: var(--forest); }
+  .msf-back-row {
+    margin-top: var(--sp-3);
+    text-align: center;
+  }
+
+  /* ── Error ──────────────────────────── */
+  .msf-error {
+    background: rgba(160, 50, 50, 0.07);
+    border: 1px solid rgba(160, 50, 50, 0.18);
+    border-radius: var(--radius-xs);
+    padding: var(--sp-2) var(--sp-3);
+    margin-bottom: var(--sp-3);
+  }
+  .msf-error[hidden] { display: none; }
+  .msf-error p { font-size: 14px; color: #8B2323; margin: 0; line-height: 1.5; }
+  .msf-error a { color: #8B2323; font-weight: 600; }
+
+  /* ── Honeypot ───────────────────────── */
+  .msf-bot {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  /* ── Success ────────────────────────── */
+  .msf-success {
+    text-align: center;
+    padding: var(--sp-7) var(--sp-4);
+  }
+  .msf-success[hidden] { display: none; }
+  .msf-success svg {
+    width: 48px;
+    height: 48px;
+    color: var(--gold-deep);
+    margin: 0 auto var(--sp-4);
+  }
+  .msf-success h3 { margin-bottom: var(--sp-2); }
+  .msf-success p { color: var(--text-muted); font-size: 15px; line-height: 1.65; max-width: 36ch; margin: 0 auto; }
+
+  @media (max-width: 420px) {
+    .type-cards { grid-template-columns: 1fr; }
+    .chip-field { gap: 6px; }
+  }
+</style>
+
+<script>
+  (function () {
+    const msf = document.getElementById('msf') as HTMLElement | null;
+    if (!msf) return;
+
+    const fill = document.getElementById('msfFill') as HTMLElement | null;
+    const stepLabels = msf.querySelectorAll<HTMLElement>('[data-step-label]');
+    const steps = msf.querySelectorAll<HTMLElement>('.msf-step');
+    const contactForm = document.getElementById('msfContactForm') as HTMLFormElement | null;
+    const submitBtn = document.getElementById('msfSubmit') as HTMLButtonElement | null;
+    const errorEl = document.getElementById('msfError') as HTMLElement | null;
+    const successEl = document.getElementById('msfSuccess') as HTMLElement | null;
+    const formAction = msf.dataset.formAction ?? '';
+
+    function setStep(n: number) {
+      steps.forEach((s) => { s.hidden = Number(s.dataset.step) !== n; });
+      if (fill) fill.style.width = `${(n / 4) * 100}%`;
+      stepLabels.forEach((l) => {
+        l.classList.toggle('msf-label--active', Number(l.dataset.stepLabel) <= n);
+      });
+      msf.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function ph(event: string, props?: Record<string, unknown>) {
+      if (typeof (window as any).posthog !== 'undefined') {
+        (window as any).posthog.capture(event, props ?? {});
+      }
+    }
+
+    // Next buttons
+    msf.querySelectorAll<HTMLButtonElement>('.msf-next').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const phStep = btn.dataset.phStep ? Number(btn.dataset.phStep) : null;
+        if (phStep) ph('form_step_completed', { step: phStep });
+        setStep(Number(btn.dataset.next));
+      });
+    });
+
+    // Back buttons
+    msf.querySelectorAll<HTMLButtonElement>('.msf-back').forEach((btn) => {
+      btn.addEventListener('click', () => setStep(Number(btn.dataset.back)));
+    });
+
+    // Submit
+    contactForm?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const name = (contactForm.querySelector<HTMLInputElement>('[name="name"]')?.value ?? '').trim();
+      const phone = (contactForm.querySelector<HTMLInputElement>('[name="phone"]')?.value ?? '').trim();
+      const email = (contactForm.querySelector<HTMLInputElement>('[name="email"]')?.value ?? '').trim();
+
+      if (!name || !phone || !email) {
+        if (errorEl) { errorEl.hidden = false; errorEl.querySelector('p')!.textContent = 'Please fill in all contact fields.'; }
+        return;
+      }
+
+      if (errorEl) errorEl.hidden = true;
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Sending…'; }
+
+      // Collect data from earlier steps
+      const get = (sel: string) => msf.querySelector<HTMLInputElement>(sel)?.value ?? '';
+      const payload = {
+        project_type:   get('input[name="project_type"]:checked'),
+        property_type:  get('input[name="property_type"]:checked'),
+        town:           get('[name="town"]'),
+        timeline:       get('input[name="timeline"]:checked'),
+        project_size:   get('[name="project_size"]'),
+        finish_color:   get('[name="finish_color"]'),
+        building_notes: (msf.querySelector<HTMLTextAreaElement>('[name="building_notes"]')?.value ?? ''),
+        name,
+        phone,
+        email,
+      };
+
+      // Populate hidden inputs (for Netlify)
+      Object.entries(payload).forEach(([key, val]) => {
+        const hidden = contactForm.querySelector<HTMLInputElement>(`input[type="hidden"][name="${key}"]`);
+        if (hidden) hidden.value = val;
+      });
+
+      try {
+        if (formAction) {
+          const res = await fetch(formAction, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+            body: JSON.stringify(payload),
+          });
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        }
+
+        ph('form_step_completed', { step: 4 });
+        ph('form_submitted', { project_type: payload.project_type });
+
+        steps.forEach((s) => { s.hidden = true; });
+        if (successEl) successEl.hidden = false;
+        if (fill) fill.style.width = '100%';
+
+      } catch {
+        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Request my free video estimate'; }
+        if (errorEl) {
+          errorEl.hidden = false;
+          errorEl.querySelector('p')!.innerHTML =
+            'Something went wrong — please try again or call <a href="tel:+13476026801">(347) 602-6801</a>.';
+        }
+      }
+    });
+
+    // URL param pre-fill
+    const params = new URLSearchParams(location.search);
+    const pProject = params.get('project');
+    if (pProject) {
+      const r = msf.querySelector<HTMLInputElement>(`input[name="project_type"][value="${pProject}"]`);
+      if (r) r.checked = true;
+    }
+    const pTown = params.get('town');
+    if (pTown) {
+      const sel = msf.querySelector<HTMLSelectElement>('[name="town"]');
+      if (sel) sel.value = pTown;
+    }
+    const pType = params.get('type');
+    if (pType) {
+      const r = msf.querySelector<HTMLInputElement>(`input[name="property_type"][value="${pType}"]`);
+      if (r) r.checked = true;
+    }
+  })();
+</script>
