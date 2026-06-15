@@ -15,5 +15,10 @@
     "@astrojs/netlify": "^6.0.0",
     "@astrojs/sitemap": "^3.2.1",
     "astro": "^6.4.6"
+  },
+  "devDependencies": {
+    "cloudinary": "^2.10.0",
+    "dotenv": "^17.4.2",
+    "tsx": "^4.22.4"
   }
 }

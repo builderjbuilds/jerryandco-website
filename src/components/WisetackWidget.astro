@@ -1,0 +1,118 @@
+---
+const merchantId = import.meta.env.PUBLIC_WISETACK_MERCHANT_ID;
+const integrated = !!merchantId;
+---
+
+{integrated ? (
+  <div class="wisetack-container">
+    <div id="wisetack-financing-widget" data-merchant-id={merchantId}></div>
+  </div>
+) : (
+  <div class="wisetack-placeholder">
+    <div class="wp-icon" aria-hidden="true">
+      <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="4" y="11" width="40" height="28" rx="4" stroke="currentColor" stroke-width="2.5"/>
+        <path d="M4 19h40" stroke="currentColor" stroke-width="2.5"/>
+        <rect x="10" y="27" width="10" height="4" rx="1.5" fill="currentColor" opacity="0.4"/>
+        <rect x="24" y="27" width="14" height="4" rx="1.5" fill="currentColor" opacity="0.2"/>
+      </svg>
+    </div>
+    <p class="eyebrow">Flexible financing</p>
+    <h3 class="wp-heading">Pay over time — ask when you request your estimate</h3>
+    <p class="wp-body">
+      We offer payment plans for qualified projects. Checking your rate is fast and
+      won't affect your credit score. Ask about financing when you submit your estimate
+      request and we'll walk you through options on the call.
+    </p>
+    <a href="/#estimate" class="btn btn-gold">Request my free estimate</a>
+    <p class="wp-note">No obligation. We respond within 5 minutes on business days.</p>
+  </div>
+)}
+
+{integrated && (
+  <script>
+    const merchantId = import.meta.env.PUBLIC_WISETACK_MERCHANT_ID;
+    if (merchantId) {
+      function loadWisetack() {
+        const s = document.createElement('script');
+        s.src = 'https://cdn.wisetack.com/merchant/v1/widget.js';
+        s.setAttribute('data-merchant-id', merchantId);
+        s.defer = true;
+        document.head.appendChild(s);
+      }
+      if (typeof requestIdleCallback !== 'undefined') {
+        requestIdleCallback(loadWisetack);
+      } else {
+        setTimeout(loadWisetack, 300);
+      }
+    }
+  </script>
+)}
+
+<style>
+  /* ── Wisetack container (live) ─────────────────────── */
+  .wisetack-container {
+    min-height: 200px;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    background: var(--bone);
+    padding: 32px;
+  }
+
+  /* ── Informational placeholder ─────────────────────── */
+  .wisetack-placeholder {
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    background: var(--bone);
+    padding: clamp(40px, 5vw, 64px) clamp(32px, 4vw, 56px);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  .wp-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: rgba(200, 160, 85, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold-deep);
+    flex-shrink: 0;
+    margin-bottom: 4px;
+  }
+  .wp-icon svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .wp-heading {
+    font-size: clamp(1.125rem, 1.8vw, 1.375rem);
+    color: var(--forest);
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+    max-width: 32ch;
+    margin: 0;
+  }
+
+  .wp-body {
+    font-size: 0.9375rem;
+    color: var(--text-muted);
+    line-height: 1.72;
+    max-width: 44ch;
+    margin: 0;
+  }
+
+  .wp-note {
+    font-size: 11px;
+    color: var(--text-muted);
+    opacity: 0.7;
+    letter-spacing: 0.02em;
+    margin: 0;
+  }
+</style>

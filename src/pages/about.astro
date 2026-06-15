@@ -1,0 +1,471 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import CTABand from '../components/CTABand.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import SchemaLD from '../components/SchemaLD.astro';
+import TrustBar from '../components/TrustBar.astro';
+
+const title = 'About Jeremiah Ugbine — Owner & Contractor | Jerry & Co.';
+const description =
+  'Jerry & Co. is an owner-operated cabinet refinishing company founded in 2019. When you hire us, the person who gives you the estimate is the person who does the work.';
+const canonical = 'https://www.jerryandcohomeservices.com/about/';
+
+const personSchema = {
+  name: 'Jeremiah Ugbine',
+  jobTitle: 'Owner & Lead Contractor',
+  url: canonical,
+  worksFor: {
+    '@type': 'LocalBusiness',
+    name: 'Jerry & Co. Home Improvement LLC',
+    url: 'https://www.jerryandcohomeservices.com',
+  },
+};
+
+const breadcrumbSchema = {
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.jerryandcohomeservices.com/' },
+    { '@type': 'ListItem', position: 2, name: 'About', item: canonical },
+  ],
+};
+
+const founderPhoto = 'https://res.cloudinary.com/jerryandco/image/upload/f_auto,q_auto,w_800/v1/brand/founder.jpg';
+---
+
+<Base title={title} description={description} canonical={canonical}>
+  <Fragment slot="head">
+    <SchemaLD type="Person" data={personSchema} />
+    <SchemaLD type="BreadcrumbList" data={breadcrumbSchema} />
+  </Fragment>
+
+  <Header />
+
+  <!-- ===== BREADCRUMB ===== -->
+  <div class="wrap breadcrumb-wrap">
+    <Breadcrumb crumbs={[{ label: 'Home', href: '/' }, { label: 'About' }]} />
+  </div>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero-about">
+    <div class="wrap hero-inner">
+      <div class="founder-portrait">
+        <img
+          src={founderPhoto}
+          alt="Jeremiah Ugbine, Owner & Lead Contractor, Jerry & Co. Home Improvement LLC — standing in a finished kitchen in Greater Boston"
+          width="800"
+          loading="eager"
+          decoding="async"
+          class="founder-img"
+        />
+        <p class="portrait-caption"><!-- PLACEHOLDER: Replace with real photo when available --></p>
+      </div>
+
+      <div class="hero-text">
+        <p class="eyebrow">The person behind the work</p>
+        <h1>
+          The owner is the contractor.
+          <em>Every time.</em>
+        </h1>
+        <p class="lede">
+          Jerry &amp; Co. Home Improvement LLC was founded in April 2019 with one
+          principle: the person who gives you the estimate is the person who does
+          the work — no handoffs, no subcontractors, no rotating crews.
+        </p>
+        <div class="hero-creds">
+          <div class="cred-chip">
+            <span class="cred-label">Founded</span>
+            <span class="cred-value">April 2019</span>
+          </div>
+          <div class="cred-chip">
+            <span class="cred-label">License</span>
+            <span class="cred-value">MA HIC #208336</span>
+          </div>
+          <div class="cred-chip">
+            <span class="cred-label">Area</span>
+            <span class="cred-value">Greater Boston, MA</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== WHY I DO THIS ===== -->
+  <section class="section-why">
+    <div class="wrap why-inner">
+      <div class="why-watermark" aria-hidden="true">why</div>
+      <div class="section-head left">
+        <p class="eyebrow">Why I do this</p>
+        <h2>Kitchens deserve more than a rush job.</h2>
+      </div>
+      <div class="why-body">
+        <p>
+          I grew up in the Bronx, and I learned early that how a home looks and
+          feels has a direct effect on how a family lives in it. When I moved to
+          Greater Boston, that didn't change. What I kept noticing while doing
+          home improvement work was how often homeowners were being sold full
+          cabinet replacement when a professional refinishing job would have
+          delivered a better visual result — at a fraction of the cost, and
+          without a kitchen torn apart for weeks.
+        </p>
+        <p>
+          I started Jerry &amp; Co. in 2019 to be the alternative to that. Not
+          a franchise that sends whoever's available. Not a big outfit where your
+          job is a line item. A solo practice where the person whose name is on
+          the business is also the one mixing the finish, masking the walls, and
+          signing off on the result.
+        </p>
+        <p>
+          Seven years in, the formula hasn't changed. Every estimate is mine.
+          Every project is mine. Every guarantee is mine — personally.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== YOU GET THE OWNER ===== -->
+  <section class="section-owner">
+    <div class="wrap owner-inner">
+      <div class="section-head left">
+        <p class="eyebrow">What "owner-operated" actually means</p>
+        <h2>You get me — not whoever's available.</h2>
+        <p>
+          When you hire Jerry &amp; Co., the person who walks your kitchen,
+          gives you the estimate, and shows up on day one is the same person who
+          applies every coat of finish and hands you the touch-up bottle at the
+          end. No subcontractors on refinishing and painting work — ever.
+        </p>
+      </div>
+      <div class="owner-compare">
+        <div class="compare-col compare-them">
+          <p class="compare-label">National franchise / big box</p>
+          <ul>
+            <li>Call center takes your info</li>
+            <li>Estimator you'll never see again</li>
+            <li>Crew assigned based on availability</li>
+            <li>Warranty complaint goes to 1-800 number</li>
+            <li>Your job is a scheduling slot</li>
+          </ul>
+        </div>
+        <div class="compare-col compare-us">
+          <p class="compare-label">Jerry &amp; Co.</p>
+          <ul>
+            <li><span class="owner-check" aria-hidden="true"></span>I answer the phone</li>
+            <li><span class="owner-check" aria-hidden="true"></span>I do the estimate</li>
+            <li><span class="owner-check" aria-hidden="true"></span>I do the work</li>
+            <li><span class="owner-check" aria-hidden="true"></span>I honor the guarantee</li>
+            <li><span class="owner-check" aria-hidden="true"></span>Your job matters to me</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CREDENTIALS ===== -->
+  <TrustBar />
+
+  <!-- ===== CONDO EXPERTISE ===== -->
+  <section class="section-condo-about">
+    <div class="wrap condo-inner">
+      <div class="section-head">
+        <p class="eyebrow">Seven years in Boston buildings</p>
+        <h2>I know how Boston buildings work.</h2>
+        <p>
+          Triple-deckers, mid-rise condos, HOA-managed complexes, doorman
+          buildings with freight elevator windows — I've worked in all of them.
+          That experience shapes how I plan and run every condo job.
+        </p>
+      </div>
+      <div class="condo-cards">
+        <div class="condo-card">
+          <div class="cc-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+              <polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+          </div>
+          <h3>HOA &amp; building coordination</h3>
+          <p>I work with building managers and HOA boards directly — freight elevator scheduling, move-in/move-out windows, common-area protection. You don't have to chase anyone.</p>
+        </div>
+        <div class="condo-card">
+          <div class="cc-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+          </div>
+          <h3>Neighbor-considerate scheduling</h3>
+          <p>Low-odor waterborne finishes, contained workspaces, and off-peak scheduling. Projects completed in 2–3 days — not weeks of kitchen downtime.</p>
+        </div>
+        <div class="condo-card">
+          <div class="cc-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2"/>
+              <path d="M3 9h18M9 21V9"/>
+            </svg>
+          </div>
+          <h3>Unit-safe lead &amp; dust controls</h3>
+          <p>EPA RRP Lead-Safe certified process — critical in pre-1978 Boston buildings. Containment, cleanup, and clearance handled properly so you're not inheriting a problem.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <CTABand
+    eyebrow="Talk to the owner directly"
+    headline="Get your free estimate from Jeremiah"
+    ctaText="Request my estimate"
+  />
+
+  <Footer />
+</Base>
+
+<style>
+  /* ── Breadcrumb spacing ─────────────────────────────── */
+  .breadcrumb-wrap { padding-top: 24px; }
+
+  /* ── Hero ───────────────────────────────────────────── */
+  .hero-about {
+    padding: clamp(64px, 8vw, 112px) 0;
+    background: var(--ink, #14241F);
+    color: var(--bone);
+    overflow: hidden;
+  }
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(40px, 5vw, 80px);
+    align-items: center;
+  }
+
+  .founder-portrait {
+    position: relative;
+  }
+  .founder-img {
+    width: 100%;
+    max-width: 520px;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: 3px;
+    filter: grayscale(12%);
+  }
+  .portrait-caption {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: rgba(247,243,234,0.4);
+    margin-top: 10px;
+    text-transform: uppercase;
+  }
+
+  .hero-text .eyebrow { color: var(--gold); }
+  .hero-text h1 {
+    color: var(--bone);
+    margin-bottom: 24px;
+  }
+  .hero-text h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .hero-text .lede {
+    color: rgba(247,243,234,0.75);
+    margin-bottom: 36px;
+    max-width: 44ch;
+  }
+
+  .hero-creds {
+    display: flex;
+    gap: 0;
+    border: 1px solid rgba(247,243,234,0.12);
+    border-radius: 3px;
+    overflow: hidden;
+    width: fit-content;
+  }
+  .cred-chip {
+    padding: 14px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    border-right: 1px solid rgba(247,243,234,0.12);
+  }
+  .cred-chip:last-child { border-right: none; }
+  .cred-label {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-family: var(--font-sans);
+  }
+  .cred-value {
+    font-size: 0.8125rem;
+    color: rgba(247,243,234,0.88);
+    font-family: var(--font-sans);
+    white-space: nowrap;
+  }
+
+  /* ── Why I do this ──────────────────────────────────── */
+  .section-why {
+    background: var(--bone);
+    position: relative;
+    overflow: hidden;
+  }
+  .why-inner { position: relative; }
+  .why-watermark {
+    position: absolute;
+    right: -2%;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: var(--font-serif);
+    font-size: clamp(100px, 14vw, 200px);
+    color: rgba(30,57,52,0.04);
+    line-height: 1;
+    user-select: none;
+    pointer-events: none;
+    letter-spacing: -0.05em;
+    font-style: italic;
+  }
+  .why-body {
+    max-width: 680px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .why-body p {
+    font-size: 1.0625rem;
+    line-height: 1.78;
+    color: var(--text-muted);
+  }
+
+  /* ── You get the owner ──────────────────────────────── */
+  .section-owner {
+    background: var(--bone-deep);
+  }
+  .owner-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-top: clamp(40px, 5vw, 64px);
+  }
+  .compare-col {
+    background: var(--bone);
+    padding: clamp(28px, 4vw, 48px);
+  }
+  .compare-us {
+    background: var(--forest);
+    color: var(--bone);
+  }
+  .compare-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-family: var(--font-sans);
+    margin-bottom: 20px;
+    color: var(--text-muted);
+  }
+  .compare-us .compare-label { color: var(--gold); }
+  .compare-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .compare-them ul li {
+    font-size: 0.9375rem;
+    color: var(--text-muted);
+    padding-left: 16px;
+    position: relative;
+  }
+  .compare-them ul li::before {
+    content: '✗';
+    position: absolute;
+    left: 0;
+    color: rgba(100,80,60,0.4);
+    font-size: 12px;
+    top: 1px;
+  }
+  .compare-us ul li {
+    font-size: 0.9375rem;
+    color: rgba(247,243,234,0.88);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .owner-check {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+  .owner-check::before {
+    content: '';
+    display: block;
+    width: 5px;
+    height: 9px;
+    border-right: 2px solid #14241F;
+    border-bottom: 2px solid #14241F;
+    transform: rotate(45deg) translate(-1px, -1px);
+  }
+
+  /* ── Condo expertise ────────────────────────────────── */
+  .section-condo-about {
+    background: var(--bone);
+  }
+  .condo-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-top: clamp(40px, 5vw, 64px);
+  }
+  .condo-card {
+    background: var(--bone);
+    padding: clamp(28px, 3.5vw, 44px);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .cc-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(200,160,85,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold-deep);
+    flex-shrink: 0;
+  }
+  .cc-icon svg { width: 22px; height: 22px; }
+  .condo-card h3 { color: var(--forest); }
+  .condo-card p {
+    font-size: 0.9375rem;
+    color: var(--text-muted);
+    line-height: 1.72;
+    margin: 0;
+  }
+
+  /* ── Responsive ─────────────────────────────────────── */
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; }
+    .founder-portrait { order: -1; }
+    .founder-img { max-width: 100%; aspect-ratio: 16/9; }
+    .owner-compare { grid-template-columns: 1fr; }
+    .condo-cards { grid-template-columns: 1fr; }
+    .hero-creds { flex-wrap: wrap; }
+  }
+</style>

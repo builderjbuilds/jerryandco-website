@@ -1,0 +1,566 @@
+---
+// PLACEHOLDER: "2-year" guarantee term is a working placeholder — confirm exact term with Jeremiah before launch.
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import CTABand from '../components/CTABand.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import SchemaLD from '../components/SchemaLD.astro';
+
+const title = 'Workmanship Guarantee | Jerry & Co. Cabinet Refinishing';
+const description =
+  'Jerry & Co. stands behind every refinishing project with a workmanship guarantee against peeling, adhesion failure, and finish defects — plus a touch-up program so your cabinets stay looking great.';
+const canonical = 'https://www.jerryandcohomeservices.com/guarantee/';
+
+const serviceSchema = {
+  name: 'Cabinet Refinishing',
+  serviceType: 'Cabinet Refinishing & Painting',
+  provider: {
+    '@type': 'LocalBusiness',
+    name: 'Jerry & Co. Home Improvement LLC',
+    url: 'https://www.jerryandcohomeservices.com',
+  },
+  areaServed: 'Greater Boston, MA',
+  // PLACEHOLDER: durationOfWarranty uses 2-year placeholder. Update when term is confirmed.
+  hasWarranty: {
+    '@type': 'WarrantyPromise',
+    durationOfWarranty: 'P2Y',
+    warrantyScope:
+      'Workmanship defects including peeling, adhesion failure, and finish defects attributable to workmanship',
+  },
+};
+
+const breadcrumbSchema = {
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.jerryandcohomeservices.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Guarantee', item: canonical },
+  ],
+};
+---
+
+<Base title={title} description={description} canonical={canonical}>
+  <Fragment slot="head">
+    <SchemaLD type="Service" data={serviceSchema} />
+    <SchemaLD type="BreadcrumbList" data={breadcrumbSchema} />
+  </Fragment>
+
+  <Header />
+
+  <!-- ===== BREADCRUMB ===== -->
+  <div class="wrap breadcrumb-wrap">
+    <Breadcrumb crumbs={[{ label: 'Home', href: '/' }, { label: 'Guarantee' }]} />
+  </div>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero-guarantee">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Our commitment to you</p>
+        <!-- PLACEHOLDER: "2-year" term below is a working placeholder — confirm before launch -->
+        <h1>The Jerry &amp; Co.<br/>Workmanship Guarantee.</h1>
+        <p class="lede">
+          We stand behind every refinishing project with a 2&#x2011;year workmanship
+          guarantee — in writing, backed by the owner, and honored personally.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== WHAT'S COVERED ===== -->
+  <section class="section-covered">
+    <div class="wrap">
+      <div class="section-head left">
+        <p class="eyebrow">What's covered</p>
+        <!-- PLACEHOLDER: "2-year" term — confirm before launch -->
+        <h2>2 years. Workmanship defects. No runaround.</h2>
+        <p>
+          If the finish we applied peels, loses adhesion, or develops defects
+          attributable to our workmanship within the guarantee period, we come
+          back and fix it — at no charge to you.
+        </p>
+      </div>
+      <div class="covered-items">
+        <div class="covered-item">
+          <div class="ci-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <path d="M9 12l2 2 4-4"/>
+            </svg>
+          </div>
+          <div>
+            <h3>Peeling or flaking finish</h3>
+            <p>Any peeling or flaking of the applied finish within the guarantee period is covered, provided the surface was properly prepared.</p>
+          </div>
+        </div>
+        <div class="covered-item">
+          <div class="ci-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="9"/>
+              <path d="M9 12l2 2 4-4"/>
+            </svg>
+          </div>
+          <div>
+            <h3>Adhesion failure</h3>
+            <p>If primer or topcoat fails to adhere to the substrate due to workmanship — not to exposure to conditions outside normal kitchen use — it's covered.</p>
+          </div>
+        </div>
+        <div class="covered-item">
+          <div class="ci-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+          </div>
+          <div>
+            <h3>Visible finish defects</h3>
+            <p>Drips, sags, uneven coverage, or color inconsistencies attributable to application — not to how you clean or use the cabinets — are covered.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TOUCH-UP PROGRAM ===== -->
+  <section class="section-touchup">
+    <div class="wrap touchup-inner">
+      <div class="touchup-text">
+        <p class="eyebrow">The touch-up program</p>
+        <h2>Your touch-up kit is included.</h2>
+        <p class="section-lede">
+          At project completion, you receive a labeled touch-up bottle matched to
+          your finish color — plus one complimentary in-person visit from
+          Jeremiah to address any minor touch-up needs.
+        </p>
+        <ul class="touchup-list">
+          <li>
+            <span class="tp-check" aria-hidden="true"></span>
+            Labeled bottle with your specific finish color
+          </li>
+          <li>
+            <span class="tp-check" aria-hidden="true"></span>
+            Mixing instructions for long-term storage
+          </li>
+          <li>
+            <span class="tp-check" aria-hidden="true"></span>
+            One complimentary in-person touch-up visit
+          </li>
+          <li>
+            <span class="tp-check" aria-hidden="true"></span>
+            Direct line to Jeremiah for questions after project close
+          </li>
+        </ul>
+      </div>
+      <div class="touchup-visual" aria-hidden="true">
+        <div class="tv-label-bottle">
+          <div class="tv-bottle"></div>
+          <div class="tv-label">
+            <span class="tv-label-line tv-label-name">Jerry &amp; Co.</span>
+            <span class="tv-label-line tv-label-color">Finish Color</span>
+            <span class="tv-label-line tv-label-date">Date Applied</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== LOCAL ACCOUNTABILITY ===== -->
+  <section class="section-accountability">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Why this matters</p>
+        <h2>Local accountability beats a national warranty.</h2>
+        <p>
+          A 1-800 warranty number doesn't show up at your door. When you have an
+          issue with a Jerry &amp; Co. project, you call the same number you
+          called for your estimate — and the same person answers.
+        </p>
+      </div>
+      <div class="accountability-cols">
+        <div class="ac-col">
+          <div class="ac-number">01</div>
+          <h3>No call center</h3>
+          <p>Guarantee claims go directly to Jeremiah. No ticket system, no escalation ladder, no waiting on hold.</p>
+        </div>
+        <div class="ac-col">
+          <div class="ac-number">02</div>
+          <h3>The owner responds</h3>
+          <p>The person who did your job is the person who evaluates your concern — with full context of what was applied and how.</p>
+        </div>
+        <div class="ac-col">
+          <div class="ac-number">03</div>
+          <h3>We show up</h3>
+          <p>If your issue is covered, we schedule a return visit — typically within one week of your contact.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONDO ADDENDUM ===== -->
+  <section class="section-condo-addendum">
+    <div class="wrap addendum-inner">
+      <div class="addendum-tag" aria-label="Applies to condo and multi-unit properties">
+        Condo addendum
+      </div>
+      <div class="section-head left">
+        <p class="eyebrow">For condo &amp; multi-unit projects</p>
+        <h2>Building-specific protections.</h2>
+        <p>
+          Condo and multi-unit projects carry additional protections related to
+          elevator use, hallway access, and shared-space protection.
+        </p>
+      </div>
+      <div class="addendum-items">
+        <div class="addendum-item">
+          <h4>Elevator &amp; hallway protection</h4>
+          <p>
+            We use protective padding on freight elevator walls and hallway surfaces
+            during material transport. Any incidental damage to common-area surfaces
+            caused by our materials in transit is our responsibility to repair.
+          </p>
+        </div>
+        <div class="addendum-item">
+          <h4>Unit containment</h4>
+          <p>
+            Finish, dust, and VOC containment is maintained within the contracted
+            unit. We take responsibility for any overspray or residue in directly
+            adjacent areas that results from our work.
+          </p>
+        </div>
+        <div class="addendum-item">
+          <h4>HOA &amp; building manager coordination</h4>
+          <p>
+            If a building manager or HOA identifies a concern related to our work
+            in common areas, we coordinate directly — you don't have to be the
+            intermediary.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== WHAT'S NOT COVERED ===== -->
+  <section class="section-not-covered">
+    <div class="wrap">
+      <div class="section-head left">
+        <p class="eyebrow">Plain language — what's not covered</p>
+        <h2>We don't cover everything. Here's what we don't.</h2>
+      </div>
+      <div class="not-covered-grid">
+        <div class="nc-item">
+          <span class="nc-x" aria-hidden="true">✕</span>
+          <div>
+            <h4>Normal wear and aging</h4>
+            <p>Gradual dulling or patina development over years of use is not a workmanship defect.</p>
+          </div>
+        </div>
+        <div class="nc-item">
+          <span class="nc-x" aria-hidden="true">✕</span>
+          <div>
+            <h4>Damage from improper cleaners</h4>
+            <p>Abrasive scrubbers, bleach-based cleaners, or solvents that strip the topcoat are not covered. We provide finish-safe cleaning guidance at project close.</p>
+          </div>
+        </div>
+        <div class="nc-item">
+          <span class="nc-x" aria-hidden="true">✕</span>
+          <div>
+            <h4>Impact damage</h4>
+            <p>Chips, dents, or gouges from physical impact after project completion are not covered under workmanship.</p>
+          </div>
+        </div>
+        <div class="nc-item">
+          <span class="nc-x" aria-hidden="true">✕</span>
+          <div>
+            <h4>Water submersion or flooding</h4>
+            <p>Finish damage resulting from water immersion, flooding, or prolonged water exposure is excluded.</p>
+          </div>
+        </div>
+        <div class="nc-item">
+          <span class="nc-x" aria-hidden="true">✕</span>
+          <div>
+            <h4>Color changes after completion</h4>
+            <p>Requests to change the selected color after project completion are outside guarantee scope and billed as a new project.</p>
+          </div>
+        </div>
+        <div class="nc-item">
+          <span class="nc-x" aria-hidden="true">✕</span>
+          <div>
+            <h4>Pre-existing substrate issues</h4>
+            <p>Damage or defects in the cabinet substrate that were present before work began and were disclosed or visible at the time of project start.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <CTABand
+    eyebrow="Ready to get started?"
+    headline="Get a guaranteed refinishing estimate"
+    ctaText="Request my free estimate"
+  />
+
+  <Footer />
+</Base>
+
+<style>
+  /* ── Breadcrumb ─────────────────────────────────────── */
+  .breadcrumb-wrap { padding-top: 24px; }
+
+  /* ── Hero ───────────────────────────────────────────── */
+  .hero-guarantee {
+    padding: clamp(72px, 8vw, 120px) 0 clamp(56px, 6vw, 96px);
+    background: var(--forest);
+    color: var(--bone);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-guarantee::before {
+    content: '✓';
+    position: absolute;
+    right: 3%;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: var(--font-serif);
+    font-size: clamp(120px, 18vw, 260px);
+    color: rgba(247,243,234,0.04);
+    line-height: 1;
+    user-select: none;
+    pointer-events: none;
+  }
+  .hero-guarantee .section-head { position: relative; }
+  .hero-guarantee .eyebrow { color: var(--gold); }
+  .hero-guarantee h1 {
+    color: var(--bone);
+    margin-bottom: 24px;
+  }
+  .hero-guarantee .lede {
+    color: rgba(247,243,234,0.75);
+    margin: 0 auto;
+  }
+
+  /* ── What's covered ─────────────────────────────────── */
+  .section-covered { background: var(--bone); }
+  .covered-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-top: clamp(40px, 5vw, 64px);
+  }
+  .covered-item {
+    background: var(--bone);
+    padding: clamp(24px, 3.5vw, 40px) clamp(24px, 3.5vw, 40px);
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+  }
+  .ci-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(200,160,85,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold-deep);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .ci-icon svg { width: 22px; height: 22px; }
+  .covered-item h3 { color: var(--forest); margin-bottom: 8px; }
+  .covered-item p { font-size: 0.9375rem; color: var(--text-muted); line-height: 1.72; margin: 0; }
+
+  /* ── Touch-up ───────────────────────────────────────── */
+  .section-touchup { background: var(--bone-deep); }
+  .touchup-inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: clamp(40px, 6vw, 80px);
+    align-items: center;
+  }
+  .touchup-list {
+    list-style: none;
+    padding: 0;
+    margin: 24px 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .touchup-list li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.9375rem;
+    color: var(--text);
+  }
+  .tp-check {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: rgba(30,57,52,0.12);
+    flex-shrink: 0;
+  }
+  .tp-check::before {
+    content: '';
+    display: block;
+    width: 5px;
+    height: 9px;
+    border-right: 2px solid var(--forest);
+    border-bottom: 2px solid var(--forest);
+    transform: rotate(45deg) translate(-1px, -1px);
+  }
+
+  /* Illustrated touch-up bottle */
+  .touchup-visual { flex-shrink: 0; }
+  .tv-label-bottle {
+    display: flex;
+    align-items: flex-end;
+    gap: 0;
+    filter: drop-shadow(0 8px 24px rgba(20,36,31,0.12));
+  }
+  .tv-bottle {
+    width: 56px;
+    height: 140px;
+    background: linear-gradient(160deg, #1E3934 0%, #14241F 100%);
+    border-radius: 8px 8px 12px 12px;
+    flex-shrink: 0;
+  }
+  .tv-label {
+    background: var(--bone);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: 12px 16px;
+    min-width: 140px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-left: -12px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 12px rgba(20,36,31,0.08);
+  }
+  .tv-label-line {
+    display: block;
+    font-family: var(--font-sans);
+  }
+  .tv-label-name {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--forest);
+    letter-spacing: 0.02em;
+  }
+  .tv-label-color,
+  .tv-label-date {
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 0.01em;
+  }
+
+  /* ── Accountability ─────────────────────────────────── */
+  .section-accountability { background: var(--ink, #14241F); color: var(--bone); }
+  .section-accountability .eyebrow { color: var(--gold); }
+  .section-accountability h2 { color: var(--bone); }
+  .section-accountability .section-head p { color: rgba(247,243,234,0.7); }
+  .accountability-cols {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(247,243,234,0.08);
+    border: 1px solid rgba(247,243,234,0.08);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-top: clamp(40px, 5vw, 64px);
+  }
+  .ac-col {
+    background: var(--forest);
+    padding: clamp(28px, 4vw, 48px);
+  }
+  .ac-number {
+    font-family: var(--font-serif);
+    font-size: clamp(2.5rem, 4vw, 3.75rem);
+    color: rgba(200,160,85,0.3);
+    line-height: 1;
+    margin-bottom: 16px;
+    letter-spacing: -0.04em;
+  }
+  .ac-col h3 { color: var(--bone); margin-bottom: 10px; }
+  .ac-col p { font-size: 0.9375rem; color: rgba(247,243,234,0.68); line-height: 1.72; margin: 0; }
+
+  /* ── Condo addendum ─────────────────────────────────── */
+  .section-condo-addendum { background: var(--bone-deep); }
+  .addendum-inner { position: relative; }
+  .addendum-tag {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-family: var(--font-sans);
+    color: var(--forest);
+    background: rgba(200,160,85,0.15);
+    border: 1px solid rgba(200,160,85,0.3);
+    border-radius: 2px;
+    padding: 5px 10px;
+    margin-bottom: 28px;
+  }
+  .addendum-items {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-top: clamp(32px, 4vw, 56px);
+  }
+  .addendum-item {
+    background: var(--bone);
+    padding: clamp(24px, 3.5vw, 40px);
+  }
+  .addendum-item h4 { color: var(--forest); margin-bottom: 10px; }
+  .addendum-item p { font-size: 0.9375rem; color: var(--text-muted); line-height: 1.72; margin: 0; }
+
+  /* ── What's not covered ─────────────────────────────── */
+  .section-not-covered { background: var(--bone); }
+  .not-covered-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-top: clamp(40px, 5vw, 64px);
+  }
+  .nc-item {
+    background: var(--bone);
+    padding: clamp(20px, 3vw, 36px);
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .nc-x {
+    font-size: 14px;
+    color: rgba(100,80,60,0.35);
+    flex-shrink: 0;
+    margin-top: 2px;
+    font-weight: 600;
+  }
+  .nc-item h4 { color: var(--text); margin-bottom: 6px; }
+  .nc-item p { font-size: 0.875rem; color: var(--text-muted); line-height: 1.65; margin: 0; }
+
+  /* ── Responsive ─────────────────────────────────────── */
+  @media (max-width: 900px) {
+    .touchup-inner { grid-template-columns: 1fr; }
+    .touchup-visual { display: none; }
+    .accountability-cols { grid-template-columns: 1fr; }
+    .addendum-items { grid-template-columns: 1fr; }
+    .not-covered-grid { grid-template-columns: 1fr; }
+  }
+</style>
