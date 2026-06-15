@@ -1,0 +1,572 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import TrustBar from '../components/TrustBar.astro';
+import CTABand from '../components/CTABand.astro';
+
+const title = 'Cabinet Refinishing & Home Refresh for Boston Condo Owners | Jerry & Co.';
+const description = 'Factory-grade 2K polyurethane cabinet refinishing and bathroom refresh for condo owners across the Greater Boston ICC zone. HOA-compliant, low-VOC, done in 2–5 days. MA HIC #208336.';
+---
+
+<Base title={title} description={description}>
+  <Header />
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="top">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">For condo owners in Greater Boston</p>
+        <h1>Factory-grade finishes built for Boston condo living — done in days, not weeks, with <em>zero neighbor drama.</em></h1>
+        <p class="lede">We work within HOA guidelines, building curfews, and elevator scheduling. No dust, no odor, no disruption to your neighbors.</p>
+        <div class="hero-actions">
+          <a class="btn btn-gold" href="#estimate">Get my free video estimate</a>
+          <a class="btn btn-outline" href="#gallery">See the spray finish</a>
+        </div>
+        <p class="hero-credibility">Trusted in Somerville, Cambridge, and Medford triple-deckers and condo conversions since 2019.</p>
+        <div class="hero-meta">
+          <div><strong>2019</strong>Operating in Greater Boston</div>
+          <div><strong>MA HIC<br/>#208336</strong>Licensed &amp; insured</div>
+          <div><strong>2–5 days</strong>Typical cabinet refinish</div>
+        </div>
+      </div>
+      <div>
+        <!-- BeforeAfter island stub — replaced in Phase 5 -->
+        <div class="ba-card" id="ba-hero-stub">
+          <div class="ba" id="ba">
+            <div class="ba-layer ba-after" aria-hidden="true">
+              <div class="ba-cab">
+                <div class="door"><span class="knob"></span></div>
+                <div class="door"><span class="knob"></span></div>
+                <div class="door"><span class="knob"></span></div>
+                <div class="door"><span class="knob"></span></div>
+              </div>
+              <div class="ba-counter"></div>
+            </div>
+            <div class="ba-layer ba-before-fill ba-before" id="baBefore" aria-hidden="true">
+              <div class="ba-cab">
+                <div class="door"><span class="knob"></span></div>
+                <div class="door"><span class="knob"></span></div>
+                <div class="door"><span class="knob"></span></div>
+                <div class="door"><span class="knob"></span></div>
+              </div>
+              <div class="ba-counter"></div>
+            </div>
+            <span class="ba-tag before">Before</span>
+            <span class="ba-tag after">After</span>
+            <div class="ba-handle" id="baHandle"></div>
+            <div class="ba-grip">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="8 7 4 12 8 17"></polyline><polyline points="16 7 20 12 16 17"></polyline></svg>
+            </div>
+            <input type="range" class="ba-range" id="baRange" min="0" max="100" value="50" aria-label="Drag to compare cabinet finish before and after">
+          </div>
+          <p class="ba-caption">Drag to compare — factory spray finish vs. worn original</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TRUST BAR ===== -->
+  <TrustBar />
+
+  <!-- ===== CONDO-READY STRIP ===== -->
+  <div class="condo-strip">
+    <div class="wrap condo-strip-grid">
+      <div class="condo-strip-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12l2 2 4-4m5 4a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <strong>HOA documentation provided on request</strong>
+      </div>
+      <div class="condo-strip-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <strong>Low-VOC, neighbor-safe process</strong>
+      </div>
+      <div class="condo-strip-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6l4-4 4 4"/><path d="M12 2v10.5"/><rect x="3" y="13" width="18" height="8" rx="2"/></svg>
+        <strong>Elevator &amp; building-access coordination included</strong>
+      </div>
+    </div>
+    <p class="wrap condo-strip-note">We've navigated condo boards, building managers, and neighbor scheduling across the ICC zone for 7 years.</p>
+  </div>
+
+  <!-- ===== SERVICES ===== -->
+  <section id="services">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Service portfolio</p>
+        <h2>Refresh and renovation, organized by the work it actually takes.</h2>
+        <p class="section-lede" style="margin-left:auto;margin-right:auto;">Every project starts the same way — a free video walkthrough and a three-tier proposal. Cabinet refinishing is our focus this season.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card featured" id="cabinet-feature">
+          <span class="badge-featured">Featured</span>
+          <h3>Cabinet refinishing</h3>
+          <p class="price">$1,800 – $9,500</p>
+          <p>Factory-grade 2K polyurethane spray finish on existing cabinet boxes — the look of new cabinets, the cost of paint. No demo, no dumpster, no elevator damage — done in 2–5 days.</p>
+          <p class="tag">2–5 days · highest-margin craft differentiator</p>
+        </div>
+        <div class="service-card">
+          <h3>Gut-free bathroom refresh</h3>
+          <p class="price">$2,800 – $6,500</p>
+          <p>New tile, fixtures, and paint without demo. Gut-free refresh that meets condo renovation bylaws — no permit triggers in most ICC buildings.</p>
+          <p class="tag">2–5 days · pairs well with cabinet refinishing</p>
+        </div>
+        <div class="service-card">
+          <h3>Interior painting &amp; refresh</h3>
+          <p class="price">$1,400 – $6,500</p>
+          <p>Interior painting &amp; refresh — all work contained within your unit. Lead-safe, low-VOC, finished to a standard that holds up.</p>
+          <p class="tag">1–4 days · most flexible scheduling</p>
+        </div>
+        <div class="service-card">
+          <h3>Full bathroom renovation</h3>
+          <p class="price">$6,500 – $18,000</p>
+          <p>Complete gut renovation — subfloor, waterproofing, tile, and finish. May require building board approval — we help you navigate the documentation.</p>
+          <p class="tag">5–12 days · written contract per MA law</p>
+        </div>
+        <div class="service-card">
+          <h3>Multi-unit &amp; building refresh</h3>
+          <p class="price">Custom pricing</p>
+          <p>Coordinated refresh for property managers, landlords, and building owners across multiple units. Scheduled around tenant occupancy and building rules.</p>
+          <p class="tag">Contact for scope &amp; timeline</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROCESS ===== -->
+  <section class="process-band" id="process">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">How it works</p>
+        <h2>The Jerry &amp; Co. factory-finish process</h2>
+        <p class="section-lede" style="margin-left:auto;margin-right:auto;color:rgba(247,243,234,0.65);">Every cabinet refinishing project follows the same five stages — no surprises, no guesswork.</p>
+      </div>
+      <div class="process-list">
+        <div class="process-step">
+          <div class="process-num">01</div>
+          <h3>Video walkthrough</h3>
+          <p>A 20-minute video call gets us a line-item estimate the same day — no waiting on a site visit. We also gather building access requirements, elevator reservation windows, and HOA documentation needs at this stage.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-num">02</div>
+          <h3>Prep &amp; containment</h3>
+          <p>Fully sealed dust containment within your unit. All equipment staged within your unit — no lobby or hallway storage. Cabinets are removed, labeled, and your kitchen is fully masked.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-num">03</div>
+          <h3>Hand sand &amp; repair</h3>
+          <p>Hand-sanding only — no loud power tools that travel through condo walls. Every surface is sanded and any dents, gaps, or chips are filled and leveled.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-num">04</div>
+          <h3>2K spray finish</h3>
+          <p>Low-VOC formula — safe for shared ventilation systems common in multi-unit buildings. A factory-grade polyurethane finish, sprayed in a controlled environment for a smooth, durable result.</p>
+        </div>
+        <div class="process-step">
+          <div class="process-num">05</div>
+          <h3>Cure &amp; walkthrough</h3>
+          <p>Doors cure, hardware is reinstalled, and we walk the finished space with you. Final walkthrough includes elevator condition check and hallway inspection before we leave.</p>
+        </div>
+      </div>
+      <p style="text-align:center;margin-top:32px;"><a href="/our-process/" class="btn btn-outline">See our full process →</a></p>
+    </div>
+  </section>
+
+  <!-- ===== GALLERY ===== -->
+  <section id="gallery">
+    <div class="wrap">
+      <div class="section-head left">
+        <p class="eyebrow">Recent work</p>
+        <h2>Before &amp; after, by project type</h2>
+        <p class="section-lede">Real transformations in Greater Boston condos, triple-deckers, and multi-family units. Filter by service to see results from across the ICC zone.</p>
+      </div>
+
+      <!-- Gallery island stub — replaced with GalleryGrid.astro in Phase 5 -->
+      <div class="filter-row" role="group" aria-label="Filter gallery by project type">
+        <button class="filter-btn active" data-filter="all">All projects</button>
+        <button class="filter-btn" data-filter="cabinet">Cabinet refinishing</button>
+        <button class="filter-btn" data-filter="bathroom">Bathroom refresh</button>
+        <button class="filter-btn" data-filter="painting">Painting</button>
+        <button class="filter-btn" data-filter="kitchen">Kitchen</button>
+        <button class="filter-btn" data-filter="condo">Condo &amp; multi-unit</button>
+      </div>
+      <div class="gallery-grid" id="galleryGrid">
+        <div class="gallery-item" data-cat="cabinet">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span class="g-label">Cabinet refinishing</span>
+          <span class="g-sub">Somerville — condo unit, deep forest green</span>
+        </div>
+        <div class="gallery-item" data-cat="bathroom">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span class="g-label">Bathroom refresh</span>
+          <span class="g-sub">Cambridge — triple-decker, gut-free update</span>
+        </div>
+        <div class="gallery-item" data-cat="painting">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span class="g-label">Interior painting</span>
+          <span class="g-sub">Arlington — condo pre-listing refresh</span>
+        </div>
+        <div class="gallery-item" data-cat="cabinet condo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span class="g-label">Cabinet refinishing</span>
+          <span class="g-sub">Medford — condo conversion, bone white</span>
+        </div>
+        <div class="gallery-item" data-cat="cabinet">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span class="g-label">Cabinet refinishing</span>
+          <span class="g-sub">Malden — 3-unit multi-family turnover</span>
+        </div>
+        <div class="gallery-item" data-cat="bathroom condo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span class="g-label">Bathroom refresh</span>
+          <span class="g-sub">Everett — condo board-approved update</span>
+        </div>
+        <div class="gallery-item" data-cat="painting">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span class="g-label">Interior painting</span>
+          <span class="g-sub">Woburn — owner-occupied colonial refresh</span>
+        </div>
+        <div class="gallery-item" data-cat="kitchen condo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span class="g-label">Kitchen refresh</span>
+          <span class="g-sub">Winchester — cabinets + paint bundle</span>
+        </div>
+      </div>
+      <p style="margin-top:28px;text-align:center;"><a href="/gallery/" class="btn btn-outline-dark">View full gallery →</a></p>
+    </div>
+  </section>
+
+  <!-- ===== SERVICE AREA ===== -->
+  <section id="area" class="area-section">
+    <div class="wrap area-grid">
+      <div>
+        <p class="eyebrow">Where we work</p>
+        <h2>Home to Greater Boston's highest density of condos, triple-deckers, and condo conversions — the buildings we know best.</h2>
+        <p class="section-lede">Somerville &amp; Cambridge — triple-decker conversions, HOA-managed condo buildings. Arlington &amp; Winchester — larger unit condos and owner-renovated colonials.</p>
+        <div class="chip-group">
+          <a href="/cabinet-refinishing-medford/" class="chip chip-primary">Medford</a>
+          <a href="/cabinet-refinishing-malden/" class="chip chip-primary">Malden</a>
+          <a href="/cabinet-refinishing-everett/" class="chip chip-primary">Everett</a>
+          <a href="/cabinet-refinishing-arlington/" class="chip chip-primary">Arlington</a>
+          <a href="/cabinet-refinishing-somerville/" class="chip chip-primary">Somerville</a>
+          <a href="/cabinet-refinishing-cambridge/" class="chip chip-primary">Cambridge</a>
+          <a href="/cabinet-refinishing-woburn/" class="chip chip-primary">Woburn</a>
+          <a href="/cabinet-refinishing-winchester/" class="chip chip-primary">Winchester</a>
+        </div>
+        <p class="area-note">Locally owned and operated — serving the ICC zone for 7 years.</p>
+      </div>
+      <div>
+        <p class="eyebrow">Secondary zone</p>
+        <h2 style="font-size:1.4rem;">North suburban ring</h2>
+        <p class="section-lede">Lower-competition towns with active renovation cycles and strong school-driven demand.</p>
+        <div class="chip-group">
+          <span class="chip chip-secondary">Stoneham</span>
+          <span class="chip chip-secondary">Burlington</span>
+          <span class="chip chip-secondary">Wilmington</span>
+          <span class="chip chip-secondary">Reading</span>
+        </div>
+        <p class="area-note">Not seeing your town? <a href="#estimate" style="color:var(--gold-deep);font-weight:600;">Ask us</a> — we may still be able to help.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ESTIMATE FORM ===== -->
+  <section class="estimate-band" id="estimate">
+    <div class="wrap estimate-grid">
+      <div class="estimate-info">
+        <p class="eyebrow">Get started</p>
+        <h2>Tell us about your unit — we handle the building logistics.</h2>
+        <p class="section-lede">A few details now means a same-day, line-item estimate with no obligation.</p>
+        <div class="estimate-stats">
+          <div class="estimate-stat">
+            <div class="num">5 min</div>
+            <p><strong>Fast acknowledgment</strong>Every inquiry gets a text confirmation within 5 minutes.</p>
+          </div>
+          <div class="estimate-stat">
+            <div class="num">1 hr</div>
+            <p><strong>Personal callback</strong>We follow up by phone within the hour to schedule your video walkthrough.</p>
+          </div>
+          <div class="estimate-stat">
+            <div class="num">3</div>
+            <p><strong>Good, better, best</strong>Every proposal includes three options, so you choose what fits your project and budget.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- MultiStepForm island stub — replaced in Phase 2 -->
+      <div class="form-card">
+        <div id="formIntro">
+          <h3>Project discovery</h3>
+          <p class="sub">Takes about 2 minutes. The more detail you give us, the more accurate your estimate.</p>
+          <form id="estimateForm" data-netlify="true" name="estimate">
+            <div class="form-row">
+              <div class="field">
+                <label for="name">Full name</label>
+                <input type="text" id="name" name="name" required />
+              </div>
+              <div class="field">
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" name="phone" required />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="field">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required />
+              </div>
+              <div class="field">
+                <label for="town">Town</label>
+                <select id="town" name="town" required>
+                  <option value="">Select your town</option>
+                  <option>Medford</option>
+                  <option>Malden</option>
+                  <option>Everett</option>
+                  <option>Arlington</option>
+                  <option>Somerville</option>
+                  <option>Cambridge</option>
+                  <option>Woburn</option>
+                  <option>Winchester</option>
+                  <option>Stoneham</option>
+                  <option>Burlington</option>
+                  <option>Wilmington</option>
+                  <option>Reading</option>
+                  <option>Other</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="field">
+                <label for="project">Project type</label>
+                <select id="project" name="project">
+                  <option selected>Cabinet refinishing</option>
+                  <option>Bathroom refresh (no demo)</option>
+                  <option>Full bathroom renovation</option>
+                  <option>Interior painting</option>
+                  <option>Kitchen refresh package</option>
+                  <option>Something else</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="timeline">Timeline</label>
+                <select id="timeline" name="timeline">
+                  <option>As soon as possible</option>
+                  <option>Within 30 days</option>
+                  <option>1–3 months</option>
+                  <option>Just exploring options</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="field">
+                <label for="size">Project size</label>
+                <input type="text" id="size" name="size" placeholder="e.g. 18 cabinet doors, 2-BR condo unit, 4th floor" />
+              </div>
+              <div class="field">
+                <label for="color">Desired finish / color</label>
+                <input type="text" id="color" name="color" placeholder="e.g. deep forest green, matte" />
+              </div>
+            </div>
+            <div class="form-row single">
+              <div class="field">
+                <label for="details">Building access notes</label>
+                <textarea id="details" name="details" placeholder="HOA requirements, building management contact, elevator reservation window, noise curfew, etc."></textarea>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-gold btn-block">Request my free video estimate</button>
+            <p class="form-foot">No spam, no obligation. You'll hear from us within 5 minutes.</p>
+          </form>
+        </div>
+        <div class="form-success" id="formSuccess">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>
+          <h3>Thanks — we've got it.</h3>
+          <p>You'll get a text confirmation within 5 minutes and a call within the hour to schedule your free video walkthrough.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TIERS / CLOSE ===== -->
+  <section class="close-cta" id="tiers">
+    <div class="wrap">
+      <p class="eyebrow">Trusted by condo owners across the ICC zone</p>
+      <h2>Every estimate comes in three options.</h2>
+      <p>So you're never stuck choosing between "do it cheap" and "do it right." Pick the tier that fits your budget — and upgrade only what matters.</p>
+      <div class="tiers-grid">
+        <div class="tier-card">
+          <div class="tier-name">Good</div>
+          <h3>Refresh the finish</h3>
+          <p>Spray existing cabinet doors and boxes in your chosen color — the core factory-grade transformation.</p>
+        </div>
+        <div class="tier-card best">
+          <div class="tier-name">Better</div>
+          <h3>Finish + hardware</h3>
+          <p>Everything in Good, plus new soft-close hinges and updated hardware for a complete refresh.</p>
+        </div>
+        <div class="tier-card">
+          <div class="tier-name">Best</div>
+          <h3>Full unit kitchen</h3>
+          <p>Everything in Better, plus interior shelving refresh and matching island or pantry cabinetry.</p>
+        </div>
+      </div>
+      <p class="tiers-note">Every tier includes: zero lobby or hallway staging, low-VOC materials only, same-day cleanup, and a certificate of insurance for your property manager or HOA.</p>
+      <p class="tiers-referral">Live in a building with neighbors who could use a refresh? <a href="#estimate" style="color:var(--gold);font-weight:600;">Ask about our building referral program.</a></p>
+      <p class="tiers-links">
+        <a href="/financing/" style="color:rgba(247,243,234,0.7);font-size:14px;">Ask about financing →</a>
+        &nbsp;·&nbsp;
+        <a href="/guarantee/" style="color:rgba(247,243,234,0.7);font-size:14px;">See our workmanship guarantee →</a>
+      </p>
+      <div style="margin-top:36px;">
+        <a class="btn btn-gold" href="#estimate">Get my free video estimate</a>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Base>
+
+<style>
+  /* Hero */
+  .hero {
+    background: var(--ink);
+    color: var(--bone);
+    padding: 72px 0 96px;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+  .hero h1 {
+    color: var(--bone);
+    font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+    letter-spacing: -0.01em;
+  }
+  .hero h1 em { font-style: italic; color: var(--gold); }
+  .lede { max-width: 42ch; color: rgba(247, 243, 234, 0.78); font-size: 18px; margin: 20px 0 32px; }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; }
+  .hero-credibility {
+    font-size: 13px;
+    color: rgba(247, 243, 234, 0.55);
+    margin: 20px 0 0;
+    max-width: 44ch;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 28px;
+    margin-top: 24px;
+    flex-wrap: wrap;
+  }
+  .hero-meta div { font-size: 13px; color: rgba(247, 243, 234, 0.6); }
+  .hero-meta strong {
+    display: block;
+    font-family: var(--font-serif);
+    font-size: 22px;
+    color: var(--bone);
+    font-weight: 500;
+  }
+
+  /* Condo strip */
+  .condo-strip {
+    background: var(--bone-deep);
+    border-bottom: 1px solid var(--line);
+    padding: 40px 0 28px;
+  }
+  .condo-strip-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    margin-bottom: 16px;
+  }
+  .condo-strip-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    color: var(--forest);
+  }
+  .condo-strip-item svg { width: 20px; height: 20px; color: var(--gold-deep); flex-shrink: 0; }
+  .condo-strip-note {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin: 0;
+    padding-bottom: 4px;
+  }
+
+  /* Area section */
+  .area-section { background: var(--bone-deep); }
+  .area-section a.chip { text-decoration: none; transition: opacity 0.15s; }
+  .area-section a.chip:hover { opacity: 0.85; }
+
+  /* Tiers extras */
+  .tiers-note {
+    font-size: 14px;
+    color: rgba(247, 243, 234, 0.65);
+    max-width: 52ch;
+    margin: 24px auto 8px;
+  }
+  .tiers-referral {
+    font-size: 14px;
+    color: rgba(247, 243, 234, 0.65);
+    max-width: 52ch;
+    margin: 0 auto 8px;
+  }
+  .tiers-links {
+    margin: 8px 0;
+  }
+
+  @media (max-width: 880px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+    .condo-strip-grid { grid-template-columns: 1fr; gap: 18px; }
+  }
+</style>
+
+<script>
+  // Before/after slider
+  (function () {
+    const range = document.getElementById('baRange') as HTMLInputElement | null;
+    const before = document.getElementById('baBefore');
+    const handle = document.getElementById('baHandle');
+    if (!range || !before || !handle) return;
+    function update() {
+      const v = range!.value;
+      (before as HTMLElement).style.clipPath = `inset(0 ${100 - Number(v)}% 0 0)`;
+      (handle as HTMLElement).style.left = v + '%';
+    }
+    range.addEventListener('input', update);
+    update();
+  })();
+
+  // Gallery filter
+  (function () {
+    const buttons = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+    const items = document.querySelectorAll<HTMLElement>('.gallery-item');
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        buttons.forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.getAttribute('data-filter') ?? 'all';
+        items.forEach((item) => {
+          const cats = item.getAttribute('data-cat') ?? '';
+          if (filter === 'all' || cats.split(' ').includes(filter)) {
+            item.classList.remove('hidden');
+          } else {
+            item.classList.add('hidden');
+          }
+        });
+      });
+    });
+  })();
+
+  // Estimate form submission
+  (function () {
+    const form = document.getElementById('estimateForm');
+    const intro = document.getElementById('formIntro');
+    const success = document.getElementById('formSuccess');
+    if (!form || !intro || !success) return;
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      (intro as HTMLElement).style.display = 'none';
+      success.classList.add('show');
+    });
+  })();
+</script>

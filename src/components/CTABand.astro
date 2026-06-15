@@ -1,0 +1,38 @@
+---
+interface Props {
+  eyebrow?: string;
+  headline?: string;
+  ctaText?: string;
+  ctaHref?: string;
+}
+
+const {
+  eyebrow = 'Ready when you are',
+  headline = 'Get your free video estimate',
+  ctaText = 'Start my estimate',
+  ctaHref = '/#estimate',
+} = Astro.props;
+---
+
+<section class="cta-band">
+  <div class="wrap">
+    <p class="eyebrow">{eyebrow}</p>
+    <h2>{headline}</h2>
+    <a class="btn btn-gold" href={ctaHref}>{ctaText}</a>
+  </div>
+</section>
+
+<style>
+  .cta-band {
+    background: var(--ink);
+    color: var(--bone);
+    text-align: center;
+    padding: var(--section-pad) 0;
+  }
+  .cta-band h2 {
+    color: var(--bone);
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    margin-bottom: 32px;
+  }
+  .cta-band .eyebrow { color: var(--gold); }
+</style>

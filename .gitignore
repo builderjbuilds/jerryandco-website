@@ -1,17 +1,27 @@
-# OS / editor
+# build output
+dist/
+# generated types
+.astro/
+
+# dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+
+# environment variables
+.env
+.env.production
+
+# macOS-specific files
 .DS_Store
-Thumbs.db
-*.swp
-.vscode/
+
+# jetbrains setting folder
 .idea/
 
-# Node (if Option B / Astro / 11ty tooling is introduced later)
-node_modules/
-dist/
-.astro/
-.cache/
-
-# Env / secrets (e.g. Wisetack API keys, form endpoint webhooks)
-.env
-.env.local
-*.key
+# Netlify cache/build artifacts
+.netlify/

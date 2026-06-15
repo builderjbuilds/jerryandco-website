@@ -1,0 +1,23 @@
+:root {
+  /* Brand palette */
+  --bone: #F7F3EA;
+  --bone-deep: #EFE7D6;
+  --ink: #14241F;
+  --ink-soft: #1E332D;
+  --forest: #1E3934;
+  --gold: #C8A055;
+  --gold-deep: #8A6A33;
+  --text: #20281F;
+  --text-muted: #6E6A5E;
+  --line: rgba(30, 57, 52, 0.14);
+  --line-dark: rgba(247, 243, 234, 0.16);
+
+  /* Spacing */
+  --radius: 14px;
+  --radius-sm: 8px;
+  --section-pad: 88px;
+
+  /* Typography */
+  --font-serif: 'Fraunces', serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
+}

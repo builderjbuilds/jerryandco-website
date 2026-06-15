@@ -1,0 +1,68 @@
+---
+import Base from './Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+  breadcrumb?: Array<{ label: string; href: string }>;
+}
+
+const { title, description, canonical, ogImage, breadcrumb } = Astro.props;
+---
+
+<Base title={title} description={description} canonical={canonical} ogImage={ogImage}>
+  <slot name="head" slot="head" />
+  <Header />
+  <main>
+    {breadcrumb && breadcrumb.length > 0 && (
+      <nav aria-label="Breadcrumb" class="breadcrumb-bar">
+        <div class="wrap">
+          <ol class="breadcrumb-list">
+            <li><a href="/">Home</a></li>
+            {breadcrumb.map((crumb) => (
+              <li aria-current={crumb.href === Astro.url.pathname ? 'page' : undefined}>
+                <a href={crumb.href}>{crumb.label}</a>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </nav>
+    )}
+    <slot />
+  </main>
+  <Footer />
+</Base>
+
+<style>
+  .breadcrumb-bar {
+    background: var(--bone-deep);
+    border-bottom: 1px solid var(--line);
+    padding: 12px 0;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  .breadcrumb-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+  .breadcrumb-list li + li::before {
+    content: '/';
+    margin-right: 6px;
+    opacity: 0.5;
+  }
+  .breadcrumb-list a {
+    text-decoration: none;
+    color: var(--text-muted);
+    transition: color 0.15s;
+  }
+  .breadcrumb-list a:hover { color: var(--forest); }
+  .breadcrumb-list [aria-current="page"] a { color: var(--forest); font-weight: 500; }
+</style>
