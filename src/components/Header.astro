@@ -72,6 +72,7 @@ const townLinks = [
     </ul>
 
     <div class="nav-cta">
+      <a class="nav-phone" href="tel:+13476026801">(347) 602-6801</a>
       <a class="btn btn-gold" href="/#estimate">Get free estimate</a>
     </div>
 
@@ -216,7 +217,6 @@ const townLinks = [
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
   }
   .dropdown-wide {
-    display: grid;
     grid-template-columns: 1fr 1fr;
     min-width: 280px;
   }
@@ -235,10 +235,27 @@ const townLinks = [
   }
 
   .nav-item:focus-within .dropdown { display: block; }
+  .nav-item:focus-within .dropdown-wide { display: grid; }
   .nav-item:focus-within .nav-trigger { opacity: 1; }
   .nav-item:focus-within .nav-arrow { transform: rotate(180deg); }
 
-  .nav-cta { flex-shrink: 0; }
+  .nav-cta {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .nav-phone {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--bone);
+    text-decoration: none;
+    letter-spacing: 0.01em;
+    opacity: 0.9;
+    transition: opacity 0.15s;
+    white-space: nowrap;
+  }
+  .nav-phone:hover { opacity: 1; }
 
   /* Hamburger */
   .hamburger {
