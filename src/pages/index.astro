@@ -71,21 +71,23 @@ const description = 'Factory-grade 2K polyurethane cabinet refinishing and bathr
 
   <!-- ===== CONDO-READY STRIP ===== -->
   <div class="condo-strip">
-    <div class="wrap condo-strip-grid">
-      <div class="condo-strip-item">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12l2 2 4-4m5 4a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-        <strong>HOA documentation provided on request</strong>
+    <div class="wrap condo-strip-inner">
+      <div class="condo-strip-grid">
+        <div class="condo-strip-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12l2 2 4-4m5 4a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <span>HOA documentation provided on request</span>
+        </div>
+        <div class="condo-strip-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span>Low-VOC, neighbor-safe process</span>
+        </div>
+        <div class="condo-strip-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6l4-4 4 4"/><path d="M12 2v10.5"/><rect x="3" y="13" width="18" height="8" rx="2"/></svg>
+          <span>Elevator &amp; building-access coordination included</span>
+        </div>
       </div>
-      <div class="condo-strip-item">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        <strong>Low-VOC, neighbor-safe process</strong>
-      </div>
-      <div class="condo-strip-item">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6l4-4 4 4"/><path d="M12 2v10.5"/><rect x="3" y="13" width="18" height="8" rx="2"/></svg>
-        <strong>Elevator &amp; building-access coordination included</strong>
-      </div>
+      <p class="condo-strip-note">We've navigated condo boards, building managers, and neighbor scheduling across the ICC zone for 7 years.</p>
     </div>
-    <p class="wrap condo-strip-note">We've navigated condo boards, building managers, and neighbor scheduling across the ICC zone for 7 years.</p>
   </div>
 
   <!-- ===== SERVICES ===== -->
@@ -94,15 +96,19 @@ const description = 'Factory-grade 2K polyurethane cabinet refinishing and bathr
       <div class="section-head">
         <p class="eyebrow">Service portfolio</p>
         <h2>Refresh and renovation, organized by the work it actually takes.</h2>
-        <p class="section-lede" style="margin-left:auto;margin-right:auto;">Every project starts the same way — a free video walkthrough and a three-tier proposal. Cabinet refinishing is our focus this season.</p>
+        <p class="section-lede-center">Every project starts the same way — a free video walkthrough and a three-tier proposal. Cabinet refinishing is our focus this season.</p>
       </div>
       <div class="services-grid">
         <div class="service-card featured" id="cabinet-feature">
-          <span class="badge-featured">Featured</span>
-          <h3>Cabinet refinishing</h3>
-          <p class="price">$1,800 – $9,500</p>
-          <p>Factory-grade 2K polyurethane spray finish on existing cabinet boxes — the look of new cabinets, the cost of paint. No demo, no dumpster, no elevator damage — done in 2–5 days.</p>
-          <p class="tag">2–5 days · highest-margin craft differentiator</p>
+          <div class="card-body">
+            <h3>Cabinet refinishing</h3>
+            <p class="price">$1,800 – $9,500</p>
+            <p>Factory-grade 2K polyurethane spray finish on existing cabinet boxes — the look of new cabinets, the cost of paint. No demo, no dumpster, no elevator damage — done in 2–5 days.</p>
+            <p class="tag">2–5 days · highest-margin craft differentiator</p>
+          </div>
+          <div class="card-badge-col">
+            <span class="badge-featured">Featured this season</span>
+          </div>
         </div>
         <div class="service-card">
           <h3>Gut-free bathroom refresh</h3>
@@ -138,7 +144,7 @@ const description = 'Factory-grade 2K polyurethane cabinet refinishing and bathr
       <div class="section-head">
         <p class="eyebrow">How it works</p>
         <h2>The Jerry &amp; Co. factory-finish process</h2>
-        <p class="section-lede" style="margin-left:auto;margin-right:auto;color:rgba(247,243,234,0.65);">Every cabinet refinishing project follows the same five stages — no surprises, no guesswork.</p>
+        <p>Every cabinet refinishing project follows the same five stages — no surprises, no guesswork.</p>
       </div>
       <div class="process-list">
         <div class="process-step">
@@ -167,7 +173,7 @@ const description = 'Factory-grade 2K polyurethane cabinet refinishing and bathr
           <p>Doors cure, hardware is reinstalled, and we walk the finished space with you. Final walkthrough includes elevator condition check and hallway inspection before we leave.</p>
         </div>
       </div>
-      <p style="text-align:center;margin-top:32px;"><a href="/our-process/" class="btn btn-outline">See our full process →</a></p>
+      <div class="process-link-row"><a href="/our-process/" class="btn btn-outline">See our full process →</a></div>
     </div>
   </section>
 
@@ -231,7 +237,7 @@ const description = 'Factory-grade 2K polyurethane cabinet refinishing and bathr
           <span class="g-sub">Winchester — cabinets + paint bundle</span>
         </div>
       </div>
-      <p style="margin-top:28px;text-align:center;"><a href="/gallery/" class="btn btn-outline-dark">View full gallery →</a></p>
+      <div class="gallery-link-row"><a href="/gallery/" class="btn btn-outline-dark">View full gallery →</a></div>
     </div>
   </section>
 
@@ -389,7 +395,7 @@ const description = 'Factory-grade 2K polyurethane cabinet refinishing and bathr
     <div class="wrap">
       <p class="eyebrow">Trusted by condo owners across the ICC zone</p>
       <h2>Every estimate comes in three options.</h2>
-      <p>So you're never stuck choosing between "do it cheap" and "do it right." Pick the tier that fits your budget — and upgrade only what matters.</p>
+      <p class="tiers-sub">So you're never stuck choosing between "do it cheap" and "do it right." Pick the tier that fits your budget — and upgrade only what matters.</p>
       <div class="tiers-grid">
         <div class="tier-card">
           <div class="tier-name">Good</div>
@@ -407,15 +413,14 @@ const description = 'Factory-grade 2K polyurethane cabinet refinishing and bathr
           <p>Everything in Better, plus interior shelving refresh and matching island or pantry cabinetry.</p>
         </div>
       </div>
-      <p class="tiers-note">Every tier includes: zero lobby or hallway staging, low-VOC materials only, same-day cleanup, and a certificate of insurance for your property manager or HOA.</p>
-      <p class="tiers-referral">Live in a building with neighbors who could use a refresh? <a href="#estimate" style="color:var(--gold);font-weight:600;">Ask about our building referral program.</a></p>
-      <p class="tiers-links">
-        <a href="/financing/" style="color:rgba(247,243,234,0.7);font-size:14px;">Ask about financing →</a>
-        &nbsp;·&nbsp;
-        <a href="/guarantee/" style="color:rgba(247,243,234,0.7);font-size:14px;">See our workmanship guarantee →</a>
-      </p>
-      <div style="margin-top:36px;">
+      <div class="tiers-footer">
         <a class="btn btn-gold" href="#estimate">Get my free video estimate</a>
+        <p class="tiers-note">Every tier includes: zero lobby or hallway staging, low-VOC materials only, same-day cleanup, and a certificate of insurance for your HOA.</p>
+        <div class="tiers-links">
+          <a href="/financing/">Ask about financing →</a>
+          <span style="color:rgba(247,243,234,0.25)">·</span>
+          <a href="/guarantee/">Workmanship guarantee →</a>
+        </div>
       </div>
     </div>
   </section>
@@ -424,99 +429,185 @@ const description = 'Factory-grade 2K polyurethane cabinet refinishing and bathr
 </Base>
 
 <style>
-  /* Hero */
+  /* ── Hero ─────────────────────────────────────────── */
   .hero {
     background: var(--ink);
     color: var(--bone);
-    padding: 72px 0 96px;
+    padding: clamp(80px, 10vw, 140px) 0 clamp(96px, 12vw, 160px);
   }
   .hero-grid {
     display: grid;
-    grid-template-columns: 1.1fr 1fr;
-    gap: 64px;
+    grid-template-columns: 1.25fr 1fr;
+    gap: clamp(48px, 6vw, 96px);
     align-items: center;
   }
   .hero h1 {
     color: var(--bone);
-    font-size: clamp(2.2rem, 4.5vw, 3.2rem);
-    letter-spacing: -0.01em;
+    margin-bottom: var(--sp-4);
   }
-  .hero h1 em { font-style: italic; color: var(--gold); }
-  .lede { max-width: 42ch; color: rgba(247, 243, 234, 0.78); font-size: 18px; margin: 20px 0 32px; }
-  .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold);
+    font-weight: 400;
+  }
+  .hero .lede {
+    color: rgba(247, 243, 234, 0.75);
+    max-width: 48ch;
+    margin-bottom: var(--sp-5);
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    line-height: 1.7;
+  }
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sp-2);
+    margin-bottom: var(--sp-5);
+  }
   .hero-credibility {
     font-size: 13px;
-    color: rgba(247, 243, 234, 0.55);
-    margin: 20px 0 0;
-    max-width: 44ch;
+    color: rgba(247, 243, 234, 0.45);
+    line-height: 1.6;
+    max-width: 48ch;
+    margin-bottom: var(--sp-5);
+    letter-spacing: 0.01em;
   }
   .hero-meta {
     display: flex;
-    gap: 28px;
-    margin-top: 24px;
+    gap: clamp(24px, 4vw, 48px);
+    padding-top: var(--sp-4);
+    border-top: 1px solid var(--line-dark);
     flex-wrap: wrap;
   }
-  .hero-meta div { font-size: 13px; color: rgba(247, 243, 234, 0.6); }
+  .hero-meta div { font-size: 13px; color: rgba(247, 243, 234, 0.5); line-height: 1.5; }
   .hero-meta strong {
     display: block;
     font-family: var(--font-serif);
-    font-size: 22px;
+    font-size: clamp(1.4rem, 2.5vw, 1.75rem);
     color: var(--bone);
     font-weight: 500;
+    letter-spacing: -0.02em;
+    margin-bottom: 2px;
   }
 
-  /* Condo strip */
+  /* ── Condo strip ─────────────────────────────────── */
   .condo-strip {
     background: var(--bone-deep);
     border-bottom: 1px solid var(--line);
-    padding: 40px 0 28px;
+    padding: clamp(36px, 5vw, 56px) 0;
+  }
+  .condo-strip-inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-4);
   }
   .condo-strip-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 32px;
-    margin-bottom: 16px;
+    gap: clamp(24px, 4vw, 56px);
   }
   .condo-strip-item {
     display: flex;
-    align-items: center;
-    gap: 12px;
-    font-size: 14px;
+    align-items: flex-start;
+    gap: var(--sp-3);
+    font-size: 15px;
+    font-weight: 500;
     color: var(--forest);
+    line-height: 1.5;
   }
-  .condo-strip-item svg { width: 20px; height: 20px; color: var(--gold-deep); flex-shrink: 0; }
+  .condo-strip-item svg {
+    width: 22px;
+    height: 22px;
+    color: var(--gold-deep);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
   .condo-strip-note {
     font-size: 14px;
     color: var(--text-muted);
-    margin: 0;
-    padding-bottom: 4px;
+    line-height: 1.65;
+    border-top: 1px solid var(--line);
+    padding-top: var(--sp-3);
   }
 
-  /* Area section */
+  /* ── Section: services ───────────────────────────── */
+  .section-lede-center {
+    max-width: 56ch;
+    margin: var(--sp-3) auto 0;
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    text-align: center;
+  }
+  .section-link {
+    display: inline-block;
+    margin-top: var(--sp-5);
+    text-align: center;
+  }
+
+  /* ── Area section ────────────────────────────────── */
   .area-section { background: var(--bone-deep); }
   .area-section a.chip { text-decoration: none; transition: opacity 0.15s; }
-  .area-section a.chip:hover { opacity: 0.85; }
+  .area-section a.chip:hover { opacity: 0.82; }
+  .area-section h2 { margin-bottom: var(--sp-3); }
 
-  /* Tiers extras */
-  .tiers-note {
-    font-size: 14px;
-    color: rgba(247, 243, 234, 0.65);
-    max-width: 52ch;
-    margin: 24px auto 8px;
+  /* ── Process link ────────────────────────────────── */
+  .process-link-row {
+    text-align: center;
+    margin-top: var(--sp-6);
   }
-  .tiers-referral {
-    font-size: 14px;
-    color: rgba(247, 243, 234, 0.65);
+
+  /* ── Gallery link ────────────────────────────────── */
+  .gallery-link-row {
+    text-align: center;
+    margin-top: var(--sp-5);
+  }
+
+  /* ── Tiers ───────────────────────────────────────── */
+  .tiers-sub {
+    font-size: 1.05rem;
+    color: rgba(247, 243, 234, 0.6);
     max-width: 52ch;
-    margin: 0 auto 8px;
+    margin: var(--sp-3) auto var(--sp-6);
+    line-height: 1.7;
+    text-align: center;
+  }
+  .tiers-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--sp-3);
+    margin-top: var(--sp-6);
+  }
+  .tiers-note {
+    font-size: 13px;
+    color: rgba(247, 243, 234, 0.5);
+    max-width: 56ch;
+    text-align: center;
+    line-height: 1.7;
+    letter-spacing: 0.01em;
   }
   .tiers-links {
-    margin: 8px 0;
+    display: flex;
+    gap: var(--sp-4);
+    align-items: center;
+    font-size: 13px;
   }
+  .tiers-links a {
+    color: rgba(247, 243, 234, 0.55);
+    text-decoration: none;
+    transition: color 0.15s;
+    letter-spacing: 0.01em;
+  }
+  .tiers-links a:hover { color: var(--bone); }
 
-  @media (max-width: 880px) {
-    .hero-grid { grid-template-columns: 1fr; gap: 40px; }
-    .condo-strip-grid { grid-template-columns: 1fr; gap: 18px; }
+  /* ── Responsive ──────────────────────────────────── */
+  @media (max-width: 900px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .condo-strip-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 560px) {
+    .condo-strip-grid { grid-template-columns: 1fr; }
+    .tiers-links { flex-direction: column; gap: var(--sp-2); }
   }
 </style>
 

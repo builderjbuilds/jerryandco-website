@@ -1,23 +1,38 @@
 :root {
-  /* Brand palette */
-  --bone: #F7F3EA;
-  --bone-deep: #EFE7D6;
-  --ink: #14241F;
-  --ink-soft: #1E332D;
-  --forest: #1E3934;
-  --gold: #C8A055;
-  --gold-deep: #8A6A33;
-  --text: #20281F;
+  /* ── Brand palette ─────────────────────────────── */
+  --bone:       #F7F3EA;
+  --bone-deep:  #EFE7D6;
+  --ink:        #14241F;
+  --ink-soft:   #1E332D;
+  --forest:     #1E3934;
+  --gold:       #C8A055;
+  --gold-deep:  #8A6A33;
+  --text:       #20281F;
   --text-muted: #6E6A5E;
-  --line: rgba(30, 57, 52, 0.14);
-  --line-dark: rgba(247, 243, 234, 0.16);
+  --line:       rgba(30, 57, 52, 0.10);
+  --line-dark:  rgba(247, 243, 234, 0.12);
 
-  /* Spacing */
-  --radius: 20px;
-  --radius-sm: 10px;
-  --section-pad: 112px;
+  /* ── Spacing scale (8px base) ──────────────────── */
+  --sp-1:  8px;
+  --sp-2:  16px;
+  --sp-3:  24px;
+  --sp-4:  32px;
+  --sp-5:  48px;
+  --sp-6:  64px;
+  --sp-7:  96px;
+  --sp-8:  128px;
+  --sp-9:  160px;
 
-  /* Typography */
+  /* ── Layout ────────────────────────────────────── */
+  --gutter:      clamp(24px, 5vw, 96px);
+  --radius:      20px;
+  --radius-sm:   12px;
+  --radius-xs:   6px;
+
+  /* ── Rhythm ────────────────────────────────────── */
+  --section-pad: clamp(88px, 11vw, 160px);
+
+  /* ── Typography ─────────────────────────────────── */
   --font-serif: 'Fraunces', serif;
-  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-sans:  'Inter', system-ui, sans-serif;
 }

@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&display=swap');
 @import './tokens.css';
 
-/* Reset */
+/* ── Reset ─────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 
@@ -10,61 +10,110 @@ body {
   background: var(--bone);
   color: var(--text);
   font-family: var(--font-sans);
-  font-size: 16px;
-  line-height: 1.65;
+  font-size: 17px;
+  line-height: 1.75;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-img, svg { display: block; max-width: 100%; }
+img, video { display: block; max-width: 100%; height: auto; }
+svg { display: block; }
 a { color: inherit; }
+p { margin: 0; }
 
-/* Base typography */
-h1, h2, h3 {
+/* ── Type scale ─────────────────────────────────────── */
+h1, h2, h3, h4 {
   font-family: var(--font-serif);
   font-weight: 600;
-  line-height: 1.12;
+  line-height: 1.08;
   margin: 0;
   color: var(--forest);
+  letter-spacing: -0.025em;
+}
+
+h1 {
+  font-size: clamp(3rem, 6.5vw, 5.75rem);
+  line-height: 1.04;
 }
 
 h2 {
-  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
-  letter-spacing: -0.02em;
+  font-size: clamp(2.25rem, 4vw, 3.75rem);
+  line-height: 1.08;
 }
 
-.eyebrow {
-  font-family: var(--font-sans);
-  font-size: 12px;
+h3 {
+  font-size: clamp(1.25rem, 2vw, 1.625rem);
+  letter-spacing: -0.018em;
+}
+
+h4 {
+  font-size: 1rem;
   font-weight: 600;
-  letter-spacing: 0.18em;
+  letter-spacing: 0;
+}
+
+/* ── Utility text styles ─────────────────────────────── */
+.eyebrow {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--gold-deep);
-  margin: 0 0 0.75rem;
+  margin: 0 0 var(--sp-2);
 }
 
-.section-lede {
-  max-width: 46ch;
+.lede {
+  font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+  line-height: 1.65;
   color: var(--text-muted);
-  margin: 0.9rem 0 0;
+  max-width: 52ch;
 }
 
-/* Layout */
-.wrap { max-width: 1360px; margin: 0 auto; padding: 0 40px; }
-section { padding: var(--section-pad) 0; }
-.section-head { max-width: 720px; margin: 0 auto 56px; text-align: center; }
-.section-head.left { margin: 0 0 48px; text-align: left; }
+/* ── Layout primitives ───────────────────────────────── */
+.wrap {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
 
-/* Focus ring */
+section {
+  padding: var(--section-pad) 0;
+}
+
+.section-head {
+  max-width: 760px;
+  margin: 0 auto var(--sp-7);
+  text-align: center;
+}
+.section-head .eyebrow { margin-bottom: var(--sp-2); }
+.section-head h2 { margin-bottom: var(--sp-3); }
+.section-head p { color: var(--text-muted); font-size: 1.1rem; line-height: 1.7; }
+
+.section-head.left {
+  max-width: none;
+  margin: 0 0 var(--sp-6);
+  text-align: left;
+}
+.section-head.left p { margin: var(--sp-2) 0 0; }
+
+/* ── Focus ───────────────────────────────────────────── */
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
 select:focus-visible,
 textarea:focus-visible {
   outline: 2px solid var(--gold-deep);
-  outline-offset: 2px;
+  outline-offset: 3px;
+  border-radius: 4px;
 }
 
-/* Reduced motion */
+/* ── Reduced motion ──────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-  * { transition: none !important; scroll-behavior: auto !important; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
