@@ -13,9 +13,9 @@
   --line-dark: rgba(247, 243, 234, 0.16);
 
   /* Spacing */
-  --radius: 14px;
-  --radius-sm: 8px;
-  --section-pad: 88px;
+  --radius: 20px;
+  --radius-sm: 10px;
+  --section-pad: 112px;
 
   /* Typography */
   --font-serif: 'Fraunces', serif;
