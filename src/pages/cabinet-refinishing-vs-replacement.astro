@@ -96,7 +96,7 @@ const compareRows = [
   <!-- ===== COST CHART ===== -->
   <section class="cost-chart-section">
     <div class="wrap">
-      <div class="section-head" style="text-align:left;">
+      <div class="section-head">
         <p class="eyebrow">Cost at a glance</p>
         <h2>The price gap is real</h2>
       </div>
@@ -135,7 +135,7 @@ const compareRows = [
   <!-- ===== COMPARE TABLE ===== -->
   <section class="compare-section">
     <div class="wrap">
-      <div class="section-head" style="text-align:left;">
+      <div class="section-head">
         <p class="eyebrow">Side by side</p>
         <h2>The full comparison</h2>
       </div>
@@ -147,6 +147,7 @@ const compareRows = [
               <th scope="col" class="col-feature">Feature</th>
               <th scope="col" class="col-diy">DIY Paint</th>
               <th scope="col" class="col-jerry">
+                <span class="col-jerry-stars" aria-label="5 out of 5 stars">★★★★★</span>
                 <span class="col-jerry-label">Jerry &amp; Co.</span>
                 <span class="col-jerry-sub">Refinishing</span>
               </th>
@@ -158,7 +159,7 @@ const compareRows = [
               <tr class:list={['compare-row', { 'compare-row--alt': i % 2 === 1 }]}>
                 <td class="cell-feature">{row.feature}</td>
                 <td class="cell-diy">{row.diy}</td>
-                <td class="cell-jerry">{row.jerry}</td>
+                <td class="cell-jerry"><span class="jerry-check" aria-hidden="true"></span>{row.jerry}</td>
                 <td class="cell-replace">{row.replacement}</td>
               </tr>
             ))}
@@ -212,9 +213,6 @@ const compareRows = [
             <span class="ba-tag">Before</span>
             <p>Dated oak finish, builder-grade</p>
           </div>
-          <div class="ba-divider" aria-hidden="true">
-            <span class="ba-divider-handle">◀ ▶</span>
-          </div>
           <div class="ba-placeholder-half ba-placeholder-half--after">
             <span class="ba-tag">After</span>
             <p>Satin white 2K polyurethane spray</p>
@@ -252,7 +250,6 @@ const compareRows = [
   .vs-hero .lede {
     color: rgba(247, 243, 234, 0.72);
   }
-  /* Invert breadcrumb colors on dark background */
   .vs-hero :global(.breadcrumb-list) {
     color: rgba(247, 243, 234, 0.45);
   }
@@ -273,13 +270,15 @@ const compareRows = [
     padding: clamp(72px, 8vw, 112px) 0;
   }
   .chart-figure {
-    margin: 0;
+    margin: 0 auto;
+    text-align: center;
+    max-width: 540px;
   }
   .cost-chart-svg {
     width: 100%;
-    max-width: 540px;
     height: auto;
     display: block;
+    margin: 0 auto;
   }
   .chart-caption {
     margin-top: 20px;
@@ -287,6 +286,7 @@ const compareRows = [
     color: var(--text-muted);
     letter-spacing: 0.02em;
     line-height: 1.6;
+    text-align: center;
   }
 
   /* ── Compare table ───────────────────────────────── */
@@ -321,13 +321,20 @@ const compareRows = [
     background: var(--bone-deep);
     vertical-align: bottom;
   }
-  /* Highlight our column */
+  /* Jerry & Co. column — highlighted */
   .col-jerry {
     background: var(--bone) !important;
     border-left: 1px solid var(--line);
     border-right: 1px solid var(--line);
     border-top: 3px solid var(--gold) !important;
     color: var(--text) !important;
+  }
+  .col-jerry-stars {
+    display: block;
+    color: var(--gold);
+    font-size: 14px;
+    letter-spacing: 3px;
+    margin-bottom: 8px;
   }
   .col-jerry-label {
     display: block;
@@ -364,6 +371,28 @@ const compareRows = [
     border-right: 1px solid var(--line);
     color: var(--text) !important;
     font-weight: 500;
+  }
+  /* Green checkmark dot before each Jerry cell */
+  .jerry-check {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #2A9D5C;
+    margin-right: 8px;
+    flex-shrink: 0;
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
+  }
+  .jerry-check::after {
+    content: '✓';
+    color: #fff;
+    font-size: 9px;
+    font-weight: 800;
+    line-height: 1;
   }
   .compare-row--alt td { background: rgba(30, 57, 52, 0.02); }
   .compare-row--alt .cell-jerry { background: rgba(200, 160, 85, 0.07); }
@@ -435,30 +464,28 @@ const compareRows = [
   }
   .ba-placeholder {
     max-width: 760px;
+    margin: 0 auto;
   }
   .ba-placeholder-inner {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    gap: 0;
-    background: var(--line);
+    display: flex;
     border-radius: 4px;
     overflow: hidden;
+    border: 1px solid var(--line);
     min-height: 280px;
-    align-items: center;
     margin-bottom: 16px;
   }
   .ba-placeholder-half {
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 12px;
-    height: 280px;
-    padding: 24px;
-    position: relative;
+    padding: 32px 24px;
   }
   .ba-placeholder-half--before {
     background: #C5BAA8;
+    border-right: 2px solid rgba(255, 255, 255, 0.65);
   }
   .ba-placeholder-half--after {
     background: #E8E3DA;
@@ -480,32 +507,12 @@ const compareRows = [
     color: var(--bone);
     border-radius: 3px;
   }
-  .ba-divider {
-    width: 1px;
-    background: var(--line);
-    height: 100%;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .ba-divider-handle {
-    position: absolute;
-    background: var(--bone);
-    border: 1px solid var(--line);
-    border-radius: 3px;
-    padding: 6px 8px;
-    font-size: 9px;
-    letter-spacing: 0.02em;
-    color: var(--text-muted);
-    white-space: nowrap;
-    z-index: 1;
-  }
   .ba-placeholder-note {
     font-size: 12px;
     color: var(--text-muted);
     line-height: 1.6;
     margin: 0;
+    text-align: center;
   }
   .ba-placeholder-note a { color: var(--gold-deep); text-decoration: underline; text-underline-offset: 2px; }
 
@@ -515,9 +522,7 @@ const compareRows = [
     .compare-table th, .compare-table td { padding: 12px 14px; }
   }
   @media (max-width: 540px) {
-    .ba-placeholder-inner { grid-template-columns: 1fr; grid-template-rows: 1fr auto 1fr; min-height: auto; }
-    .ba-placeholder-half { height: 160px; }
-    .ba-divider { width: 100%; height: 1px; }
-    .ba-divider-handle { transform: rotate(90deg); }
+    .ba-placeholder-inner { flex-direction: column; min-height: auto; }
+    .ba-placeholder-half--before { border-right: none; border-bottom: 2px solid rgba(255, 255, 255, 0.65); }
   }
 </style>

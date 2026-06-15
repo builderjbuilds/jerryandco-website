@@ -77,6 +77,23 @@ h4 {
   font-weight: 400;
 }
 
+.section-lede {
+  font-size: 1rem;
+  line-height: 1.72;
+  color: var(--text-muted);
+  max-width: 52ch;
+  margin-top: 16px;
+}
+
+.section-lede-center {
+  font-size: 1rem;
+  line-height: 1.72;
+  color: var(--text-muted);
+  max-width: 48ch;
+  margin: 16px auto 0;
+  text-align: center;
+}
+
 /* ── Layout primitives ───────────────────────────────── */
 .wrap {
   max-width: 1320px;
