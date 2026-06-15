@@ -19,8 +19,8 @@
 
 | Field | Value |
 |---|---|
-| Phone | (978) 930-3412 |
-| Website | www.jerryandcohomeservices.com |
+| Phone | (347) 602-6801 |
+| Website | www.jerryandcobrands.com |
 | Social handle (all platforms) | @improvewithjerryandco |
 | Active platforms | TikTok, Instagram, YouTube, Facebook, LinkedIn, Pinterest, X |
 
