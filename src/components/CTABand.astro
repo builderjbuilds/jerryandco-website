@@ -24,15 +24,39 @@ const {
 
 <style>
   .cta-band {
-    background: var(--ink);
+    background: var(--forest);
     color: var(--bone);
     text-align: center;
-    padding: var(--section-pad) 0;
+    padding: clamp(72px, 8vw, 112px) 0;
+    position: relative;
+    overflow: hidden;
   }
+  /* Ghost number backdrop */
+  .cta-band::before {
+    content: '→';
+    position: absolute;
+    right: 4%;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: var(--font-serif);
+    font-size: clamp(100px, 15vw, 200px);
+    color: rgba(247, 243, 234, 0.04);
+    line-height: 1;
+    user-select: none;
+    pointer-events: none;
+  }
+  .cta-band .wrap { position: relative; }
   .cta-band h2 {
     color: var(--bone);
-    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-size: clamp(1.625rem, 3vw, 2.375rem);
     margin-bottom: 32px;
+    letter-spacing: -0.03em;
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
   }
-  .cta-band .eyebrow { color: var(--gold); }
+  .cta-band .eyebrow {
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
 </style>

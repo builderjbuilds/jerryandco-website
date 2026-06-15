@@ -465,6 +465,14 @@ const towns = [
     .type-cards { grid-template-columns: 1fr; }
     .chip-field { gap: 6px; }
   }
+
+  /* Align type-card border-radius to new rectangular language */
+  .type-card {
+    border-radius: 3px !important;
+  }
+  .type-card:has(input:checked) {
+    border-radius: 3px !important;
+  }
 </style>
 
 <script>

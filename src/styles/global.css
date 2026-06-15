@@ -10,8 +10,9 @@ body {
   background: var(--bone);
   color: var(--text);
   font-family: var(--font-sans);
-  font-size: 17px;
-  line-height: 1.75;
+  font-size: 16px;
+  line-height: 1.72;
+  letter-spacing: 0.008em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -24,79 +25,93 @@ p { margin: 0; }
 /* ── Type scale ─────────────────────────────────────── */
 h1, h2, h3, h4 {
   font-family: var(--font-serif);
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.08;
   margin: 0;
   color: var(--forest);
-  letter-spacing: -0.025em;
+  letter-spacing: -0.03em;
 }
 
 h1 {
-  font-size: clamp(3rem, 6.5vw, 5.75rem);
+  font-size: clamp(2.75rem, 6vw, 5.25rem);
   line-height: 1.04;
+  letter-spacing: -0.035em;
 }
 
 h2 {
-  font-size: clamp(2.25rem, 4vw, 3.75rem);
-  line-height: 1.08;
+  font-size: clamp(2rem, 3.5vw, 3.25rem);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
 }
 
 h3 {
-  font-size: clamp(1.25rem, 2vw, 1.625rem);
-  letter-spacing: -0.018em;
+  font-size: clamp(1.125rem, 1.8vw, 1.5rem);
+  letter-spacing: -0.02em;
+  line-height: 1.25;
 }
 
 h4 {
-  font-size: 1rem;
+  font-size: 0.9375rem;
   font-weight: 600;
-  letter-spacing: 0;
+  letter-spacing: 0.01em;
+  line-height: 1.4;
 }
 
 /* ── Utility text styles ─────────────────────────────── */
 .eyebrow {
   display: block;
   font-family: var(--font-sans);
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 600;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--gold-deep);
-  margin: 0 0 var(--sp-2);
+  margin: 0 0 18px;
 }
 
 .lede {
-  font-size: clamp(1.05rem, 1.5vw, 1.25rem);
-  line-height: 1.65;
+  font-size: clamp(1rem, 1.4vw, 1.1875rem);
+  line-height: 1.7;
   color: var(--text-muted);
-  max-width: 52ch;
+  max-width: 50ch;
+  font-weight: 400;
 }
 
 /* ── Layout primitives ───────────────────────────────── */
 .wrap {
-  max-width: 1440px;
+  max-width: 1320px;
   margin: 0 auto;
   padding: 0 var(--gutter);
 }
 
 section {
-  padding: var(--section-pad) 0;
+  padding: clamp(72px, 8vw, 120px) 0;
 }
 
 .section-head {
-  max-width: 760px;
-  margin: 0 auto var(--sp-7);
+  max-width: 680px;
+  margin: 0 auto clamp(56px, 7vw, 96px);
   text-align: center;
 }
-.section-head .eyebrow { margin-bottom: var(--sp-2); }
-.section-head h2 { margin-bottom: var(--sp-3); }
-.section-head p { color: var(--text-muted); font-size: 1.1rem; line-height: 1.7; }
+.section-head .eyebrow { margin-bottom: 16px; }
+.section-head h2       { margin-bottom: 20px; }
+.section-head p {
+  color: var(--text-muted);
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  max-width: 46ch;
+  margin: 0 auto;
+}
 
 .section-head.left {
   max-width: none;
-  margin: 0 0 var(--sp-6);
+  margin: 0 0 clamp(40px, 5vw, 72px);
   text-align: left;
 }
-.section-head.left p { margin: var(--sp-2) 0 0; }
+.section-head.left p {
+  margin: 16px 0 0;
+  max-width: 52ch;
+}
 
 /* ── Focus ───────────────────────────────────────────── */
 a:focus-visible,
@@ -116,4 +131,13 @@ textarea:focus-visible {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* Premium sites hide scrollbars on Webkit — content still scrolls */
+::-webkit-scrollbar { width: 0; background: transparent; }
+* { scrollbar-width: none; }
+
+::selection {
+  background: rgba(200, 160, 85, 0.22);
+  color: var(--forest);
 }

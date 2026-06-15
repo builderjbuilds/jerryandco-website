@@ -58,6 +58,11 @@ const localBusinessSchema = {
       <p class="footer-blurb">
         Factory-grade cabinet refinishing and bathroom refresh for condo owners across Greater Boston — built around your building's rules, your neighbors, and your timeline.
       </p>
+      <div class="footer-contact">
+        <a href="tel:+13476026801">(347) 602-6801</a>
+        <a href="mailto:jerry@jerryandcohomeservices.com">jerry@jerryandcohomeservices.com</a>
+        <a href="https://www.jerryandcohomeservices.com" style="color:rgba(247,243,234,0.35);font-size:11px;letter-spacing:0.03em;">www.jerryandcohomeservices.com</a>
+      </div>
       <!-- Social icons -->
       <div class="social-row" aria-label="Social media links">
         <a href="https://www.instagram.com/improvewithjerryandco" aria-label="Instagram" rel="noopener noreferrer" target="_blank">
@@ -116,8 +121,15 @@ const localBusinessSchema = {
     </div>
   </div>
 
-  <div class="wrap footer-bottom">
-    <span>© 2026 Jerry &amp; Co. Home Improvement LLC · MA HIC #208336 · All in-unit work performed with building-compliant containment and low-VOC materials</span>
+  <div class="footer-bottom wrap">
+    <p class="footer-legal">
+      © 2026 Jerry &amp; Co. Home Improvement LLC · MA HIC #208336 · All in-unit work performed with building-compliant containment and low-VOC materials.
+    </p>
+    <div class="footer-legal-links">
+      <a href="/guarantee/">Guarantee</a>
+      <a href="/financing/">Financing</a>
+      <a href="/faq/">FAQ</a>
+    </div>
   </div>
 
   <!-- LocalBusiness JSON-LD -->
@@ -128,50 +140,101 @@ const localBusinessSchema = {
   footer {
     background: var(--ink);
     border-top: 1px solid var(--line-dark);
-    color: rgba(247, 243, 234, 0.65);
+    color: rgba(247, 243, 234, 0.6);
+    position: relative;
+    overflow: hidden;
   }
+  /* Ghost serif watermark — agency texture */
+  footer::before {
+    content: 'J&C';
+    position: absolute;
+    right: -2%;
+    bottom: -10%;
+    font-family: var(--font-serif);
+    font-size: clamp(100px, 16vw, 220px);
+    font-weight: 600;
+    color: rgba(247, 243, 234, 0.018);
+    line-height: 1;
+    user-select: none;
+    pointer-events: none;
+    letter-spacing: -0.04em;
+  }
+
   .footer-grid {
     display: grid;
-    grid-template-columns: 1.6fr 1fr 1fr 1fr;
-    gap: 48px;
-    padding: 56px 0 32px;
+    grid-template-columns: 1.8fr 1fr 1fr 1fr;
+    gap: clamp(32px, 4vw, 64px);
+    padding: clamp(56px, 7vw, 96px) 0 40px;
+    position: relative;
   }
+
+  /* Brand column */
   .footer-brand {
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin-bottom: 14px;
+    gap: 10px;
+    margin-bottom: 16px;
   }
-  .footer-brand .logo-mark { color: var(--bone); width: 34px; height: 28px; }
+  .footer-brand .logo-mark {
+    color: var(--bone);
+    width: 30px;
+    height: 24px;
+    flex-shrink: 0;
+  }
   .footer-brand .brand-text {
     font-family: var(--font-serif);
-    font-size: 19px;
-    letter-spacing: 0.04em;
+    font-size: 18px;
+    letter-spacing: 0.02em;
     color: var(--bone);
+    font-weight: 500;
   }
-  .footer-blurb { max-width: 36ch; font-size: 14px; margin: 0 0 16px; }
+
+  .footer-blurb {
+    max-width: 32ch;
+    font-size: 13.5px;
+    margin: 0 0 20px;
+    line-height: 1.72;
+    color: rgba(247, 243, 234, 0.48);
+  }
+
+  /* Contact details in footer brand col */
+  .footer-contact {
+    margin-bottom: 20px;
+  }
+  .footer-contact a {
+    display: block;
+    font-size: 13px;
+    color: var(--gold);
+    text-decoration: none;
+    letter-spacing: 0.01em;
+    line-height: 1.8;
+    transition: color 0.15s;
+  }
+  .footer-contact a:hover { color: var(--bone); }
 
   .social-row {
     display: flex;
-    gap: 14px;
+    gap: 16px;
     align-items: center;
-    margin-top: 6px;
+    margin-top: 4px;
   }
   .social-row a {
-    color: rgba(247, 243, 234, 0.5);
-    transition: color 0.15s;
+    color: rgba(247, 243, 234, 0.38);
+    transition: color 0.2s;
     text-decoration: none;
+    display: flex;
   }
-  .social-row a:hover { color: var(--bone); }
-  .social-row svg { width: 18px; height: 18px; }
+  .social-row a:hover { color: var(--gold); }
+  .social-row svg { width: 17px; height: 17px; }
 
+  /* Link columns */
   .footer-col h4 {
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.14em;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--bone);
-    margin: 0 0 14px;
+    color: rgba(247, 243, 234, 0.28);
+    margin: 0 0 18px;
     font-family: var(--font-sans);
   }
   .footer-col ul {
@@ -180,27 +243,56 @@ const localBusinessSchema = {
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 9px;
-    font-size: 14px;
+    gap: 11px;
+    font-size: 13.5px;
   }
   .footer-col a {
     text-decoration: none;
-    color: rgba(247, 243, 234, 0.65);
+    color: rgba(247, 243, 234, 0.52);
     transition: color 0.15s;
+    letter-spacing: 0.01em;
+    line-height: 1.4;
   }
   .footer-col a:hover { color: var(--bone); }
 
+  /* Bottom bar */
   .footer-bottom {
     border-top: 1px solid var(--line-dark);
-    padding: 22px 0;
-    font-size: 12px;
-    color: rgba(247, 243, 234, 0.45);
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px 32px;
+    position: relative;
   }
+  .footer-legal {
+    font-size: 11px;
+    color: rgba(247, 243, 234, 0.3);
+    letter-spacing: 0.01em;
+    line-height: 1.6;
+    margin: 0;
+  }
+  .footer-legal-links {
+    display: flex;
+    gap: 24px;
+  }
+  .footer-legal-links a {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(247, 243, 234, 0.28);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .footer-legal-links a:hover { color: rgba(247, 243, 234, 0.6); }
 
   @media (max-width: 880px) {
-    .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px; padding: 48px 0 24px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; padding-top: 48px; }
   }
   @media (max-width: 560px) {
-    .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+    .footer-grid { grid-template-columns: 1fr; gap: 36px; }
+    .footer-bottom { flex-direction: column; align-items: flex-start; }
   }
 </style>

@@ -31,6 +31,7 @@
 
   /* ── Rhythm ────────────────────────────────────── */
   --section-pad: clamp(48px, 6vw, 80px);
+  --section-pad-tight: clamp(40px, 5vw, 72px);  /* for denser sections like testimonials */
 
   /* ── Typography ─────────────────────────────────── */
   --font-serif: 'Fraunces', serif;
