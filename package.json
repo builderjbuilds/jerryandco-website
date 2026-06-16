@@ -9,7 +9,14 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "media:generate": "npx tsx scripts/generate-media.ts",
+    "media:generate:dry": "npx tsx scripts/generate-media.ts --dry-run",
+    "media:swatches": "npx tsx scripts/generate-swatches.ts",
+    "media:swatches:dry": "npx tsx scripts/generate-swatches.ts --dry-run",
+    "media:upload": "npx tsx scripts/upload-approved.ts",
+    "media:preview": "npx tsx scripts/preview-server.ts",
+    "media:upload-photo": "npx tsx scripts/upload-real-photo.ts"
   },
   "dependencies": {
     "@astrojs/netlify": "^6.0.0",
@@ -17,6 +24,7 @@
     "astro": "^6.4.6"
   },
   "devDependencies": {
+    "@types/node": "^25.9.3",
     "cloudinary": "^2.10.0",
     "dotenv": "^17.4.2",
     "tsx": "^4.22.4"
