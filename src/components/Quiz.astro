@@ -1,0 +1,598 @@
+---
+// Quiz.astro — 6-question cabinet refinishing fit quiz
+// island: rendered as .astro with client-side <script> block
+// All question data lives in the script block; Astro outputs the shell + steps.
+
+const TOTAL = 6;
+---
+
+<div class="quiz" data-quiz>
+
+  <!-- ── Progress ──────────────────────────────────────── -->
+  <div class="quiz-progress-area">
+    <div class="quiz-progress-track">
+      <div class="quiz-progress-fill" data-quiz-fill></div>
+    </div>
+    <div class="quiz-progress-meta">
+      <span class="quiz-step-label" data-quiz-label>Question 1 of {TOTAL}</span>
+      <button class="quiz-restart" data-quiz-restart hidden type="button">Start over</button>
+    </div>
+  </div>
+
+  <!-- ── Steps ─────────────────────────────────────────── -->
+
+  <!-- Q1 -->
+  <div class="quiz-step" data-step="0">
+    <p class="quiz-q-eyebrow">Question 1 of {TOTAL}</p>
+    <h2 class="quiz-q-text">How are your cabinet boxes holding up?</h2>
+    <div class="quiz-answers" role="group" aria-label="Select an answer">
+      <button class="quiz-answer" data-score="2" data-value="solid" type="button">
+        <span class="qa-label">Solid — just looking dated</span>
+        <span class="qa-sub">Frames, doors, and hinges are all functional</span>
+      </button>
+      <button class="quiz-answer" data-score="1" data-value="some-wear" type="button">
+        <span class="qa-label">Some wear, mostly functional</span>
+        <span class="qa-sub">A few chips or swollen areas — but still usable</span>
+      </button>
+      <button class="quiz-answer" data-score="-2" data-value="damaged" type="button">
+        <span class="qa-label">Water damage or falling apart</span>
+        <span class="qa-sub">Structural issues with frames, drawers, or boxes</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="quiz-step" data-step="1" hidden>
+    <p class="quiz-q-eyebrow">Question 2 of {TOTAL}</p>
+    <h2 class="quiz-q-text">What are your cabinets made of?</h2>
+    <div class="quiz-answers" role="group" aria-label="Select an answer">
+      <button class="quiz-answer" data-score="2" data-value="wood" type="button">
+        <span class="qa-label">Solid wood or wood veneer</span>
+        <span class="qa-sub">Best candidates — finish bonds strongly to real wood</span>
+      </button>
+      <button class="quiz-answer" data-score="0" data-value="laminate" data-flag="laminate" type="button">
+        <span class="qa-label">Laminate or thermofoil</span>
+        <span class="qa-sub">Possible in many cases — depends on adhesion condition</span>
+      </button>
+      <button class="quiz-answer" data-score="1" data-value="unknown" type="button">
+        <span class="qa-label">Not sure</span>
+        <span class="qa-sub">Common if you're in a condo with builder-grade cabinetry</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="quiz-step" data-step="2" hidden>
+    <p class="quiz-q-eyebrow">Question 3 of {TOTAL}</p>
+    <h2 class="quiz-q-text">Happy with your current kitchen layout?</h2>
+    <div class="quiz-answers" role="group" aria-label="Select an answer">
+      <button class="quiz-answer" data-score="2" data-value="yes" type="button">
+        <span class="qa-label">Yes — just want a fresh look</span>
+        <span class="qa-sub">Love the layout, hate the color</span>
+      </button>
+      <button class="quiz-answer" data-score="1" data-value="mostly" type="button">
+        <span class="qa-label">Mostly — maybe minor tweaks</span>
+        <span class="qa-sub">Could swap a door panel or add a shelf, nothing major</span>
+      </button>
+      <button class="quiz-answer" data-score="-2" data-value="no" type="button">
+        <span class="qa-label">No — I want to reconfigure</span>
+        <span class="qa-sub">Move walls, add an island, or completely change the footprint</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="quiz-step" data-step="3" hidden>
+    <p class="quiz-q-eyebrow">Question 4 of {TOTAL}</p>
+    <h2 class="quiz-q-text">What's your color goal?</h2>
+    <div class="quiz-answers" role="group" aria-label="Select an answer">
+      <button class="quiz-answer" data-score="1" data-value="same" type="button">
+        <span class="qa-label">Same color, just refreshed</span>
+        <span class="qa-sub">Restore the original look — crisp and factory-smooth</span>
+      </button>
+      <button class="quiz-answer" data-score="2" data-value="new-color" type="button">
+        <span class="qa-label">A completely new color</span>
+        <span class="qa-sub">Going from honey oak to deep green, white, navy, or anything else</span>
+      </button>
+      <button class="quiz-answer" data-score="1" data-value="not-sure" data-colors-hint type="button">
+        <span class="qa-label">Not sure yet</span>
+        <span class="qa-sub">
+          Haven't decided — we'll show you options
+          <span class="qa-colors-nudge">Browse our palette guide at <strong>/colors/</strong> any time</span>
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="quiz-step" data-step="4" hidden>
+    <p class="quiz-q-eyebrow">Question 5 of {TOTAL}</p>
+    <h2 class="quiz-q-text">What type of property is this?</h2>
+    <div class="quiz-answers" role="group" aria-label="Select an answer">
+      <button class="quiz-answer" data-score="2" data-value="own-condo" type="button">
+        <span class="qa-label">My own condo or co-op</span>
+        <span class="qa-sub">We know condo boards, HOAs, and elevator scheduling</span>
+      </button>
+      <button class="quiz-answer" data-score="2" data-value="landlord" type="button">
+        <span class="qa-label">A rental or multi-unit building I own</span>
+        <span class="qa-sub">Turnover refresh, tenant-ready, can do multiple units</span>
+      </button>
+      <button class="quiz-answer" data-score="1" data-value="single-family" type="button">
+        <span class="qa-label">A single-family home</span>
+        <span class="qa-sub">Colonial, ranch, split-level — same factory-finish quality</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="quiz-step" data-step="5" hidden>
+    <p class="quiz-q-eyebrow">Question 6 of {TOTAL}</p>
+    <h2 class="quiz-q-text">When are you hoping to get started?</h2>
+    <p class="quiz-q-note">This helps us plan — no commitment required.</p>
+    <div class="quiz-answers" role="group" aria-label="Select an answer">
+      <button class="quiz-answer" data-score="0" data-value="asap" type="button">
+        <span class="qa-label">ASAP</span>
+        <span class="qa-sub">Ready to book when we've talked</span>
+      </button>
+      <button class="quiz-answer" data-score="0" data-value="within-30-days" type="button">
+        <span class="qa-label">Within 30 days</span>
+        <span class="qa-sub">Getting quotes now, ready to decide soon</span>
+      </button>
+      <button class="quiz-answer" data-score="0" data-value="1-3-months" type="button">
+        <span class="qa-label">1–3 months from now</span>
+        <span class="qa-sub">Planning ahead — no rush to book today</span>
+      </button>
+      <button class="quiz-answer" data-score="0" data-value="just-exploring" type="button">
+        <span class="qa-label">Just exploring options</span>
+        <span class="qa-sub">No timeline yet — still in research mode</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ── Outcome A — Great fit ──────────────────────────── -->
+  <div class="quiz-outcome quiz-outcome-a" data-outcome="a" hidden>
+    <div class="outcome-icon-wrap outcome-a-icon">
+      <svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
+        <circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="2"/>
+        <path d="M14 24l7 7 13-14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <h2 class="outcome-headline">Cabinet refinishing is a great fit.</h2>
+    <p class="outcome-body">
+      Your cabinets have solid bones, good material compatibility, and a clear color goal.
+      Refinishing will give you a factory-smooth finish in 2–5 days — fraction of the cost
+      and disruption of a full replacement.
+    </p>
+    <div class="outcome-details" data-outcome-details></div>
+    <a class="btn btn-gold outcome-cta" data-outcome-cta href="/#estimate">
+      Get my free video estimate →
+    </a>
+    <p class="outcome-fine">Free estimate · No commitment · Same-day written quote</p>
+    <button class="outcome-restart" data-quiz-restart type="button">Retake quiz</button>
+  </div>
+
+  <!-- ── Outcome B — Good with caveats ─────────────────── -->
+  <div class="quiz-outcome quiz-outcome-b" data-outcome="b" hidden>
+    <div class="outcome-icon-wrap outcome-b-icon">
+      <svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
+        <circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="2"/>
+        <path d="M24 16v9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="24" cy="32" r="1.5" fill="currentColor"/>
+      </svg>
+    </div>
+    <h2 class="outcome-headline">Refinishing could work well — with a few notes.</h2>
+    <p class="outcome-body">
+      Based on your answers, refinishing is likely a good option, but there's one or two
+      things worth discussing. We'll do a quick video walkthrough and give you an honest
+      assessment — including whether a bathroom refresh bundle makes sense alongside it.
+    </p>
+    <div class="outcome-details" data-outcome-details></div>
+    <a class="btn btn-gold outcome-cta" data-outcome-cta href="/#estimate">
+      Get my free video estimate →
+    </a>
+    <p class="outcome-fine">We'll be upfront if refinishing isn't the right call for your cabinets.</p>
+    <button class="outcome-restart" data-quiz-restart type="button">Retake quiz</button>
+  </div>
+
+  <!-- ── Outcome C — Fuller renovation ─────────────────── -->
+  <div class="quiz-outcome quiz-outcome-c" data-outcome="c" hidden>
+    <div class="outcome-icon-wrap outcome-c-icon">
+      <svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
+        <circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="2"/>
+        <path d="M18 18l12 12M30 18L18 30" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <h2 class="outcome-headline">You may be better served by a fuller renovation.</h2>
+    <p class="outcome-body">
+      Based on your answers, cabinet refinishing alone may not achieve the result you're
+      looking for. That's okay — we offer full-scope bathroom and kitchen renovation
+      planning, and we'll give you an honest picture of what the right path looks like
+      for your space.
+    </p>
+    <div class="outcome-details" data-outcome-details></div>
+    <a class="btn btn-gold outcome-cta" href="/#estimate?project=full-bathroom-reno">
+      Talk to us about a full renovation →
+    </a>
+    <p class="outcome-fine">No obligation — we'll tell you what actually makes sense for your space.</p>
+    <button class="outcome-restart" data-quiz-restart type="button">Retake quiz</button>
+  </div>
+
+</div>
+
+<style>
+  /* ── Shell ─────────────────────────────────────────── */
+  .quiz {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  /* ── Progress ──────────────────────────────────────── */
+  .quiz-progress-area {
+    margin-bottom: clamp(28px, 4vw, 40px);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .quiz-progress-track {
+    height: 4px;
+    background: var(--line);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .quiz-progress-fill {
+    height: 100%;
+    background: var(--forest);
+    border-radius: 2px;
+    width: 0%;
+    transition: width 0.35s ease;
+  }
+  .quiz-progress-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .quiz-step-label {
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+  .quiz-restart {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    text-decoration: underline;
+    text-decoration-color: rgba(0,0,0,0.25);
+  }
+  .quiz-restart:hover { color: var(--text); }
+
+  /* ── Question step ─────────────────────────────────── */
+  .quiz-step[hidden],
+  .quiz-outcome[hidden] { display: none; }
+
+  .quiz-q-eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    margin: 0 0 12px;
+  }
+  .quiz-q-text {
+    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+    letter-spacing: -0.025em;
+    line-height: 1.25;
+    color: var(--forest);
+    margin: 0 0 clamp(20px, 3vw, 32px);
+  }
+  .quiz-q-note {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin: -16px 0 20px;
+  }
+
+  /* ── Answer cards ──────────────────────────────────── */
+  .quiz-answers {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .quiz-answer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    background: var(--bone);
+    border: 1.5px solid var(--line);
+    border-radius: 4px;
+    padding: clamp(16px, 2.5vw, 20px) clamp(18px, 3vw, 24px);
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
+    transition: border-color 0.12s, background 0.12s, transform 0.08s;
+    position: relative;
+  }
+  .quiz-answer:hover {
+    border-color: var(--gold);
+    background: rgba(200,160,85,0.05);
+  }
+  .quiz-answer:focus-visible {
+    outline: 2px solid var(--gold-deep);
+    outline-offset: 2px;
+  }
+  .quiz-answer.selected {
+    border-color: var(--forest);
+    background: rgba(27,61,47,0.04);
+  }
+  .quiz-answer.selected::after {
+    content: '';
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--forest);
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 10l4 4 6-7' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-size: 14px;
+    background-position: center;
+    background-repeat: no-repeat;
+    flex-shrink: 0;
+  }
+
+  .qa-label {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.3;
+    padding-right: 32px;
+  }
+  .qa-sub {
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    display: block;
+  }
+  .qa-colors-nudge {
+    display: block;
+    margin-top: 4px;
+    font-size: 0.75rem;
+    color: var(--gold-deep);
+    font-style: italic;
+  }
+
+  /* ── Outcome screens ───────────────────────────────── */
+  .quiz-outcome {
+    text-align: center;
+    padding: clamp(32px, 4vw, 48px) clamp(24px, 4vw, 40px);
+    border: 1.5px solid var(--line);
+    border-radius: 4px;
+    background: var(--bone);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .outcome-icon-wrap {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 4px;
+  }
+  .outcome-icon-wrap svg { width: 48px; height: 48px; }
+  .outcome-a-icon { background: rgba(27,61,47,0.08); color: var(--forest); }
+  .outcome-b-icon { background: rgba(200,160,85,0.12); color: var(--gold-deep); }
+  .outcome-c-icon { background: rgba(0,0,0,0.05); color: var(--text-muted); }
+
+  .outcome-headline {
+    font-size: clamp(1.25rem, 2.5vw, 1.625rem);
+    letter-spacing: -0.025em;
+    color: var(--forest);
+    margin: 0;
+    max-width: 42ch;
+  }
+  .outcome-body {
+    font-size: 1rem;
+    line-height: 1.72;
+    color: var(--text-muted);
+    margin: 0;
+    max-width: 52ch;
+  }
+
+  .outcome-details {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    background: rgba(200,160,85,0.06);
+    border: 1px solid rgba(200,160,85,0.2);
+    border-radius: 3px;
+    padding: 12px 16px;
+    text-align: left;
+    width: 100%;
+    max-width: 460px;
+    line-height: 1.65;
+    display: none;
+  }
+  .outcome-details:not(:empty) { display: block; }
+
+  .outcome-cta {
+    margin-top: 8px;
+    font-size: 1rem;
+  }
+  .outcome-fine {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin: 0;
+    letter-spacing: 0.01em;
+  }
+  .outcome-restart {
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-color: rgba(0,0,0,0.2);
+    padding: 0;
+    margin-top: -4px;
+  }
+  .outcome-restart:hover { color: var(--text); }
+
+  /* ── Mobile ────────────────────────────────────────── */
+  @media (max-width: 480px) {
+    .quiz-answer { padding: 14px 16px; }
+    .quiz-answer.selected::after { right: 14px; }
+  }
+</style>
+
+<script>
+  (function () {
+    const quiz = document.querySelector<HTMLElement>('[data-quiz]');
+    if (!quiz || quiz.dataset.quizInit) return;
+    quiz.dataset.quizInit = '1';
+
+    // ── DOM refs ────────────────────────────────────────
+    const steps     = quiz.querySelectorAll<HTMLElement>('[data-step]');
+    const outcomes  = quiz.querySelectorAll<HTMLElement>('[data-outcome]');
+    const fillEl    = quiz.querySelector<HTMLElement>('[data-quiz-fill]');
+    const labelEl   = quiz.querySelector<HTMLElement>('[data-quiz-label]');
+    const restartBtns = quiz.querySelectorAll<HTMLButtonElement>('[data-quiz-restart]');
+
+    const TOTAL = 6;
+
+    // ── State ───────────────────────────────────────────
+    interface Answer { score: number; value: string; flag?: string }
+    let answers: Answer[] = [];
+    let currentStep = 0;
+    let hasLaminateFlag = false;
+
+    // ── Helpers ─────────────────────────────────────────
+    function showStep(idx: number) {
+      steps.forEach((s, i) => { s.hidden = i !== idx; });
+      outcomes.forEach(o => { o.hidden = true; });
+      const pct = Math.round((idx / TOTAL) * 100);
+      if (fillEl) fillEl.style.width = `${pct}%`;
+      if (labelEl) labelEl.textContent = `Question ${idx + 1} of ${TOTAL}`;
+
+      // Restart button only visible during questions (not outcomes)
+      const restartHeader = quiz.querySelector<HTMLButtonElement>('.quiz-restart');
+      if (restartHeader) restartHeader.hidden = true;
+    }
+
+    function showOutcome(key: string) {
+      steps.forEach(s => { s.hidden = true; });
+      outcomes.forEach(o => { o.hidden = o.dataset.outcome !== key; });
+      if (fillEl) fillEl.style.width = '100%';
+      if (labelEl) labelEl.textContent = 'Your result';
+
+      const restartHeader = quiz.querySelector<HTMLButtonElement>('.quiz-restart');
+      if (restartHeader) restartHeader.hidden = false;
+
+      // Build CTA URL for A/B outcomes
+      const typeAns     = answers[4]?.value ?? '';
+      const timelineAns = answers[5]?.value ?? '';
+
+      const activeOutcome = quiz.querySelector<HTMLElement>(`[data-outcome="${key}"]`);
+      if (!activeOutcome) return;
+
+      if (key !== 'c') {
+        const cta = activeOutcome.querySelector<HTMLAnchorElement>('[data-outcome-cta]');
+        if (cta) {
+          const url = new URL('/#estimate', window.location.origin);
+          url.searchParams.set('project', 'cabinet-refinishing');
+          if (typeAns)     url.searchParams.set('type',     typeAns);
+          if (timelineAns) url.searchParams.set('timeline', timelineAns);
+          cta.href = url.pathname + url.search + url.hash;
+        }
+      }
+
+      // Add laminate flag note if applicable
+      if (hasLaminateFlag) {
+        const detailEls = activeOutcome.querySelectorAll<HTMLElement>('[data-outcome-details]');
+        detailEls.forEach(el => {
+          el.textContent = 'Your cabinets may be laminate or thermofoil — refinishing is possible in many cases, but depends on adhesion condition. We\'ll confirm compatibility during your free video walkthrough.';
+        });
+      }
+
+      // PostHog
+      const ph = (window as any).posthog;
+      if (ph && typeof ph.capture === 'function') {
+        ph.capture('quiz_completed', {
+          outcome: key.toUpperCase(),
+          score: answers.reduce((sum, a) => sum + a.score, 0),
+          property_type: typeAns,
+          timeline: timelineAns,
+          laminate_flag: hasLaminateFlag,
+        });
+      }
+
+      // Scroll outcome into view smoothly
+      activeOutcome.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function computeOutcome(): string {
+      const score    = answers.reduce((sum, a) => sum + a.score, 0);
+      const negatives = answers.filter(a => a.score < 0).length;
+      if (score < 3 || negatives >= 2) return 'c';
+      if (score >= 6 && negatives === 0) return 'a';
+      return 'b';
+    }
+
+    function reset() {
+      answers = [];
+      currentStep = 0;
+      hasLaminateFlag = false;
+      // Clear selected states
+      quiz.querySelectorAll<HTMLElement>('.quiz-answer.selected').forEach(b => b.classList.remove('selected'));
+      showStep(0);
+    }
+
+    // ── Answer click handler ─────────────────────────────
+    quiz.querySelectorAll<HTMLButtonElement>('.quiz-answer').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const score = parseInt(btn.dataset.score ?? '0', 10);
+        const value = btn.dataset.value ?? '';
+        const flag  = btn.dataset.flag ?? '';
+
+        // Visual feedback
+        const stepEl = btn.closest<HTMLElement>('[data-step]');
+        stepEl?.querySelectorAll('.quiz-answer').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+
+        if (flag === 'laminate') hasLaminateFlag = true;
+
+        answers[currentStep] = { score, value, flag: flag || undefined };
+
+        // Short delay so selected state is visible before advancing
+        setTimeout(() => {
+          currentStep++;
+          if (currentStep < TOTAL) {
+            showStep(currentStep);
+          } else {
+            showOutcome(computeOutcome());
+          }
+        }, 220);
+      });
+    });
+
+    // ── Restart ──────────────────────────────────────────
+    restartBtns.forEach(btn => btn.addEventListener('click', reset));
+
+    // ── Init ─────────────────────────────────────────────
+    showStep(0);
+  })();
+</script>

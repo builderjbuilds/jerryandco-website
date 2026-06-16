@@ -1,0 +1,521 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import CTABand from '../components/CTABand.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import SchemaLD from '../components/SchemaLD.astro';
+
+const title = 'Cabinet Refinishing Colors & Finishes | Jerry & Co. Greater Boston';
+const description =
+  'Explore our curated cabinet finish palette — Deep Forest, Bone White, Navy Shaker, Charcoal Matte, and more. All finishes applied in 2K polyurethane for a factory-smooth result.';
+const canonical = 'https://www.jerryandcohomeservices.com/colors/';
+
+const CLD = `https://res.cloudinary.com/${import.meta.env.PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`;
+const swatch = (slug: string) => `${CLD}/f_auto,q_auto,w_600/v1/colors/${slug}-swatch.jpg`;
+
+const palettes = [
+  {
+    slug: 'deep-forest',
+    name: 'Deep Forest',
+    hex: '#1B3D2F',
+    mood: 'Rich, grounded, and timeless — pairs with brass and warm wood tones.',
+    note: 'Our most-requested condo color.',
+    brand: true,
+  },
+  {
+    slug: 'bone-white',
+    name: 'Bone White',
+    hex: '#F0EBE1',
+    mood: 'Warm white with a hint of cream — makes any kitchen feel larger and lighter.',
+    note: null,
+    brand: false,
+  },
+  {
+    slug: 'soft-sage',
+    name: 'Soft Sage',
+    hex: '#8FA68A',
+    mood: 'Muted green with gray undertones — calm, contemporary, and easy to live with.',
+    note: null,
+    brand: false,
+  },
+  {
+    slug: 'charcoal-matte',
+    name: 'Charcoal Matte',
+    hex: '#3D3D3D',
+    mood: 'Dramatic and modern — strong contrast against white countertops and light tile.',
+    note: null,
+    brand: false,
+  },
+  {
+    slug: 'navy-shaker',
+    name: 'Navy Shaker',
+    hex: '#1D2E4A',
+    mood: 'Deep inky blue — bold focal point for open-concept kitchens.',
+    note: null,
+    brand: false,
+  },
+  {
+    slug: 'warm-taupe',
+    name: 'Warm Taupe',
+    hex: '#C2B5A4',
+    mood: 'Neutral with warmth — works with nearly every countertop and flooring combination.',
+    note: null,
+    brand: false,
+  },
+  {
+    slug: 'matte-black',
+    name: 'Matte Black',
+    hex: '#1A1A1A',
+    mood: 'Maximum contrast. High-impact choice for shaker doors with black hardware.',
+    note: null,
+    brand: false,
+  },
+  {
+    slug: 'champagne',
+    name: 'Champagne',
+    hex: '#D4C4A0',
+    mood: 'Warm gold-adjacent neutral — transitions between traditional and transitional style.',
+    note: null,
+    brand: false,
+  },
+];
+
+const breadcrumbSchema = {
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home',   item: 'https://www.jerryandcohomeservices.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Colors', item: canonical },
+  ],
+};
+---
+
+<Base title={title} description={description} canonical={canonical}>
+  <Fragment slot="head">
+    <SchemaLD type="BreadcrumbList" data={breadcrumbSchema} />
+  </Fragment>
+
+  <Header />
+
+  <!-- ===== BREADCRUMB ===== -->
+  <div class="wrap breadcrumb-wrap">
+    <Breadcrumb crumbs={[{ label: 'Home', href: '/' }, { label: 'Colors' }]} />
+  </div>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero-colors">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Finish palette</p>
+        <h1>Explore finishes</h1>
+        <p class="lede">
+          Eight curated colors, all available in 2K polyurethane — a factory-hard finish
+          that doesn't yellow, peel, or chip like standard paint. Every shade applied
+          the same way: spray-applied, factory-smooth, and guaranteed.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PALETTE GRID ===== -->
+  <section class="section-palette">
+    <div class="wrap">
+      <div class="palette-finish-note">
+        <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.25"/>
+          <path d="M8 5.5v4" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/>
+          <circle cx="8" cy="11" r="0.65" fill="currentColor"/>
+        </svg>
+        All finishes shown are available in flat, satin, and semi-gloss sheen — final swatch colors are for reference only; viewing on screen may shift appearance.
+      </div>
+
+      <div class="palette-grid">
+        {palettes.map(p => (
+          <div class={`palette-card${p.brand ? ' palette-card-featured' : ''}`}>
+            <!-- Swatch image -->
+            <div class="palette-swatch-wrap">
+              <img
+                src={swatch(p.slug)}
+                alt={`${p.name} cabinet finish swatch — ${p.mood}`}
+                loading="lazy"
+                decoding="async"
+                class="palette-swatch-img"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+              />
+              <!-- Color fallback if Cloudinary image not yet uploaded -->
+              <div
+                class="palette-swatch-fallback"
+                style={`background-color: ${p.hex}; display: none;`}
+                aria-label={`${p.name} color swatch (placeholder)`}
+              ></div>
+              {p.brand && (
+                <div class="palette-brand-chip">Brand color</div>
+              )}
+            </div>
+
+            <!-- Card body -->
+            <div class="palette-card-body">
+              <div class="palette-color-dot" style={`background: ${p.hex};`} aria-hidden="true"></div>
+              <h2 class="palette-name">{p.name}</h2>
+              <p class="palette-hex">{p.hex}</p>
+              <p class="palette-mood">{p.mood}</p>
+              {p.note && (
+                <p class="palette-note">{p.note}</p>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- ── Custom color note ────────────────────────────── -->
+      <div class="custom-color-note">
+        <div class="ccn-inner">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 3"/>
+          </svg>
+          <div>
+            <strong>Want a color not shown here?</strong>
+            <p>
+              We can match any Benjamin Moore, Sherwin-Williams, or custom swatch. Bring us a paint chip
+              or a hex code and we'll have a color-matched 2K sample for approval before the project starts.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== QUIZ CTA ===== -->
+  <section class="section-quiz-cta">
+    <div class="wrap quiz-cta-inner">
+      <div class="quiz-cta-text">
+        <p class="eyebrow">Not sure which finish fits your kitchen?</p>
+        <h2>Take the 2-minute cabinet fit quiz.</h2>
+        <p class="section-lede">
+          Answer 6 questions about your cabinets, your goals, and your timeline.
+          We'll tell you if refinishing makes sense — and suggest a finish direction
+          based on your answers.
+        </p>
+        <a href="/cabinet-quiz/" class="btn btn-gold">Take the quiz →</a>
+      </div>
+      <div class="quiz-cta-grid" aria-hidden="true">
+        {['deep-forest', 'bone-white', 'soft-sage', 'navy-shaker'].map(slug => (
+          <div class="qcg-dot" style={`background: ${palettes.find(p => p.slug === slug)?.hex ?? '#ccc'}`}></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FINISH EXPLAINER ===== -->
+  <section class="section-finish-detail">
+    <div class="wrap">
+      <div class="section-head section-head-left">
+        <p class="eyebrow">Why the finish matters as much as the color</p>
+        <h2>2K polyurethane vs. standard paint</h2>
+      </div>
+      <div class="finish-compare-grid">
+        <div class="fc-col fc-col-bad">
+          <h3 class="fc-heading">Standard latex paint</h3>
+          <ul class="fc-list">
+            <li>Single-component — no cross-linking chemistry</li>
+            <li>Soft surface: scratches, dents, and yellows over time</li>
+            <li>Brush or roller marks visible in raking light</li>
+            <li>Typically 1–3 year durability before touch-ups are needed</li>
+          </ul>
+        </div>
+        <div class="fc-col fc-col-good">
+          <h3 class="fc-heading">2K polyurethane (Jerry & Co.)</h3>
+          <ul class="fc-list">
+            <li>Two-component chemistry — hardener catalyzes finish to factory hardness</li>
+            <li>Scratch-resistant, impact-resistant, and UV stable</li>
+            <li>HVLP spray application — smooth as a factory door</li>
+            <li>7–10+ year durability with normal kitchen use</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA BAND ===== -->
+  <CTABand
+    eyebrow="Ready to pick your finish?"
+    headline="Get a same-day written estimate"
+    ctaText="Start my free estimate"
+  />
+
+  <Footer />
+</Base>
+
+<style>
+  /* ── Breadcrumb ─────────────────────────────────────── */
+  .breadcrumb-wrap { padding-top: 24px; }
+
+  /* ── Hero ───────────────────────────────────────────── */
+  .hero-colors {
+    background: var(--bone-deep);
+    padding: clamp(60px, 8vw, 100px) 0 clamp(40px, 5vw, 64px);
+    border-bottom: 1px solid var(--line);
+  }
+  .hero-colors .lede { max-width: 60ch; margin: 0 auto; }
+
+  /* ── Palette section ────────────────────────────────── */
+  .section-palette {
+    background: var(--bone);
+    padding: clamp(56px, 7vw, 96px) 0;
+  }
+
+  /* Finish note */
+  .palette-finish-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    background: rgba(200,160,85,0.07);
+    border: 1px solid rgba(200,160,85,0.2);
+    border-radius: 3px;
+    padding: 12px 16px;
+    margin-bottom: clamp(32px, 4vw, 48px);
+    max-width: 72ch;
+    line-height: 1.55;
+  }
+  .palette-finish-note svg { width: 14px; height: 14px; flex-shrink: 0; margin-top: 1px; color: var(--gold-deep); }
+
+  /* Palette grid */
+  .palette-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .palette-card {
+    background: var(--bone);
+    display: flex;
+    flex-direction: column;
+    transition: background 0.12s;
+  }
+  .palette-card:hover { background: var(--bone-deep); }
+  .palette-card-featured {
+    background: rgba(27,61,47,0.03);
+  }
+  .palette-card-featured:hover { background: rgba(27,61,47,0.06); }
+
+  /* Swatch image */
+  .palette-swatch-wrap {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: var(--bone-deep);
+  }
+  .palette-swatch-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .palette-swatch-fallback {
+    width: 100%;
+    height: 100%;
+  }
+  .palette-brand-chip {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-family: var(--font-sans);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--bone);
+    background: var(--forest);
+    border-radius: 2px;
+    padding: 3px 8px;
+  }
+
+  /* Card body */
+  .palette-card-body {
+    padding: clamp(16px, 2.5vw, 22px);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+  }
+  .palette-color-dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,0,0,0.12);
+    margin-bottom: 6px;
+    flex-shrink: 0;
+  }
+  .palette-name {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: var(--text);
+    margin: 0;
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+  }
+  .palette-hex {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+    margin: 0 0 6px;
+    font-variant-numeric: tabular-nums;
+  }
+  .palette-mood {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin: 0;
+  }
+  .palette-note {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--gold-deep);
+    margin: 6px 0 0;
+    letter-spacing: 0.01em;
+  }
+
+  /* Custom color note */
+  .custom-color-note {
+    margin-top: clamp(32px, 4vw, 48px);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    background: var(--bone-deep);
+    padding: clamp(20px, 3vw, 28px) clamp(20px, 3vw, 28px);
+  }
+  .ccn-inner {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .ccn-inner svg {
+    width: 22px;
+    height: 22px;
+    color: var(--gold-deep);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .ccn-inner strong {
+    display: block;
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--forest);
+    margin-bottom: 6px;
+  }
+  .ccn-inner p {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  /* ── Quiz CTA section ───────────────────────────────── */
+  .section-quiz-cta {
+    background: var(--forest);
+    padding: clamp(56px, 7vw, 88px) 0;
+    color: var(--bone);
+  }
+  .quiz-cta-inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: clamp(40px, 6vw, 80px);
+    align-items: center;
+  }
+  .quiz-cta-text .eyebrow { color: var(--gold); }
+  .quiz-cta-text h2 { color: var(--bone); margin-bottom: 16px; }
+  .quiz-cta-text .section-lede { color: rgba(247,243,234,0.72); }
+  .quiz-cta-text .btn { margin-top: 24px; }
+
+  /* Color dot grid decoration */
+  .quiz-cta-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    flex-shrink: 0;
+  }
+  .qcg-dot {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.12);
+  }
+
+  /* ── Finish compare ─────────────────────────────────── */
+  .section-finish-detail {
+    background: var(--bone-deep);
+    padding: clamp(56px, 7vw, 96px) 0;
+  }
+  .section-head-left { text-align: left; }
+  .section-head-left h2 { max-width: none; }
+  .finish-compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-top: clamp(32px, 4vw, 48px);
+  }
+  .fc-col {
+    background: var(--bone);
+    padding: clamp(24px, 3.5vw, 36px);
+  }
+  .fc-col-good { background: rgba(27,61,47,0.04); }
+  .fc-heading {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin: 0 0 16px;
+  }
+  .fc-col-bad .fc-heading { color: var(--text-muted); }
+  .fc-col-good .fc-heading { color: var(--forest); }
+  .fc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .fc-list li {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    padding-left: 20px;
+    position: relative;
+  }
+  .fc-col-bad .fc-list li::before {
+    content: '✗';
+    position: absolute;
+    left: 0;
+    color: #b05a5a;
+    font-size: 0.8rem;
+  }
+  .fc-col-good .fc-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--forest);
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  /* ── Responsive ─────────────────────────────────────── */
+  @media (max-width: 768px) {
+    .quiz-cta-inner { grid-template-columns: 1fr; }
+    .quiz-cta-grid { display: none; }
+    .finish-compare-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 480px) {
+    .palette-grid { grid-template-columns: 1fr; }
+  }
+</style>

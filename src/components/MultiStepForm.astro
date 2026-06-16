@@ -599,5 +599,10 @@ const towns = [
       const r = msf.querySelector<HTMLInputElement>(`input[name="property_type"][value="${pType}"]`);
       if (r) r.checked = true;
     }
+    const pTimeline = params.get('timeline');
+    if (pTimeline) {
+      const r = msf.querySelector<HTMLInputElement>(`input[name="timeline"][value="${pTimeline}"]`);
+      if (r) r.checked = true;
+    }
   })();
 </script>
