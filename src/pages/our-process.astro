@@ -1,0 +1,485 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import CTABand from '../components/CTABand.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import SchemaLD from '../components/SchemaLD.astro';
+
+const title = 'How Cabinet Refinishing Works — Our 5-Step Process | Jerry & Co.';
+const description =
+  'The Jerry & Co. cabinet refinishing process: video estimate, contained prep, hand sanding, 2K polyurethane spray, and final walkthrough — built around condo building requirements from start to finish.';
+const canonical = 'https://www.jerryandcohomeservices.com/our-process/';
+
+const howToSchema = {
+  name: 'How Cabinet Refinishing Works — Jerry & Co. 5-Step Process',
+  description:
+    'A complete walkthrough of the Jerry & Co. cabinet refinishing process, designed for Boston condo and multi-unit buildings — from remote video estimate to condo-safe final walkthrough.',
+  totalTime: 'P3D',
+  estimatedCost: {
+    '@type': 'MonetaryAmount',
+    currency: 'USD',
+    minValue: 1200,
+  },
+  step: [
+    {
+      '@type': 'HowToStep',
+      position: 1,
+      name: 'Video Walkthrough & Estimate',
+      text: 'We conduct a remote video estimate — you show us your space on a call and we deliver a written estimate the same day. Building access requirements, elevator reservation windows, and any HOA documentation needs are gathered at this stage.',
+    },
+    {
+      '@type': 'HowToStep',
+      position: 2,
+      name: 'Prep & Containment',
+      text: 'Cabinet doors are removed and tagged. All surfaces are masked with 3M ScotchBlue tape. The workspace is fully sealed with clear plastic sheeting — dust containment is kept within your unit. All equipment and supplies are staged inside your unit; nothing is stored in hallways or lobby.',
+    },
+    {
+      '@type': 'HowToStep',
+      position: 3,
+      name: 'Hand Sand & Surface Repair',
+      text: 'All cabinet surfaces are hand-sanded with cork blocks and 220-grit paper. No power tools — no noise that travels through condo walls. Minor chips, gouges, and surface imperfections are filled and leveled before application.',
+    },
+    {
+      '@type': 'HowToStep',
+      position: 4,
+      name: '2K Polyurethane Spray Application',
+      text: 'We apply a factory-grade 2K (two-component) polyurethane finish using an HVLP spray gun. 2K refers to the two-part chemistry — a finish and a catalyst that cross-link on curing, producing a hard, scratch-resistant, factory-smooth result. Low-VOC formulation is safe for shared ventilation systems common in multi-unit buildings.',
+    },
+    {
+      '@type': 'HowToStep',
+      position: 5,
+      name: 'Cure, Reinstall & Final Walkthrough',
+      text: 'After a minimum 24-hour cure, cabinet doors are reinstalled with all original hardware (or new hardware if provided). A final walkthrough confirms finish quality, covers touch-up bottle use, and includes an elevator condition check and hallway inspection before we leave.',
+    },
+  ],
+};
+
+const breadcrumbSchema = {
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.jerryandcohomeservices.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Our Process', item: canonical },
+  ],
+};
+
+const steps = [
+  {
+    num: '01',
+    title: 'Video walkthrough & estimate',
+    faqAnchors: [] as { href: string; label: string }[],
+    body: [
+      `We start with a remote video estimate — no in-person appointment needed. You walk us through your kitchen on a live call (FaceTime, Google Meet, or whatever works), and we follow along while you open cabinet doors, show us existing hardware, and describe any repairs or concerns.`,
+      `Based on the walkthrough, we deliver a written estimate the same day. The estimate covers materials, cabinet count, finish selection, and timeline. No surprise line items at sign-off.`,
+      `<span class="step-condo-note"><strong>Condo planning:</strong> We also gather your building's access requirements during this call — freight elevator reservation windows, HOA documentation needs, any noise curfews, and your building manager's contact if applicable. Coordinating these details upfront means no delays on project day.</span>`,
+    ],
+  },
+  {
+    num: '02',
+    title: 'Prep & contained setup',
+    faqAnchors: [
+      { href: '/faq/#process-disruption', label: 'Questions about dust and disruption?' },
+      { href: '/faq/#condo', label: 'Condo & building logistics FAQ →' },
+    ],
+    body: [
+      `On the morning of your project, cabinet doors are removed and numbered with painter's tape so every door goes back exactly where it came from. All remaining cabinet frames are masked with 3M ScotchBlue painter's tape — clean lines at every edge.`,
+      `The entire workspace is enclosed with clear plastic sheeting: countertops, appliances, and the floor below the cabinet run are fully protected. Dust containment is sealed within your unit.`,
+      `<span class="step-condo-note"><strong>Condo operations:</strong> All equipment — spray station, sanding supplies, masking materials — is staged inside your unit. Nothing is stored in the hallway, lobby, or common areas. Elevator access is coordinated per your building's reservation window.</span>`,
+    ],
+  },
+  {
+    num: '03',
+    title: 'Hand sand & surface repair',
+    faqAnchors: [
+      { href: '/faq/#process-disruption', label: 'Questions about noise during prep?' },
+    ],
+    body: [
+      `Every cabinet surface is hand-sanded using cork sanding blocks with 220-grit paper. Hand-sanding creates the micro-tooth the finish needs to bond without introducing the vibration and noise of power sanders.`,
+      `After sanding, we inspect every surface for chips, gouges, raised grain, or filler inconsistencies. Minor damage is repaired with wood filler or sandable primer, leveled flush, and re-sanded. Surfaces are wiped clean before any coating goes on.`,
+      `<span class="step-condo-note"><strong>Condo courtesy:</strong> No orbital sanders, no belt sanders, no power tools that transmit vibration through condo walls. Hand-sanding is quieter than a normal conversation — your neighbors won't know the work is happening.</span>`,
+    ],
+  },
+  {
+    num: '04',
+    title: '2K polyurethane spray application',
+    faqAnchors: [
+      { href: '/faq/#condo', label: 'Questions about ventilation or condo regulations?' },
+      { href: '/faq/#materials', label: 'What is 2K polyurethane?' },
+    ],
+    body: [
+      `We apply a factory-grade 2K (two-component) polyurethane finish with an HVLP (high-volume, low-pressure) spray gun. "2K" refers to the two-part chemistry — a finish resin and a hardener catalyst that cross-link on curing. The result is a hard, scratch-resistant, factory-smooth coating that holds up to daily kitchen use far longer than single-component paints.`,
+      `Every surface gets a minimum of two finish coats, with light de-nib sanding between coats. The final coat is applied in a single, smooth, wet pass — no brush marks, no drips, no orange peel texture.`,
+      `<span class="step-condo-note"><strong>Shared-air systems:</strong> We use a low-VOC waterborne 2K formula specifically chosen for multi-unit buildings. It's safe for shared ventilation systems, produces minimal odor, and dissipates within hours — not days. We bring our own portable filtration and don't vent into common hallways.</span>`,
+    ],
+  },
+  {
+    num: '05',
+    title: 'Cure, reinstall & final walkthrough',
+    faqAnchors: [] as { href: string; label: string }[],
+    body: [
+      `After application, doors cure for a minimum of 24 hours before reinstall. During cure, the 2K cross-linking process reaches full hardness — this is what gives the finish its durability. We schedule reinstall for the following day so you're not waiting on staging.`,
+      `Reinstall is the reverse of day one: doors go back to their numbered positions, hardware is torqued correctly, and all masking is removed. The work area is swept, wiped, and left cleaner than we found it.`,
+      `<span class="step-condo-note"><strong>Building exit protocol:</strong> The final walkthrough includes walking the elevator path and hallway with you to confirm no incidental marks or scuffs from equipment transport. You receive your labeled touch-up bottle with color-matched finish and mixing instructions. We review the guarantee terms, and you sign off on the project.</span>`,
+    ],
+  },
+];
+---
+
+<Base title={title} description={description} canonical={canonical}>
+  <Fragment slot="head">
+    <SchemaLD type="HowTo" data={howToSchema} />
+    <SchemaLD type="BreadcrumbList" data={breadcrumbSchema} />
+  </Fragment>
+
+  <Header />
+
+  <!-- ===== BREADCRUMB ===== -->
+  <div class="wrap breadcrumb-wrap">
+    <Breadcrumb crumbs={[{ label: 'Home', href: '/' }, { label: 'Our Process' }]} />
+  </div>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero-process">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">How it's done</p>
+        <h1>The process, step by step.</h1>
+        <p class="lede">
+          Five deliberate steps, built around condo building requirements —
+          from remote video estimate to hallway inspection at close.
+        </p>
+      </div>
+      <div class="process-timeline-bar" aria-hidden="true">
+        {steps.map((s, i) => (
+          <div class="ptb-step">
+            <span class="ptb-num">{s.num}</span>
+            {i < steps.length - 1 && <span class="ptb-line"></span>}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== STEPS ===== -->
+  <section class="section-steps-detail">
+    <div class="wrap">
+      <ol class="steps-list" aria-label="Cabinet refinishing process steps">
+        {steps.map((step, i) => (
+          <li class="step-item" id={`step-${step.num}`}>
+            <div class="step-marker" aria-hidden="true">
+              <span class="step-num-lg">{step.num}</span>
+              {i < steps.length - 1 && <span class="step-connector-line"></span>}
+            </div>
+            <div class="step-content">
+              <h2 class="step-heading">{step.title.charAt(0).toUpperCase() + step.title.slice(1)}</h2>
+              {step.body.map(para => (
+                <p class="step-para" set:html={para} />
+              ))}
+              {step.faqAnchors.length > 0 && (
+                <div class="step-faq-links">
+                  {step.faqAnchors.map(link => (
+                    <a href={link.href} class="step-faq-link">
+                      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                        <circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.25"/>
+                        <path d="M6.5 6.5C6.5 5.67 7.17 5 8 5s1.5.67 1.5 1.5c0 .67-.4 1.23-1 1.44V9" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/>
+                        <circle cx="8" cy="11" r="0.6" fill="currentColor"/>
+                      </svg>
+                      {link.label}
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- ===== WHAT YOU GET ===== -->
+  <section class="section-deliverables">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">What you receive at project close</p>
+        <h2>Everything included. Nothing to chase.</h2>
+      </div>
+      <div class="deliverables-grid">
+        <div class="deliv-item">
+          <div class="deliv-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/>
+            </svg>
+          </div>
+          <h3>Written workmanship guarantee</h3>
+          <p>A 2-year workmanship guarantee against peeling, adhesion failure, or finish defects attributed to workmanship — delivered at close.</p>
+        </div>
+        <div class="deliv-item">
+          <div class="deliv-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 9h18M3 15h18M12 3v18"/>
+            </svg>
+          </div>
+          <h3>Labeled touch-up bottle</h3>
+          <p>Color-matched finish in a labeled bottle with mixing instructions. One complimentary in-person touch-up visit included.</p>
+        </div>
+        <div class="deliv-item">
+          <div class="deliv-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="16" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
+            </svg>
+          </div>
+          <h3>Certificate of insurance</h3>
+          <p>Available on request for HOA boards, building managers, or property management companies. Provided same-day via email.</p>
+        </div>
+        <div class="deliv-item">
+          <div class="deliv-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/>
+            </svg>
+          </div>
+          <h3>Finish care guide</h3>
+          <p>A one-page care and cleaning guide specific to your finish type — including which products to avoid and how to maintain the factory look.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <CTABand
+    eyebrow="See it for yourself"
+    headline="Get your free video estimate"
+    ctaText="Start my estimate"
+  />
+
+  <Footer />
+</Base>
+
+<style>
+  /* ── Breadcrumb ─────────────────────────────────────── */
+  .breadcrumb-wrap { padding-top: 24px; }
+
+  /* ── Hero ───────────────────────────────────────────── */
+  .hero-process {
+    padding: clamp(72px, 8vw, 112px) 0 clamp(48px, 6vw, 80px);
+    background: var(--forest);
+    color: var(--bone);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-process::before {
+    content: '5';
+    position: absolute;
+    right: 3%;
+    top: 50%;
+    transform: translateY(-55%);
+    font-family: var(--font-serif);
+    font-size: clamp(150px, 22vw, 300px);
+    color: rgba(247,243,234,0.04);
+    line-height: 1;
+    letter-spacing: -0.05em;
+    user-select: none;
+    pointer-events: none;
+  }
+  .hero-process .section-head { position: relative; text-align: left; }
+  .hero-process .eyebrow { color: var(--gold); }
+  .hero-process h1 { color: var(--bone); margin-bottom: 20px; }
+  .hero-process .lede { color: rgba(247,243,234,0.72); }
+
+  /* Step timeline bar in hero */
+  .process-timeline-bar {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-top: clamp(32px, 4vw, 52px);
+    position: relative;
+  }
+  .ptb-step {
+    display: flex;
+    align-items: center;
+    gap: 0;
+  }
+  .ptb-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(200,160,85,0.15);
+    border: 1px solid rgba(200,160,85,0.3);
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 0.02em;
+    flex-shrink: 0;
+  }
+  .ptb-line {
+    display: block;
+    width: clamp(24px, 4vw, 48px);
+    height: 1px;
+    background: rgba(247,243,234,0.15);
+    flex-shrink: 0;
+  }
+
+  /* ── Steps detail ───────────────────────────────────── */
+  .section-steps-detail {
+    background: var(--bone);
+    padding: clamp(64px, 8vw, 112px) 0;
+  }
+  .steps-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .step-item {
+    display: grid;
+    grid-template-columns: 72px 1fr;
+    gap: 0 32px;
+    padding: clamp(40px, 5vw, 72px) 0;
+    border-bottom: 1px solid var(--line);
+    align-items: start;
+  }
+  .step-item:last-child { border-bottom: none; }
+
+  /* Step number column */
+  .step-marker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 4px;
+  }
+  .step-num-lg {
+    font-family: var(--font-serif);
+    font-size: clamp(2.5rem, 4vw, 3.75rem);
+    font-weight: 500;
+    color: rgba(200,160,85,0.22);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    display: block;
+    white-space: nowrap;
+  }
+  .step-connector-line {
+    display: block;
+    width: 1px;
+    flex: 1;
+    min-height: 100%;
+    background: var(--line);
+    margin-top: 8px;
+  }
+
+  /* Step content */
+  .step-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-bottom: 8px;
+  }
+  .step-heading {
+    font-size: clamp(1.25rem, 2.2vw, 1.875rem);
+    color: var(--forest);
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    margin: 0;
+  }
+  .step-para {
+    font-size: 1rem;
+    line-height: 1.78;
+    color: var(--text-muted);
+    max-width: 66ch;
+    margin: 0;
+  }
+
+  /* Condo note callout inside paragraphs */
+  :global(.step-condo-note) {
+    display: block;
+    background: rgba(200,160,85,0.07);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 3px 3px 0;
+    padding: 12px 16px;
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+  :global(.step-condo-note strong) { color: var(--forest); font-weight: 600; }
+
+  /* FAQ links */
+  .step-faq-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px;
+  }
+  .step-faq-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    color: var(--gold-deep);
+    text-decoration: none;
+    border: 1px solid rgba(138,106,51,0.3);
+    border-radius: 2px;
+    padding: 5px 10px;
+    transition: background 0.12s, border-color 0.12s;
+    line-height: 1;
+  }
+  .step-faq-link:hover {
+    background: rgba(200,160,85,0.08);
+    border-color: var(--gold);
+  }
+  .step-faq-link:focus-visible {
+    outline: 2px solid var(--gold-deep);
+    outline-offset: 2px;
+  }
+  .step-faq-link svg {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+  }
+
+  /* ── Deliverables ───────────────────────────────────── */
+  .section-deliverables { background: var(--bone-deep); }
+  .deliverables-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-top: clamp(40px, 5vw, 64px);
+  }
+  .deliv-item {
+    background: var(--bone);
+    padding: clamp(28px, 4vw, 44px);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .deliv-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(200,160,85,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold-deep);
+    flex-shrink: 0;
+  }
+  .deliv-icon svg { width: 22px; height: 22px; }
+  .deliv-item h3 { color: var(--forest); }
+  .deliv-item p { font-size: 0.9375rem; color: var(--text-muted); line-height: 1.72; margin: 0; }
+
+  /* ── Responsive ─────────────────────────────────────── */
+  @media (max-width: 768px) {
+    .step-item { grid-template-columns: 48px 1fr; gap: 0 20px; }
+    .step-num-lg { font-size: 2rem; }
+    .deliverables-grid { grid-template-columns: 1fr; }
+    .process-timeline-bar { display: none; }
+  }
+</style>

@@ -1,0 +1,309 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import CTABand from '../components/CTABand.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import SchemaLD from '../components/SchemaLD.astro';
+import GalleryGrid from '../components/GalleryGrid.astro';
+
+const title = 'Project Gallery — Before & After Cabinet Refinishing | Jerry & Co.';
+const description =
+  'Real before-and-after cabinet refinishing and bathroom refresh projects across Greater Boston — Somerville, Cambridge, Medford, Malden, Arlington, Everett, Woburn, and Winchester.';
+const canonical = 'https://www.jerryandcohomeservices.com/gallery/';
+
+const CLD = `https://res.cloudinary.com/${import.meta.env.PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`;
+const img = (path: string, w = 800) => `${CLD}/f_auto,q_auto,w_${w}/${path}.jpg`;
+
+// ── 8 gallery items — Cloudinary placeholder paths from media pipeline ───────
+const galleryItems = [
+  {
+    beforeSrc: img('v1/projects/somerville-cabinet-01-before'),
+    afterSrc:  img('v1/projects/somerville-cabinet-01-after'),
+    beforeAlt: 'Somerville condo kitchen with original honey-oak cabinet doors before refinishing',
+    afterAlt:  'Somerville condo kitchen after refinishing in deep forest green factory-smooth matte finish',
+    label:     'Somerville — deep forest green',
+    town:      'somerville',
+    category:  'condo',
+    caption:   'Somerville triple-decker condo — deep forest green, 2 days in unit',
+  },
+  {
+    beforeSrc: img('v1/projects/cambridge-bathroom-01-before'),
+    afterSrc:  img('v1/projects/cambridge-bathroom-01-after'),
+    beforeAlt: 'Cambridge condo bathroom with original 1980s beige ceramic tile before renovation',
+    afterAlt:  'Cambridge condo bathroom after gut-free refresh with white subway tile and new vanity',
+    label:     'Cambridge — bathroom refresh',
+    town:      'cambridge',
+    category:  'bathroom',
+    caption:   'Cambridge condo bathroom — white subway tile, brushed nickel, 4 days',
+  },
+  {
+    beforeSrc: img('v1/projects/medford-cabinet-01-before'),
+    afterSrc:  img('v1/projects/medford-cabinet-01-after'),
+    beforeAlt: 'Medford condo kitchen with dated honey-oak cabinet doors before refinishing',
+    afterAlt:  'Medford condo kitchen after cabinet refinishing in warm bone white matte finish',
+    label:     'Medford — bone white refinish',
+    town:      'medford',
+    category:  'cabinet',
+    caption:   'Medford condo conversion — bone white, 3 days in unit',
+  },
+  {
+    beforeSrc: img('v1/projects/malden-cabinet-01-before'),
+    afterSrc:  img('v1/projects/malden-cabinet-01-after'),
+    beforeAlt: 'Malden multi-unit rental kitchen with builder-grade oak cabinet doors before refinishing',
+    afterAlt:  'Malden multi-unit rental kitchen after cabinet refinishing in bright white matte finish',
+    label:     'Malden — white rental refresh',
+    town:      'malden',
+    category:  'condo',
+    caption:   'Malden multi-unit rental — bright white, landlord turnover, 2 days per unit',
+  },
+  {
+    beforeSrc: img('v1/projects/arlington-painting-01-before'),
+    afterSrc:  img('v1/projects/arlington-painting-01-after'),
+    beforeAlt: 'Arlington colonial home living room with yellowed original paint before repainting',
+    afterAlt:  'Arlington colonial home living room after professional interior repaint in crisp white',
+    label:     'Arlington — interior repaint',
+    town:      'arlington',
+    category:  'painting',
+    caption:   'Arlington colonial home — full interior repaint, trim and walls, 3 days',
+  },
+  {
+    beforeSrc: img('v1/projects/everett-bathroom-01-before'),
+    afterSrc:  img('v1/projects/everett-bathroom-01-after'),
+    beforeAlt: 'Everett condo bathroom with original dated beige tile before bathroom refresh',
+    afterAlt:  'Everett condo bathroom after gut-free refresh with large-format white porcelain tile',
+    label:     'Everett — bathroom tile refresh',
+    town:      'everett',
+    category:  'condo',
+    caption:   'Everett condo — large-format white porcelain, gut-free refresh, 5 days',
+  },
+  {
+    beforeSrc: img('v1/projects/woburn-painting-01-before'),
+    afterSrc:  img('v1/projects/woburn-painting-01-after'),
+    beforeAlt: 'Woburn colonial home living and dining room with aged paint before repainting',
+    afterAlt:  'Woburn colonial home living and dining room after professional interior repaint',
+    label:     'Woburn — living & dining repaint',
+    town:      'woburn',
+    category:  'painting',
+    caption:   'Woburn colonial home — living and dining full repaint, 2 days',
+  },
+  {
+    beforeSrc: img('v1/projects/winchester-kitchen-01-before'),
+    afterSrc:  img('v1/projects/winchester-kitchen-01-after'),
+    beforeAlt: 'Winchester colonial home kitchen with original 1990s honey-oak cabinet doors before refinishing',
+    afterAlt:  'Winchester colonial home kitchen after cabinet refinishing in deep navy blue with brass hardware',
+    label:     'Winchester — navy blue premium kitchen',
+    town:      'winchester',
+    category:  'cabinet',
+    caption:   'Winchester colonial home — deep navy blue with brass hardware, 3 days',
+  },
+];
+
+// ── ImageGallery schema ──────────────────────────────────────────────────────
+const imageGallerySchema = {
+  name: 'Project Gallery — Jerry & Co. Cabinet Refinishing',
+  description: 'Real before-and-after cabinet refinishing and bathroom refresh projects across Greater Boston condos, triple-deckers, and multi-family buildings.',
+  url: canonical,
+  image: galleryItems.map(item => ({
+    '@type': 'ImageObject',
+    contentUrl: item.afterSrc,
+    name: item.label,
+    description: item.afterAlt,
+  })),
+};
+
+const breadcrumbSchema = {
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.jerryandcohomeservices.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Gallery', item: canonical },
+  ],
+};
+---
+
+<Base title={title} description={description} canonical={canonical}>
+  <Fragment slot="head">
+    <SchemaLD type="ImageGallery" data={imageGallerySchema} />
+    <SchemaLD type="BreadcrumbList" data={breadcrumbSchema} />
+  </Fragment>
+
+  <Header />
+
+  <!-- ===== BREADCRUMB ===== -->
+  <div class="wrap breadcrumb-wrap">
+    <Breadcrumb crumbs={[{ label: 'Home', href: '/' }, { label: 'Gallery' }]} />
+  </div>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero-gallery">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Real transformations</p>
+        <h1>Before &amp; After</h1>
+        <p class="lede">
+          Real transformations in Greater Boston condos, triple-deckers, and
+          multi-family units. Drag any slider to see the full before and after.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== GALLERY GRID ===== -->
+  <section class="section-gallery">
+    <div class="wrap">
+      <GalleryGrid items={galleryItems} />
+    </div>
+  </section>
+
+  <!-- ===== SOCIAL PROOF ===== -->
+  <section class="section-gallery-proof">
+    <div class="wrap proof-inner">
+      <div class="proof-col">
+        <p class="eyebrow">Every project is owner-operated</p>
+        <h2>No subcontractors.<br/>No rotating crews.</h2>
+        <p class="section-lede">
+          Every before-and-after in this gallery was done by Jeremiah —
+          the same person who will give you your estimate and show up
+          on project day.
+        </p>
+        <a href="/about/" class="btn-text-link">
+          Meet the owner
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+      <div class="proof-col proof-stats">
+        <div class="stat-item">
+          <span class="stat-num">7</span>
+          <span class="stat-label">Years serving Greater Boston</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">8</span>
+          <span class="stat-label">Towns across the ICC zone</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">100%</span>
+          <span class="stat-label">Owner on every job</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <CTABand
+    eyebrow="Ready for your own transformation?"
+    headline="Get your free video estimate"
+    ctaText="Start my estimate"
+  />
+
+  <Footer />
+</Base>
+
+<style>
+  /* ── Breadcrumb ─────────────────────────────────────── */
+  .breadcrumb-wrap { padding-top: 24px; }
+
+  /* ── Hero ───────────────────────────────────────────── */
+  .hero-gallery {
+    padding: clamp(64px, 8vw, 104px) 0 clamp(48px, 6vw, 80px);
+    background: var(--ink, #14241F);
+    color: var(--bone);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-gallery::before {
+    content: '→';
+    position: absolute;
+    right: 2%;
+    top: 50%;
+    transform: translateY(-55%);
+    font-family: var(--font-serif);
+    font-size: clamp(120px, 18vw, 240px);
+    color: rgba(247,243,234,0.03);
+    line-height: 1;
+    user-select: none;
+    pointer-events: none;
+  }
+  .hero-gallery .section-head { position: relative; }
+  .hero-gallery .eyebrow { color: var(--gold); }
+  .hero-gallery h1 { color: var(--bone); margin-bottom: 20px; }
+  .hero-gallery .lede { color: rgba(247,243,234,0.72); margin: 0 auto; }
+
+  /* ── Gallery section ────────────────────────────────── */
+  .section-gallery {
+    background: var(--bone);
+    padding: clamp(56px, 7vw, 96px) 0;
+  }
+
+  /* ── Social proof ───────────────────────────────────── */
+  .section-gallery-proof {
+    background: var(--bone-deep);
+    padding: clamp(64px, 8vw, 104px) 0;
+  }
+  .proof-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(40px, 6vw, 80px);
+    align-items: center;
+  }
+  .proof-col .eyebrow { text-align: left; }
+  .proof-col h2 { margin-bottom: 20px; }
+  .proof-col .section-lede { margin-top: 0; }
+
+  .btn-text-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--gold-deep);
+    text-decoration: none;
+    letter-spacing: 0.01em;
+    margin-top: 20px;
+    border-bottom: 1px solid rgba(138,106,51,0.3);
+    padding-bottom: 2px;
+    transition: border-color 0.12s;
+  }
+  .btn-text-link:hover { border-color: var(--gold); }
+  .btn-text-link svg { width: 16px; height: 16px; }
+
+  /* Stats */
+  .proof-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .stat-item {
+    background: var(--bone);
+    padding: clamp(20px, 3vw, 32px) clamp(24px, 4vw, 40px);
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+  }
+  .stat-num {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    color: var(--forest);
+    letter-spacing: -0.04em;
+    line-height: 1;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .stat-label {
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  /* ── Responsive ─────────────────────────────────────── */
+  @media (max-width: 768px) {
+    .proof-inner { grid-template-columns: 1fr; }
+  }
+</style>
