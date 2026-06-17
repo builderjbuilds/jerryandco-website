@@ -1,13 +1,13 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
-import netlify from '@astrojs/netlify';
+import cloudflare from '@astrojs/cloudflare';
 import sitemap from '@astrojs/sitemap';
 
 const SITE = 'https://www.jerryandcohomeservices.com';
 
 export default defineConfig({
   site: SITE,
-  adapter: netlify(),
+  adapter: cloudflare(),
   integrations: [
     sitemap({
       changefreq: 'weekly',

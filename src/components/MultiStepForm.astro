@@ -183,11 +183,9 @@ const towns = [
     <form
       id="msfContactForm"
       name="estimate"
-      data-netlify="true"
-      netlify-honeypot="bot-field"
       novalidate
     >
-      <!-- Hidden inputs: populated by JS before submit (Netlify crawler detection) -->
+      <!-- Hidden inputs: populated by JS before submit for Formspark field mapping -->
       <input type="hidden" name="project_type" />
       <input type="hidden" name="property_type" />
       <input type="hidden" name="town" />
@@ -195,8 +193,8 @@ const towns = [
       <input type="hidden" name="project_size" />
       <input type="hidden" name="finish_color" />
       <input type="hidden" name="building_notes" />
-      <!-- Honeypot -->
-      <input type="text" name="bot-field" class="msf-bot" aria-hidden="true" tabindex="-1" autocomplete="off" />
+      <!-- Honeypot (Formspark spam guard) -->
+      <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
 
       <div class="form-row">
         <div class="field">
@@ -549,7 +547,7 @@ const towns = [
         email,
       };
 
-      // Populate hidden inputs (for Netlify)
+      // Populate hidden inputs (for Formspark field mapping)
       Object.entries(payload).forEach(([key, val]) => {
         const hidden = contactForm.querySelector<HTMLInputElement>(`input[type="hidden"][name="${key}"]`);
         if (hidden) hidden.value = val;
