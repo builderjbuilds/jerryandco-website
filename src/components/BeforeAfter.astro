@@ -1,0 +1,241 @@
+---
+interface Props {
+  beforeSrc: string;
+  afterSrc: string;
+  beforeAlt: string;
+  afterAlt: string;
+  caption?: string;
+}
+
+const { beforeSrc, afterSrc, beforeAlt, afterAlt, caption } = Astro.props;
+---
+
+<figure class="ba-figure">
+  <div class="ba-slider" data-ba-slider>
+    <!-- Before — static, sets container height -->
+    <img
+      class="ba-before"
+      src={beforeSrc}
+      alt={beforeAlt}
+      loading="lazy"
+      decoding="async"
+    />
+
+    <!-- After — absolutely clipped on top -->
+    <div class="ba-after-clip">
+      <img
+        class="ba-after"
+        src={afterSrc}
+        alt={afterAlt}
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+
+    <!-- Divider handle -->
+    <div class="ba-handle" aria-hidden="true">
+      <div class="ba-knob">
+        <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <path d="M6 10h8M6 10l3-3M6 10l3 3M14 10l-3-3M14 10l-3 3"
+            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Labels -->
+    <span class="ba-label ba-label-before" aria-hidden="true">Before</span>
+    <span class="ba-label ba-label-after" aria-hidden="true">After</span>
+
+    <!-- Transparent range input — touch + keyboard accessible -->
+    <input
+      type="range"
+      min="0"
+      max="100"
+      value="50"
+      step="1"
+      class="ba-range"
+      aria-label="Drag to compare before and after"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      aria-valuenow="50"
+    />
+  </div>
+
+  {caption && <figcaption class="ba-caption">{caption}</figcaption>}
+</figure>
+
+<style>
+  .ba-figure {
+    margin: 0;
+    display: block;
+  }
+
+  .ba-slider {
+    position: relative;
+    overflow: hidden;
+    border-radius: 3px;
+    cursor: col-resize;
+    background: var(--bone-deep);
+  }
+
+  /* Before — static element sets the container height */
+  .ba-before {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+
+  /* After — absolutely clipped on top */
+  .ba-after-clip {
+    position: absolute;
+    inset: 0;
+    clip-path: inset(0 50% 0 0);
+  }
+  .ba-after {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+
+  /* Divider line */
+  .ba-handle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    background: rgba(255, 255, 255, 0.88);
+    transform: translateX(-50%);
+    pointer-events: none;
+    z-index: 5;
+    box-shadow: 0 0 6px rgba(0,0,0,0.25);
+  }
+
+  /* Circular knob at midpoint of handle */
+  .ba-knob {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 2px 14px rgba(0, 0, 0, 0.28);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--forest);
+  }
+  .ba-knob svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Before / After labels */
+  .ba-label {
+    position: absolute;
+    top: 12px;
+    font-family: var(--font-sans);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.44);
+    padding: 3px 8px;
+    border-radius: 2px;
+    user-select: none;
+    z-index: 4;
+    pointer-events: none;
+  }
+  .ba-label-before { left: 12px; }
+  .ba-label-after  { right: 12px; }
+
+  /* Range input — transparent, full-area, on top of everything */
+  .ba-range {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: col-resize;
+    z-index: 10;
+    margin: 0;
+    padding: 0;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  /* Keep thumb invisible but still tabbable/focusable */
+  .ba-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 44px;
+    height: 100%;
+    cursor: col-resize;
+  }
+  .ba-range::-moz-range-thumb {
+    width: 44px;
+    height: 100%;
+    border: none;
+    background: transparent;
+    cursor: col-resize;
+  }
+  /* Visible focus ring on the slider container, not the invisible input */
+  .ba-range:focus-visible ~ .ba-handle {
+    outline: 2px solid var(--gold-deep);
+    outline-offset: 0;
+  }
+
+  /* Caption */
+  .ba-caption {
+    display: block;
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    text-align: center;
+    padding: 10px 8px 2px;
+    line-height: 1.5;
+    letter-spacing: 0.01em;
+  }
+</style>
+
+<script>
+  function initSlider(slider: HTMLElement) {
+    if (slider.dataset.baInit) return;
+    slider.dataset.baInit = '1';
+
+    const afterClip = slider.querySelector<HTMLElement>('.ba-after-clip')!;
+    const handle    = slider.querySelector<HTMLElement>('.ba-handle')!;
+    const range     = slider.querySelector<HTMLInputElement>('.ba-range')!;
+
+    function update(val: number) {
+      const pct = Math.max(0, Math.min(100, val));
+      afterClip.style.clipPath = `inset(0 ${100 - pct}% 0 0)`;
+      handle.style.left = `${pct}%`;
+      range.setAttribute('aria-valuenow', String(Math.round(pct)));
+    }
+
+    range.addEventListener('input', () => update(Number(range.value)));
+
+    // Fire PostHog event once per slider (first interaction only)
+    let dragged = false;
+    range.addEventListener('input', () => {
+      if (!dragged) {
+        dragged = true;
+        if (typeof window !== 'undefined' && (window as any).posthog) {
+          (window as any).posthog.capture('before_after_dragged');
+        }
+      }
+    }, { passive: true });
+
+    // Initialize to center
+    update(50);
+  }
+
+  document.querySelectorAll<HTMLElement>('[data-ba-slider]').forEach(initSlider);
+</script>

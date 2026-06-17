@@ -1,0 +1,338 @@
+---
+import BeforeAfter from './BeforeAfter.astro';
+
+interface GalleryItem {
+  beforeSrc: string;
+  afterSrc: string;
+  beforeAlt: string;
+  afterAlt: string;
+  label: string;
+  town: string;
+  category: string;
+  caption: string;
+}
+
+interface Props {
+  items: GalleryItem[];
+}
+
+const { items } = Astro.props;
+
+const CATS = [
+  { key: 'all',      label: 'All' },
+  { key: 'cabinet',  label: 'Cabinet Refinishing' },
+  { key: 'bathroom', label: 'Bathroom' },
+  { key: 'painting', label: 'Painting' },
+  { key: 'kitchen',  label: 'Kitchen' },
+  { key: 'condo',    label: 'Condo & multi-unit' },
+] as const;
+
+const TOWNS = [
+  { key: 'all',        label: 'All towns' },
+  { key: 'somerville', label: 'Somerville' },
+  { key: 'cambridge',  label: 'Cambridge' },
+  { key: 'medford',    label: 'Medford' },
+  { key: 'malden',     label: 'Malden' },
+  { key: 'arlington',  label: 'Arlington' },
+  { key: 'everett',    label: 'Everett' },
+  { key: 'woburn',     label: 'Woburn' },
+  { key: 'winchester', label: 'Winchester' },
+] as const;
+---
+
+<div class="gg-wrap" data-gallery-grid>
+
+  <!-- ── Category filter ───────────────────────────────── -->
+  <div class="gg-filters" role="group" aria-label="Filter gallery by project type">
+    {CATS.map(cat => (
+      <button
+        class="gg-cat-btn"
+        data-gg-cat={cat.key}
+        aria-pressed={cat.key === 'all' ? 'true' : 'false'}
+        type="button"
+      >
+        {cat.label}
+      </button>
+    ))}
+  </div>
+
+  <!-- ── Town filter ───────────────────────────────────── -->
+  <div class="gg-town-row">
+    <label for="gg-town" class="gg-town-label">Town</label>
+    <div class="gg-select-wrap">
+      <select id="gg-town" class="gg-town-select" data-gg-town>
+        {TOWNS.map(t => (
+          <option value={t.key}>{t.label}</option>
+        ))}
+      </select>
+      <svg class="gg-select-caret" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <polyline points="4 6 8 10 12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ── Grid ─────────────────────────────────────────── -->
+  <div class="gg-grid" role="list" aria-label="Project gallery">
+    {items.map(item => (
+      <div
+        class="gg-item"
+        role="listitem"
+        data-cat={item.category}
+        data-town={item.town}
+      >
+        <BeforeAfter
+          beforeSrc={item.beforeSrc}
+          afterSrc={item.afterSrc}
+          beforeAlt={item.beforeAlt}
+          afterAlt={item.afterAlt}
+          caption={item.caption}
+        />
+        <div class="gg-item-meta">
+          <span class="gg-item-label">{item.label}</span>
+          <span class="gg-item-town">{item.town.charAt(0).toUpperCase() + item.town.slice(1)}</span>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <!-- ── Empty state ───────────────────────────────────── -->
+  <div class="gg-empty" data-gg-empty hidden>
+    <p>No projects match those filters yet.</p>
+    <a href="/#estimate" class="btn btn-gold">Request an estimate</a>
+  </div>
+
+</div>
+
+<style>
+  /* ── Wrap ───────────────────────────────────────────── */
+  .gg-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(24px, 3vw, 36px);
+  }
+
+  /* ── Category filter bar ────────────────────────────── */
+  .gg-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .gg-cat-btn {
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: var(--text-muted);
+    background: var(--bone-deep);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: 7px 14px;
+    cursor: pointer;
+    transition: background 0.12s, color 0.12s, border-color 0.12s;
+    line-height: 1;
+  }
+  .gg-cat-btn:hover {
+    background: rgba(200, 160, 85, 0.08);
+    border-color: var(--gold);
+    color: var(--forest);
+  }
+  .gg-cat-btn[aria-pressed="true"] {
+    background: var(--forest);
+    color: var(--bone);
+    border-color: var(--forest);
+  }
+  .gg-cat-btn:focus-visible {
+    outline: 2px solid var(--gold-deep);
+    outline-offset: 2px;
+  }
+
+  /* ── Town filter ────────────────────────────────────── */
+  .gg-town-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .gg-town-label {
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+  .gg-select-wrap {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+  }
+  .gg-town-select {
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    color: var(--text);
+    background: var(--bone);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: 7px 32px 7px 12px;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    min-width: 160px;
+    line-height: 1;
+  }
+  .gg-town-select:focus-visible {
+    outline: 2px solid var(--gold-deep);
+    outline-offset: 2px;
+  }
+  .gg-select-caret {
+    position: absolute;
+    right: 10px;
+    width: 14px;
+    height: 14px;
+    color: var(--text-muted);
+    pointer-events: none;
+  }
+
+  /* ── Grid ───────────────────────────────────────────── */
+  .gg-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .gg-item {
+    background: var(--bone);
+    display: flex;
+    flex-direction: column;
+  }
+  .gg-item[hidden] { display: none; }
+
+  .gg-item-meta {
+    padding: 12px 16px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    border-top: 1px solid var(--line);
+  }
+  .gg-item-label {
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--text);
+    letter-spacing: -0.005em;
+  }
+  .gg-item-town {
+    font-family: var(--font-sans);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    white-space: nowrap;
+  }
+
+  /* ── Empty state ────────────────────────────────────── */
+  .gg-empty {
+    text-align: center;
+    padding: clamp(48px, 7vw, 80px) 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    background: var(--bone-deep);
+  }
+  .gg-empty[hidden] { display: none; }
+  .gg-empty p {
+    font-size: 0.9375rem;
+    color: var(--text-muted);
+  }
+
+  /* ── Responsive ─────────────────────────────────────── */
+  @media (max-width: 640px) {
+    .gg-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  const gridEl = document.querySelector<HTMLElement>('[data-gallery-grid]');
+  if (gridEl && !gridEl.dataset.ggInit) {
+    gridEl.dataset.ggInit = '1';
+
+    // ── Read URL params ───────────────────────────────────
+    const params  = new URLSearchParams(window.location.search);
+    let activeCat  = params.get('cat')  || 'all';
+    let activeTown = params.get('town') || 'all';
+
+    // ── Elements ──────────────────────────────────────────
+    const catBtns    = gridEl.querySelectorAll<HTMLButtonElement>('[data-gg-cat]');
+    const townSelect = gridEl.querySelector<HTMLSelectElement>('[data-gg-town]');
+    const items      = gridEl.querySelectorAll<HTMLElement>('[data-cat]');
+    const emptyEl    = gridEl.querySelector<HTMLElement>('[data-gg-empty]');
+
+    // ── Set initial UI state from URL ─────────────────────
+    catBtns.forEach(btn => {
+      btn.setAttribute('aria-pressed', String(btn.dataset.ggCat === activeCat));
+    });
+    if (townSelect) townSelect.value = activeTown;
+
+    // ── Filter function ───────────────────────────────────
+    function applyFilters() {
+      let visible = 0;
+      items.forEach(item => {
+        const catMatch  = activeCat  === 'all' || item.dataset.cat  === activeCat;
+        const townMatch = activeTown === 'all' || item.dataset.town === activeTown;
+        const show = catMatch && townMatch;
+        item.hidden = !show;
+        if (show) visible++;
+      });
+      if (emptyEl) emptyEl.hidden = visible > 0;
+
+      // Update URL without reload
+      const url = new URL(window.location.href);
+      if (activeCat  === 'all') url.searchParams.delete('cat');
+      else url.searchParams.set('cat', activeCat);
+      if (activeTown === 'all') url.searchParams.delete('town');
+      else url.searchParams.set('town', activeTown);
+      window.history.replaceState({}, '', url);
+
+      // PostHog event (fires only if PostHog is loaded)
+      if (typeof (window as any).posthog !== 'undefined') {
+        (window as any).posthog.capture('gallery_filter_used', {
+          cat: activeCat,
+          town: activeTown,
+          visible,
+        });
+      }
+    }
+
+    // ── Apply initial filters (may hide items per URL params) ─
+    applyFilters();
+
+    // ── Category button clicks ────────────────────────────
+    catBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        activeCat = btn.dataset.ggCat || 'all';
+        catBtns.forEach(b => {
+          b.setAttribute('aria-pressed', String(b.dataset.ggCat === activeCat));
+        });
+        applyFilters();
+      });
+    });
+
+    // ── Town select changes ───────────────────────────────
+    if (townSelect) {
+      townSelect.addEventListener('change', () => {
+        activeTown = townSelect.value;
+        applyFilters();
+      });
+    }
+  }
+</script>

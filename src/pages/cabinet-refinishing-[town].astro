@@ -1,0 +1,791 @@
+---
+import townsData from '../../data/towns.json';
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import CTABand from '../components/CTABand.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import SchemaLD from '../components/SchemaLD.astro';
+import BeforeAfter from '../components/BeforeAfter.astro';
+
+// ── One positioning tagline per town (unique copy) ──────────────────────────
+const POSITIONING: Record<string, string> = {
+  medford:    "Serving Medford's pre-1978 colonial homeowners and condo owners near Tufts and the Mystic River.",
+  malden:     "The refinishing partner for Malden landlords, property managers, and triple-decker owner-occupants.",
+  everett:    "Fast, turnover-ready cabinet refinishing for Everett's multi-family and triple-decker property owners.",
+  arlington:  "Factory-grade finishes for Arlington's larger colonial kitchens — no layout change, no dumpster.",
+  somerville: "Condo and triple-decker cabinet refinishing for Somerville's compact Union and Davis Square kitchens.",
+  cambridge:  "A high-ROI finish refresh for Cambridge condo owners ahead of sale, refinance, or a fresh start.",
+  woburn:     "Serving Woburn homeowners and property managers across ranch, colonial, and multi-family properties.",
+  winchester: "Premium factory-grade finishes for Winchester's larger colonial kitchens — period character preserved.",
+};
+
+// ── Mini-FAQ content map — keyed by anchor slug ─────────────────────────────
+const FAQ_CONTENT: Record<string, { q: string; a: string; note?: string }> = {
+  '#2k-durability': {
+    q: 'How long does a 2K polyurethane finish last?',
+    a: 'A properly applied 2K finish holds up for 7–10 years under normal kitchen use — far longer than single-component paint. The two-part chemistry cross-links on curing, producing a surface that resists chips, scratches, and yellowing without reapplication.',
+  },
+  '#lead-safe': {
+    q: 'Do you follow lead-safe practices on pre-1978 homes?',
+    a: 'We follow EPA RRP (Renovation, Repair and Painting) lead-safe work practices on all pre-1978 properties. Documentation is available on request — a relevant consideration for the older housing stock common in this area.',
+    note: 'EPA RRP status: current certification documentation available on request. See our FAQ for details.',
+  },
+  '#cost': {
+    q: 'What does cabinet refinishing typically cost?',
+    a: 'Cabinet refinishing runs $1,800–$9,500 depending on cabinet count, door profile, and finish selection. A free video estimate gives you a written same-day quote — no in-person visit required, no commitment.',
+  },
+  '#financing': {
+    q: 'Do you offer financing or a payment plan?',
+    a: 'Payment plan options are available — ask about current terms during your estimate. See our <a href="/financing/">financing page</a> for details on how it works and what\'s available at the time of your project.',
+  },
+  '#process-disruption': {
+    q: 'Is the process messy or disruptive to neighbors?',
+    a: 'No. All work is contained within your unit using sealed plastic sheeting. We hand-sand only — no power tools or vibration that travels through condo walls. Odor from the low-VOC 2K finish dissipates within hours, not days.',
+  },
+  '#material-compatibility': {
+    q: 'Can you refinish laminate or thermofoil cabinets?',
+    a: 'In many cases, yes — it depends on the adhesion condition of the existing laminate. We assess material compatibility during your free video walkthrough and give you a straight answer before any commitment.',
+  },
+  '#warranty': {
+    q: 'What does your workmanship guarantee cover?',
+    a: 'We offer a workmanship guarantee against peeling, adhesion failure, or finish defects attributable to workmanship. Written documentation is provided at project close. See our <a href="/guarantee/">guarantee page</a> for full terms.',
+    note: 'Guarantee term: 2-year placeholder — confirm final term with Jeremiah before publishing.',
+  },
+};
+
+// ── Cloudinary helper ────────────────────────────────────────────────────────
+const CLD = `https://res.cloudinary.com/${import.meta.env.PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`;
+const cldImg = (path: string, w = 800) => `${CLD}/f_auto,q_auto,w_${w}/${path}.jpg`;
+
+// ── getStaticPaths ───────────────────────────────────────────────────────────
+export async function getStaticPaths() {
+  return townsData.towns.map(t => ({
+    params: { town: t.town_slug },
+    props: { townData: t },
+  }));
+}
+
+// ── Types ────────────────────────────────────────────────────────────────────
+interface TownData {
+  town: string;
+  town_slug: string;
+  is_primary_focus: boolean;
+  neighbors: string[];
+  housing_stock_note: string;
+  icp_focus: string;
+  local_photo: { status: string; path: string; caption: string };
+  testimonial: { status: string; name: string; neighborhood: string; quote: string };
+  mini_faq_anchors: string[];
+}
+interface Props { townData: TownData }
+
+const { townData } = Astro.props;
+const { town, town_slug, neighbors, mini_faq_anchors, testimonial } = townData;
+
+// Strip placeholder prefix from housing stock note
+const housingNote = townData.housing_stock_note
+  .replace(/^PLACEHOLDER\s*[-–]\s*draft unique copy:\s*/i, '');
+
+// Positioning tagline
+const positioningNote = POSITIONING[town_slug] ?? `Trusted by ${town} homeowners and property managers since 2019.`;
+
+// Page meta
+const title = `Cabinet Refinishing in ${town}, MA | Jerry & Co.`;
+const metaDesc = `Cabinet refinishing in ${town}, MA. ${housingNote.split('.')[0].slice(0, 60)}. MA HIC #208336. Free estimate.`;
+const canonical = `https://www.jerryandcohomeservices.com/cabinet-refinishing-${town_slug}/`;
+
+// ── Schemas ──────────────────────────────────────────────────────────────────
+const localBusinessSchema = {
+  '@type': ['LocalBusiness', 'HomeAndConstructionBusiness'],
+  name: 'Jerry & Co. Home Improvement LLC',
+  description: `Factory-grade cabinet refinishing for ${town} condo owners and homeowners — built around your building's rules and your timeline.`,
+  url: 'https://www.jerryandcohomeservices.com',
+  telephone: '(347) 602-6801',
+  areaServed: `${town}, MA`,
+  founder: { '@type': 'Person', name: 'Jeremiah Ugbine' },
+  hasCredential: {
+    '@type': 'EducationalOccupationalCredential',
+    name: 'Massachusetts Home Improvement Contractor Registration',
+    identifier: 'MA HIC #208336',
+  },
+};
+
+const serviceSchema = {
+  name: `Cabinet Refinishing in ${town}, MA`,
+  description: `Factory-grade 2K polyurethane cabinet refinishing for ${town} homeowners and condo owners. ${housingNote}`,
+  provider: {
+    '@type': 'LocalBusiness',
+    name: 'Jerry & Co. Home Improvement LLC',
+    telephone: '(347) 602-6801',
+  },
+  areaServed: `${town}, MA`,
+  priceRange: '$1,800 – $9,500',
+  offers: {
+    '@type': 'Offer',
+    price: '1800',
+    priceCurrency: 'USD',
+    availability: 'https://schema.org/InStock',
+  },
+};
+
+const breadcrumbSchema = {
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.jerryandcohomeservices.com/' },
+    { '@type': 'ListItem', position: 2, name: `Cabinet Refinishing ${town}`, item: canonical },
+  ],
+};
+
+// ── Services grid cards ──────────────────────────────────────────────────────
+const serviceCards = [
+  {
+    icon: 'M4 7h16M4 12h10M4 17h7',
+    title: 'Cabinet Refinishing',
+    body: 'No demo, no dumpster, no elevator damage — done in 2–5 days.',
+    href: '/#services',
+  },
+  {
+    icon: 'M21 8l-6-6H5a2 2 0 00-2 2v16a2 2 0 002 2h14a2 2 0 002-2V8zM13 2v6h6',
+    title: 'Bathroom Refresh',
+    body: 'Gut-free refresh that meets condo renovation bylaws — no permit triggers in most ICC buildings.',
+    href: '/#services',
+  },
+  {
+    icon: 'M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z',
+    title: 'Interior Painting',
+    body: 'Interior painting & refresh — all work contained within your unit.',
+    href: '/#services',
+  },
+  {
+    icon: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z',
+    title: 'Full Bathroom Reno',
+    body: 'May require building board approval — we help you navigate the documentation.',
+    href: '/#services',
+  },
+];
+
+// Neighbor slug helper — only primary-zone towns have dedicated pages in v1
+const PRIMARY_TOWNS = new Set(['medford','malden','everett','arlington','somerville','cambridge','woburn','winchester']);
+const slugify = (name: string) => name.toLowerCase().replace(/\s+/g, '-');
+const primaryNeighbors  = neighbors.filter(n => PRIMARY_TOWNS.has(slugify(n)));
+const secondaryNeighbors = neighbors.filter(n => !PRIMARY_TOWNS.has(slugify(n)));
+
+// Town-specific OG image — Cloudinary text overlay with town name in gold
+const ogImage = `${CLD}/f_auto,q_auto,w_1200,h_630,c_fill/l_text:Montserrat_52_bold:${encodeURIComponent(town)},co_rgb:C8A055,fl_layer_apply,g_north_west,x_80,y_80/v1/brand/og-town.jpg`;
+---
+
+<Base title={title} description={metaDesc} canonical={canonical} ogImage={ogImage}>
+  <Fragment slot="head">
+    <SchemaLD type="LocalBusiness" data={localBusinessSchema} />
+    <SchemaLD type="Service" data={serviceSchema} />
+    <SchemaLD type="BreadcrumbList" data={breadcrumbSchema} />
+  </Fragment>
+
+  <Header />
+
+  <!-- ===== BREADCRUMB ===== -->
+  <div class="wrap breadcrumb-wrap">
+    <Breadcrumb crumbs={[
+      { label: 'Home', href: '/' },
+      { label: `Cabinet Refinishing ${town}` },
+    ]} />
+  </div>
+
+  <!-- ===== SECTION 1 — Hero band ===== -->
+  <section class="hero-town">
+    <div class="wrap">
+      <div class="hero-town-inner">
+        <div>
+          <p class="eyebrow">Greater Boston · MA HIC #208336</p>
+          <h1>Cabinet Refinishing in {town}, MA</h1>
+          <p class="hero-positioning">{positioningNote}</p>
+          <div class="hero-town-ctas">
+            <a href="/#estimate" class="btn btn-gold">Get my free video estimate</a>
+            <a href="/our-process/" class="btn-ghost-link">See how it works →</a>
+          </div>
+          <div class="hero-town-trust">
+            <span>7 years serving Greater Boston</span>
+            <span class="trust-dot" aria-hidden="true">·</span>
+            <span>Owner on every job</span>
+            <span class="trust-dot" aria-hidden="true">·</span>
+            <span>No subcontractors</span>
+          </div>
+        </div>
+        <div class="hero-town-badge">
+          <div class="badge-ring">
+            <span class="badge-num">$1,800</span>
+            <span class="badge-sub">starting price</span>
+            <span class="badge-sub2">2–5 day install</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 2 — BeforeAfter ===== -->
+  <section class="section-ba">
+    <div class="wrap">
+      <div class="ba-intro">
+        <p class="eyebrow">Recent work in {town}</p>
+        <h2>Before &amp; After</h2>
+      </div>
+      <!-- PLACEHOLDER: replace with a real before/after photo from a {town} project -->
+      <div class="ba-wrap">
+        <BeforeAfter
+          beforeSrc={cldImg(`v1/projects/${town_slug}-cabinet-01-before`)}
+          afterSrc={cldImg(`v1/projects/${town_slug}-cabinet-01-after`)}
+          beforeAlt={`Cabinet doors before refinishing in ${town}, MA`}
+          afterAlt={`Cabinet doors after Jerry & Co. 2K polyurethane refinishing in ${town}, MA`}
+          caption={`${town} cabinet refinishing project — placeholder image, replaced with real photo before launch`}
+        />
+        <p class="ba-placeholder-note">
+          ⚠ Placeholder image — real {town} project photo to be uploaded via <code>pnpm media:upload-photo</code> before launch.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 3 — Housing stock / Why refinishing ===== -->
+  <section class="section-why">
+    <div class="wrap why-inner">
+      <div class="why-text">
+        <p class="eyebrow">Why {town} homeowners choose refinishing</p>
+        <h2>The right call for this housing stock.</h2>
+        <p class="why-para">{housingNote}</p>
+        <p class="why-para">
+          A factory-grade 2K polyurethane finish — the same chemistry used in automotive and commercial cabinetry — turns your existing boxes into doors that look and feel new, without touching the layout or triggering a full renovation permit. Most {town} projects complete in 2–5 days.
+        </p>
+        <a href="/cabinet-refinishing-vs-replacement/" class="btn-text-link">
+          How refinishing compares to replacement →
+        </a>
+      </div>
+      <div class="why-stats">
+        <div class="why-stat-card">
+          <span class="wsc-num">$1,800–$9,500</span>
+          <span class="wsc-label">typical refinishing cost</span>
+        </div>
+        <div class="why-stat-card">
+          <span class="wsc-num">$20,000–$50,000+</span>
+          <span class="wsc-label">typical replacement cost</span>
+        </div>
+        <div class="why-stat-card">
+          <span class="wsc-num">2–5 days</span>
+          <span class="wsc-label">typical project duration</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 4 — Testimonial (placeholder) ===== -->
+  <section class="section-testimonial">
+    <div class="wrap">
+      <!-- PLACEHOLDER TESTIMONIAL — do not publish as real. Replace with an attributed review from a verified {town} client before launch. -->
+      <div class="testimonial-placeholder" role="region" aria-label="Testimonial placeholder — awaiting real review">
+        <div class="tp-label" aria-hidden="true">PLACEHOLDER — review pending</div>
+        <blockquote class="tp-quote">
+          <p>
+            A real review from a {town} client will appear here once collected. This block will not be published until a verified, attributed testimonial is provided by Jeremiah.
+          </p>
+          <footer class="tp-attribution">
+            <cite>— Name and neighborhood to be confirmed by Jeremiah before launch</cite>
+          </footer>
+        </blockquote>
+        <p class="tp-instruction">
+          To add a real testimonial: update <code>data/towns.json</code> → <code>{town_slug}.testimonial</code> with <code>name</code>, <code>neighborhood</code>, and <code>quote</code>; set <code>status</code> to <code>"verified"</code>; rebuild.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 5 — Services grid ===== -->
+  <section class="section-services">
+    <div class="wrap">
+      <div class="section-head section-head-left">
+        <p class="eyebrow">What we do in {town}</p>
+        <h2>Services available in this area</h2>
+      </div>
+      <div class="services-grid">
+        {serviceCards.map(card => (
+          <a href={card.href} class="svc-card">
+            <div class="svc-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <path d={card.icon}/>
+              </svg>
+            </div>
+            <h3 class="svc-title">{card.title}</h3>
+            <p class="svc-body">{card.body}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 6 — Mini-FAQ ===== -->
+  <section class="section-mini-faq">
+    <div class="wrap">
+      <div class="section-head section-head-left">
+        <p class="eyebrow">Common questions in {town}</p>
+        <h2>Quick answers</h2>
+      </div>
+      <div class="mini-faq-list">
+        {mini_faq_anchors.map(anchor => {
+          const faq = FAQ_CONTENT[anchor];
+          if (!faq) return null;
+          return (
+            <div class="mfaq-item">
+              <h3 class="mfaq-q">{faq.q}</h3>
+              <p class="mfaq-a" set:html={faq.a} />
+              <a href={`/faq/${anchor}`} class="mfaq-link">
+                Full answer in FAQ →
+              </a>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 7 — Also serving nearby ===== -->
+  <section class="section-neighbors">
+    <div class="wrap">
+      <p class="eyebrow neighbors-eyebrow">Also serving nearby</p>
+      <div class="neighbors-row">
+        {primaryNeighbors.map(neighbor => (
+          <a href={`/cabinet-refinishing-${slugify(neighbor)}/`} class="neighbor-chip">
+            {neighbor}
+          </a>
+        ))}
+        {secondaryNeighbors.map(neighbor => (
+          <span class="neighbor-chip neighbor-chip-secondary" title="Serving this area — dedicated page coming soon">
+            {neighbor}
+          </span>
+        ))}
+        <a href="/#estimate" class="neighbor-chip neighbor-chip-cta">
+          + Request my town →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 8 — CTABand ===== -->
+  <CTABand
+    eyebrow={`Free video estimate in ${town}`}
+    headline={`Tell us about your ${town} kitchen — we'll quote it today.`}
+    ctaText="Get my free estimate"
+  />
+
+  <Footer />
+</Base>
+
+<style>
+  /* ── Breadcrumb ─────────────────────────────────────── */
+  .breadcrumb-wrap { padding-top: 24px; }
+
+  /* ── Hero band ──────────────────────────────────────── */
+  .hero-town {
+    background: var(--forest);
+    color: var(--bone);
+    padding: clamp(64px, 8vw, 104px) 0 clamp(52px, 6vw, 80px);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-town::before {
+    content: attr(data-town-ghost);
+    position: absolute;
+    right: -2%;
+    bottom: -20%;
+    font-family: var(--font-serif);
+    font-size: clamp(100px, 14vw, 200px);
+    color: rgba(247,243,234,0.03);
+    line-height: 1;
+    user-select: none;
+    pointer-events: none;
+    letter-spacing: -0.05em;
+  }
+  .hero-town-inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: clamp(32px, 5vw, 64px);
+    align-items: center;
+    position: relative;
+  }
+  .hero-town .eyebrow { color: var(--gold); }
+  .hero-town h1 { color: var(--bone); margin-bottom: 16px; }
+  .hero-positioning {
+    font-size: 1.0625rem;
+    color: rgba(247,243,234,0.75);
+    max-width: 56ch;
+    line-height: 1.6;
+    margin-bottom: 28px;
+  }
+  .hero-town-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .btn-ghost-link {
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: rgba(247,243,234,0.7);
+    text-decoration: none;
+    letter-spacing: 0.01em;
+    transition: color 0.15s;
+  }
+  .btn-ghost-link:hover { color: var(--bone); }
+  .hero-town-trust {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    color: rgba(247,243,234,0.45);
+    letter-spacing: 0.01em;
+  }
+  .trust-dot { opacity: 0.3; }
+
+  /* Price badge */
+  .hero-town-badge { flex-shrink: 0; }
+  .badge-ring {
+    width: clamp(100px, 12vw, 140px);
+    height: clamp(100px, 12vw, 140px);
+    border-radius: 50%;
+    border: 1.5px solid rgba(200,160,85,0.3);
+    background: rgba(200,160,85,0.07);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    text-align: center;
+    padding: 12px;
+  }
+  .badge-num {
+    font-family: var(--font-serif);
+    font-size: clamp(1rem, 1.8vw, 1.375rem);
+    color: var(--gold);
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    white-space: nowrap;
+  }
+  .badge-sub {
+    font-family: var(--font-sans);
+    font-size: 0.625rem;
+    color: rgba(247,243,234,0.4);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    line-height: 1.4;
+  }
+  .badge-sub2 {
+    font-family: var(--font-sans);
+    font-size: 0.625rem;
+    color: rgba(200,160,85,0.55);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  /* ── Before/After section ───────────────────────────── */
+  .section-ba {
+    background: var(--bone-deep);
+    padding: clamp(56px, 7vw, 96px) 0;
+  }
+  .ba-intro {
+    margin-bottom: clamp(24px, 3vw, 36px);
+    text-align: center;
+  }
+  .ba-intro h2 { margin: 0; }
+  .ba-wrap { max-width: 780px; margin: 0 auto; }
+  .ba-placeholder-note {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-align: center;
+    margin-top: 12px;
+    background: rgba(200,160,85,0.06);
+    border: 1px dashed rgba(200,160,85,0.3);
+    border-radius: 2px;
+    padding: 8px 14px;
+  }
+
+  /* ── Why section ────────────────────────────────────── */
+  .section-why { background: var(--bone); padding: clamp(56px, 7vw, 96px) 0; }
+  .why-inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: clamp(40px, 6vw, 72px);
+    align-items: start;
+  }
+  .why-text .eyebrow { text-align: left; }
+  .why-text h2 { margin-bottom: 20px; }
+  .why-para {
+    font-size: 1rem;
+    color: var(--text-muted);
+    line-height: 1.78;
+    max-width: 64ch;
+    margin: 0 0 14px;
+  }
+  .btn-text-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--gold-deep);
+    text-decoration: none;
+    margin-top: 8px;
+    border-bottom: 1px solid rgba(138,106,51,0.3);
+    padding-bottom: 2px;
+    transition: border-color 0.12s;
+  }
+  .btn-text-link:hover { border-color: var(--gold); }
+
+  /* Stats column */
+  .why-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    overflow: hidden;
+    flex-shrink: 0;
+    min-width: 220px;
+  }
+  .why-stat-card {
+    background: var(--bone-deep);
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .wsc-num {
+    font-family: var(--font-serif);
+    font-size: 1.1875rem;
+    color: var(--forest);
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    white-space: nowrap;
+  }
+  .wsc-label {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    letter-spacing: 0.01em;
+  }
+
+  /* ── Testimonial placeholder ────────────────────────── */
+  .section-testimonial { background: var(--bone-deep); padding: clamp(48px, 6vw, 72px) 0; }
+  .testimonial-placeholder {
+    max-width: 680px;
+    margin: 0 auto;
+    background: var(--bone);
+    border: 1.5px dashed rgba(200,160,85,0.4);
+    border-radius: 4px;
+    padding: clamp(24px, 3vw, 36px) clamp(24px, 4vw, 40px);
+    position: relative;
+  }
+  .tp-label {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    background: rgba(200,160,85,0.1);
+    border: 1px solid rgba(200,160,85,0.25);
+    border-radius: 2px;
+    padding: 3px 8px;
+    margin-bottom: 16px;
+  }
+  .tp-quote {
+    margin: 0 0 12px;
+    padding: 0;
+    border: none;
+  }
+  .tp-quote p {
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--text-muted);
+    line-height: 1.72;
+    margin: 0;
+  }
+  .tp-attribution {
+    margin-top: 12px;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+  }
+  .tp-attribution cite { font-style: normal; }
+  .tp-instruction {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    color: rgba(0,0,0,0.3);
+    margin: 0;
+    border-top: 1px solid var(--line);
+    padding-top: 12px;
+    line-height: 1.6;
+  }
+  .tp-instruction code {
+    font-size: 0.6875rem;
+    background: rgba(0,0,0,0.05);
+    border-radius: 2px;
+    padding: 1px 4px;
+  }
+
+  /* ── Services grid ──────────────────────────────────── */
+  .section-services { background: var(--bone); padding: clamp(56px, 7vw, 96px) 0; }
+  .section-head-left { text-align: left; }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-top: clamp(32px, 4vw, 48px);
+  }
+  .svc-card {
+    background: var(--bone);
+    padding: clamp(24px, 3.5vw, 36px);
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: background 0.12s;
+  }
+  .svc-card:hover { background: var(--bone-deep); }
+  .svc-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(200,160,85,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold-deep);
+    flex-shrink: 0;
+  }
+  .svc-icon svg { width: 20px; height: 20px; }
+  .svc-title {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: var(--forest);
+    margin: 0;
+    line-height: 1.25;
+  }
+  .svc-body {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  /* ── Mini-FAQ ───────────────────────────────────────── */
+  .section-mini-faq { background: var(--bone-deep); padding: clamp(56px, 7vw, 96px) 0; }
+  .mini-faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: clamp(28px, 4vw, 40px);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .mfaq-item {
+    background: var(--bone);
+    padding: clamp(24px, 3.5vw, 36px);
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .mfaq-item:last-child { border-bottom: none; }
+  .mfaq-q {
+    font-size: 1.0625rem;
+    color: var(--forest);
+    letter-spacing: -0.015em;
+    margin: 0;
+    line-height: 1.3;
+  }
+  .mfaq-a {
+    font-size: 0.9375rem;
+    color: var(--text-muted);
+    line-height: 1.72;
+    margin: 0;
+    max-width: 68ch;
+  }
+  :global(.mfaq-a a) { color: var(--gold-deep); text-underline-offset: 2px; }
+  .mfaq-link {
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    color: var(--gold-deep);
+    text-decoration: none;
+    font-weight: 500;
+    border-bottom: 1px solid rgba(138,106,51,0.25);
+    padding-bottom: 1px;
+    width: fit-content;
+    transition: border-color 0.12s;
+  }
+  .mfaq-link:hover { border-color: var(--gold); }
+
+  /* ── Neighbors section ──────────────────────────────── */
+  .section-neighbors {
+    background: var(--bone);
+    padding: clamp(40px, 5vw, 64px) 0;
+    border-top: 1px solid var(--line);
+  }
+  .neighbors-eyebrow { text-align: left; margin-bottom: 16px; }
+  .neighbors-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+  }
+  .neighbor-chip {
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text);
+    text-decoration: none;
+    background: var(--bone-deep);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: 8px 16px;
+    transition: border-color 0.12s, background 0.12s;
+    letter-spacing: 0.01em;
+  }
+  .neighbor-chip:hover {
+    border-color: var(--gold);
+    background: rgba(200,160,85,0.06);
+  }
+  .neighbor-chip:focus-visible {
+    outline: 2px solid var(--gold-deep);
+    outline-offset: 2px;
+  }
+  .neighbor-chip-cta {
+    color: var(--gold-deep);
+    border-color: rgba(138,106,51,0.3);
+    font-weight: 600;
+  }
+  .neighbor-chip-secondary {
+    color: var(--text-muted);
+    background: transparent;
+    border-style: dashed;
+    cursor: default;
+  }
+
+  /* ── Responsive ─────────────────────────────────────── */
+  @media (max-width: 768px) {
+    .hero-town-inner { grid-template-columns: 1fr; }
+    .hero-town-badge { display: none; }
+    .why-inner { grid-template-columns: 1fr; }
+    .why-stats { min-width: unset; }
+    .services-grid { grid-template-columns: 1fr; }
+  }
+</style>

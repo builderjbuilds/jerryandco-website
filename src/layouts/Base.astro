@@ -63,5 +63,17 @@ const {
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
     </div>
+    <!-- Global PostHog CTA click handler — picks up any [data-ph-event] element -->
+    <script>
+      document.addEventListener('click', (e: MouseEvent) => {
+        const el = (e.target as Element)?.closest('[data-ph-event]') as HTMLElement | null;
+        if (!el) return;
+        const event = el.dataset.phEvent;
+        const label = el.dataset.phLabel;
+        if (event && typeof (window as any).posthog !== 'undefined') {
+          (window as any).posthog.capture(event, label ? { label } : undefined);
+        }
+      });
+    </script>
   </body>
 </html>
