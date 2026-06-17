@@ -23,5 +23,5 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 
-# Netlify cache/build artifacts
-.netlify/
+# Cloudflare / Wrangler local dev state
+.wrangler/
