@@ -1,7 +1,7 @@
 /**
  * Jerry & Co. — Media Generation Script
  * ─────────────────────────────────────────────────────────────────
- * Generates photorealistic images via Flux.1-dev (HuggingFace)
+ * Generates photorealistic images via Higgsfield CLI (seedream_v4_5)
  * and uploads them to Cloudinary.
  *
  * Usage:
@@ -11,35 +11,28 @@
  *   npx tsx scripts/generate-media.ts hero --dry-run   # filter by keyword, no upload
  *
  * Prerequisites:
+ *   npm install -g @higgsfield/cli && higgsfield auth login
  *   pnpm add -D tsx dotenv cloudinary
- *   HF_TOKEN, CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY,
- *   CLOUDINARY_API_SECRET set in .env
+ *   CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET set in .env
  */
 
 import 'dotenv/config';
 import fs from 'fs';
 import path from 'path';
+import { spawnSync } from 'child_process';
 import { v2 as cloudinary } from 'cloudinary';
 
 // ── CLI flags ────────────────────────────────────────────────────
-const args      = process.argv.slice(2);
-const DRY_RUN   = args.includes('--dry-run');
-const FILTER    = args.find(a => !a.startsWith('--')) ?? '';
+const args    = process.argv.slice(2);
+const DRY_RUN = args.includes('--dry-run');
+const FILTER  = args.find(a => !a.startsWith('--')) ?? '';
 
 // ── Config ───────────────────────────────────────────────────────
-const HF_TOKEN  = process.env.HF_TOKEN;
-const CLOUD     = process.env.PUBLIC_CLOUDINARY_CLOUD_NAME ?? process.env.CLOUDINARY_CLOUD_NAME;
-const CLD_KEY   = process.env.CLOUDINARY_API_KEY;
-const CLD_SEC   = process.env.CLOUDINARY_API_SECRET;
-const OUT_DIR   = 'assets/img/generated';
-const HF_MODEL  = 'black-forest-labs/FLUX.1-dev';
-const HF_URL    = `https://api-inference.huggingface.co/models/${HF_MODEL}`;
-const DELAY_MS  = 2500; // between requests — respects HF rate limits
-
-if (!HF_TOKEN) {
-  console.error('ERROR: HF_TOKEN not set in .env');
-  process.exit(1);
-}
+const CLOUD   = process.env.PUBLIC_CLOUDINARY_CLOUD_NAME ?? process.env.CLOUDINARY_CLOUD_NAME;
+const CLD_KEY = process.env.CLOUDINARY_API_KEY;
+const CLD_SEC = process.env.CLOUDINARY_API_SECRET;
+const OUT_DIR = 'assets/img/generated';
+const DELAY_MS = 1500; // brief pause between requests
 
 if (!DRY_RUN) {
   if (!CLOUD || !CLD_KEY || !CLD_SEC) {
@@ -51,16 +44,25 @@ if (!DRY_RUN) {
 
 fs.mkdirSync(OUT_DIR, { recursive: true });
 
-// ── Universal negative prompt ────────────────────────────────────
-const NEGATIVE = [
-  'cartoon, illustration, painting, watercolor, sketch, anime, drawing',
-  'low quality, blurry, pixelated, jpeg artifacts, grainy, noisy',
-  'oversaturated, HDR, heavy vignette, lens flare, fisheye',
-  'text overlay, logo, watermark, border, frame, collage',
-  'distorted perspective, warped architecture, melted surfaces',
-  'cluttered, dirty, stained, mold, damage, peeling',
-  'dark harsh shadows, blown highlights, flash photography glare',
-].join(', ');
+// ── Aspect ratio helper ──────────────────────────────────────────
+// Maps pixel dimensions to the closest Higgsfield-supported ratio.
+// Supported: 1:1, 4:3, 3:2, 16:9, 21:9, 3:4, 2:3, 9:16
+function aspectRatio(w: number, h: number): string {
+  const r = w / h;
+  const candidates: [number, string][] = [
+    [21 / 9,  '21:9'],
+    [16 / 9,  '16:9'],
+    [3  / 2,  '3:2' ],
+    [4  / 3,  '4:3' ],
+    [1,       '1:1' ],
+    [3  / 4,  '3:4' ],
+    [2  / 3,  '2:3' ],
+    [9  / 16, '9:16'],
+  ];
+  return candidates.reduce((best, c) =>
+    Math.abs(r - c[0]) < Math.abs(r - best[0]) ? c : best
+  )[1];
+}
 
 // ── Asset type ───────────────────────────────────────────────────
 interface Asset {
@@ -79,12 +81,11 @@ async function sleep(ms: number): Promise<void> {
   return new Promise(r => setTimeout(r, ms));
 }
 
-async function generateFlux(
+async function generateImage(
   prompt: string,
   publicId: string,
   width = 1024,
   height = 768,
-  attempt = 1,
 ): Promise<string> {
   const file = localPath(publicId);
 
@@ -94,57 +95,32 @@ async function generateFlux(
     return file;
   }
 
-  console.log(`  Generating${attempt > 1 ? ` (attempt ${attempt})` : ''}: ${publicId}`);
+  const ratio = aspectRatio(width, height);
+  console.log(`  Generating: ${publicId} [${ratio}]`);
 
-  const res = await fetch(HF_URL, {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${HF_TOKEN}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      inputs: prompt,
-      parameters: {
-        width,
-        height,
-        num_inference_steps: 28,
-        guidance_scale: 3.5,
-        negative_prompt: NEGATIVE,
-      },
-    }),
-  });
+  const result = spawnSync(
+    'higgsfield',
+    ['generate', 'create', 'seedream_v4_5',
+     '--prompt', prompt,
+     '--aspect_ratio', ratio,
+     '--quality', 'high',
+     '--wait'],
+    { encoding: 'utf-8', timeout: 300_000 },
+  );
 
-  // Model cold-start — HF returns 503 while loading
-  if (res.status === 503) {
-    const wait = attempt <= 3 ? 30_000 : 60_000;
-    console.log(`  ⏳ Model loading — waiting ${wait / 1000}s before retry...`);
-    await sleep(wait);
-    return generateFlux(prompt, publicId, width, height, attempt + 1);
+  if (result.status !== 0) {
+    throw new Error(`higgsfield CLI failed: ${(result.stderr ?? '').trim() || result.error?.message}`);
   }
 
-  // Rate limit
-  if (res.status === 429) {
-    console.log(`  ⏳ Rate limited — waiting 60s...`);
-    await sleep(60_000);
-    return generateFlux(prompt, publicId, width, height, attempt + 1);
+  const url = result.stdout.trim();
+  if (!url.startsWith('http')) {
+    throw new Error(`Unexpected CLI output (expected URL): ${url.slice(0, 120)}`);
   }
 
-  if (!res.ok) {
-    const body = await res.text().catch(() => '');
-    throw new Error(`HF API ${res.status}: ${body.slice(0, 200)}`);
-  }
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`Image download failed: ${res.status} ${url}`);
 
   const buf = Buffer.from(await res.arrayBuffer());
-
-  // Sanity check — HF sometimes returns an error JSON instead of image bytes
-  if (buf.length < 10_000) {
-    const text = buf.toString('utf-8');
-    if (text.startsWith('{')) {
-      const err = JSON.parse(text);
-      throw new Error(`HF returned JSON instead of image: ${err.error ?? text}`);
-    }
-  }
-
   fs.writeFileSync(file, buf);
   console.log(`  ✓ saved ${file} (${Math.round(buf.length / 1024)}KB)`);
   return file;
@@ -165,7 +141,7 @@ async function uploadCld(file: string, publicId: string): Promise<string> {
 
 async function gen(asset: Asset): Promise<void> {
   try {
-    const file = await generateFlux(asset.prompt, asset.id, asset.w, asset.h);
+    const file = await generateImage(asset.prompt, asset.id, asset.w, asset.h);
     if (!DRY_RUN) {
       await uploadCld(file, asset.id);
     } else {
