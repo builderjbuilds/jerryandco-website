@@ -1,8 +1,16 @@
 /**
- * Jerry & Co. — Media Generation Script v2
+ * Jerry & Co. — Media Generation Script v2.1
  * ─────────────────────────────────────────────────────────────────
  * Generates photorealistic images via Higgsfield CLI (seedream_v4_5)
  * and uploads them to Cloudinary.
+ *
+ * KEY CHANGES FROM v2:
+ *  - All after prompts now include explicit BLEMISHES FULLY RESOLVED
+ *    block that names and removes every defect from the before prompt
+ *  - 4-part after prompt structure: ROOM ANCHOR → BLEMISHES FULLY
+ *    RESOLVED → SURFACE TRANSFORMATION → RESULT QUALITY
+ *  - Prevents reference image conditioning from retaining before-state
+ *    defects in the generated after image
  *
  * KEY CHANGES FROM v1:
  *  - Before/after pairs share a locked spatial anchor (same room geometry)
@@ -171,21 +179,26 @@ async function gen(asset: Asset): Promise<void> {
 }
 
 // ════════════════════════════════════════════════════════════════
-// PROMPT ARCHITECTURE NOTES
+// PROMPT ARCHITECTURE — v2.1
 //
-// Every before/after pair shares a ROOM ANCHOR block — identical
-// text that locks: camera angle, room layout, window position,
-// cabinet run count, floor material, ceiling character.
+// Every after prompt follows a strict 4-part structure:
 //
-// The after prompt copies the anchor verbatim and adds only the
-// surface transformation (finish color, new tile, new fixtures).
+//  [1] ROOM ANCHOR — identical camera, geometry, floor, windows
+//      as the before prompt. Locks spatial consistency.
 //
-// After assets carry referenceId pointing to their before pair.
-// The generateImage function passes the saved before PNG as
-// --reference-image to Higgsfield for spatial conditioning.
+//  [2] BLEMISHES FULLY RESOLVED — explicit named removal of every
+//      defect described in the before prompt. Pattern:
+//      "the [defect] is [state of resolution] — [visual confirmation]"
+//      Without this block, reference image conditioning preserves
+//      before-state defects in the after output.
 //
-// Wear/damage language is localized and specific:
-//   ✓ "grout darkened near the floor in the lower two tile courses"
+//  [3] SURFACE TRANSFORMATION — new finish color, new fixtures,
+//      new materials. Only what changed.
+//
+//  [4] RESULT QUALITY — immaculate, no people, editorial.
+//
+// Before prompts use localized specific wear language:
+//   ✓ "grout darkened in the lower two tile courses near the floor"
 //   ✗ "worn and damaged bathroom"
 // ════════════════════════════════════════════════════════════════
 
@@ -225,12 +238,15 @@ interior photography, not staged, no filters`,
     prompt: `Photorealistic interior photograph of the exact same compact L-shaped condo kitchen 
 in Boston Massachusetts, same doorway corner camera position at standing eye-level, same two 
 runs of cabinet doors in the same positions, same small single window centered above the sink 
-on the back wall, same grey vinyl tile floor. The only changes: all cabinet doors and drawer 
-fronts have been refinished in deep forest green (#1E3934) factory-smooth matte 2K polyurethane 
-finish — zero brush marks, perfectly even coverage. Matte black cup-pull hardware on all doors. 
-White quartz countertops replacing the old tile counters. The backsplash tile is the same but 
-freshly grouted bright white. Crisp natural light through the window. Interior design editorial 
-photography, no people`,
+on the back wall, same grey vinyl tile floor.
+BLEMISHES FULLY RESOLVED: the ceiling is freshly repainted with zero yellowing anywhere, the 
+scuff mark at kick height on the lower cabinet is gone with no trace, all backsplash grout 
+joints are bright clean white with no darkening in any corner.
+TRANSFORMATION: all cabinet doors and drawer fronts refinished in deep forest green (#1E3934) 
+factory-smooth matte 2K polyurethane — zero brush marks, perfectly even coverage edge to edge. 
+Matte black cup-pull hardware on all doors and drawers. White quartz countertops. Backsplash 
+tile freshly regrouted bright white. Crisp natural light through the window. Interior design 
+editorial photography, immaculate result, no people`,
   },
   {
     id: 'v1/hero/hero-slide-04-bathroom-after',
@@ -247,10 +263,12 @@ vertically. Warm soft light from the vanity bar. Gut-free renovation quality. No
     id: 'v1/hero/hero-video-poster',
     w: 1600, h: 900,
     referenceId: 'v1/hero/hero-slide-03-kitchen-after',
-    prompt: `Same compact L-shaped condo kitchen after cabinet refinishing in deep forest green 
-factory-smooth matte finish, identical camera position and room geometry as before, crisp 
-natural window light, white quartz countertops, matte black hardware, no people, editorial 
-interior photography`,
+    prompt: `Photorealistic interior photograph of the same compact L-shaped condo kitchen after 
+professional cabinet refinishing, identical camera position and room geometry, ceiling freshly 
+painted clean white with zero yellowing, no scuffs or blemishes on any surface, backsplash 
+grout bright white throughout, cabinet doors in deep forest green factory-smooth matte finish 
+with matte black hardware, white quartz countertops, crisp natural window light, no people, 
+editorial interior photography`,
   },
 
   // ════════════════════════════════════════════════════════════════
@@ -279,11 +297,16 @@ documentary photography shot on a wide-angle lens`,
     referenceId: 'v1/projects/somerville-cabinet-01-before',
     prompt: `Photorealistic interior photograph of the exact same narrow galley kitchen in a 
 Somerville Massachusetts triple-decker, identical camera position at the entry end looking 
-down the galley, same two parallel counter runs with the same walkway width, same window 
-at the far end above the sink, same linoleum floor. The only changes: all cabinet doors 
-and frames refinished in deep forest green factory-smooth matte 2K polyurethane, matte 
-black cup-pull hardware, white quartz countertops replacing the originals, backsplash 
-tile freshly re-grouted bright white. Crisp natural light. No people`,
+straight down the galley, same two parallel counter runs with the same walkway width, same 
+window at the far end above the sink, same linoleum floor.
+BLEMISHES FULLY RESOLVED: the dull surface buildup on all cabinet faces is gone — every door 
+is uniformly clean, the yellowing near the vent hood area has been fully removed with no 
+discoloration remaining on any adjacent surface, the misaligned hinge has been corrected and 
+all hinges sit flush and even across every door in the run.
+TRANSFORMATION: all cabinet doors and frames refinished in deep forest green factory-smooth 
+matte 2K polyurethane — perfect even coverage, zero brush marks. Matte black cup-pull hardware. 
+White quartz countertops. Backsplash tile freshly regrouted bright white. Crisp natural light. 
+Immaculate professional result. No people`,
   },
 
   // ── Cambridge bathroom ───────────────────────────────────────────
@@ -304,14 +327,18 @@ mirror. No people, honest pre-renovation documentation photography`,
     id: 'v1/projects/cambridge-bathroom-01-after',
     w: 800, h: 600,
     referenceId: 'v1/projects/cambridge-bathroom-01-before',
-    prompt: `Photorealistic interior photograph of the same small rectangular Cambridge 
-Massachusetts bathroom, identical camera position in the doorway, same room proportions, 
-same window position above where the tub was. Gut-free refresh: original clawfoot tub 
-refinished in bright white, pedestal sink replaced with a floating white rectangular vanity 
-with undermount sink and brushed nickel single-handle faucet, same toilet position, white 
-3x6 subway tile in running bond over the existing wall tile, white re-grouted hexagonal 
-floor tile cleaned and sealed, frameless square mirror with brushed nickel 3-globe vanity 
-bar. Bright warm vanity light. No people`,
+    prompt: `Photorealistic interior photograph of the same small rectangular bathroom in a 
+Cambridge Massachusetts condominium, identical camera position in the doorway, same room 
+proportions and layout, same frosted window position.
+BLEMISHES FULLY RESOLVED: all grout lines across every tile course from floor to ceiling are 
+uniformly bright white with zero darkening at the base, no oxidation or tarnish remains on 
+any fixture, all old caulk has been fully removed and replaced — no yellowing and no 
+separation gaps anywhere at any junction.
+TRANSFORMATION: original clawfoot tub refinished in bright white, pedestal sink replaced 
+with a floating white rectangular vanity with undermount sink and brushed nickel faucet, 
+white 3x6 subway tile in running bond over the existing wall tile, hexagonal floor tile 
+cleaned, sealed and regrouted bright white, frameless square mirror with brushed nickel 
+3-globe vanity bar. Bright warm vanity light. No people`,
   },
 
   // ── Arlington interior painting ──────────────────────────────────
@@ -335,10 +362,14 @@ table. No people, honest pre-painting documentation photography`,
     prompt: `Photorealistic interior photograph of the same living room in the Arlington 
 Massachusetts colonial, identical camera position in the far corner, same two windows in 
 same positions, same hardwood floor and area rug, same furniture arrangement, same door 
-and baseboard trim positions. The only change: walls and ceiling freshly painted in bright 
-clean white, trim and baseboards repainted in crisp semi-gloss white, plaster crack 
-repaired and invisible, warm natural light through the windows. Professional interior 
-painting result. No people`,
+and baseboard trim positions.
+BLEMISHES FULLY RESOLVED: the ceiling is uniformly fresh white with zero yellowing at any 
+line or edge, the hairline plaster crack at the window corner has been filled, sanded flush 
+and painted — completely invisible with no trace, every baseboard scuff mark is gone with 
+the trim repainted to a clean uniform finish.
+TRANSFORMATION: walls and ceiling freshly painted in bright clean white, trim and baseboards 
+repainted in crisp semi-gloss white, warm natural light through the windows. Professional 
+interior painting result. No people`,
   },
 
   // ── Medford cabinet ──────────────────────────────────────────────
@@ -359,10 +390,15 @@ metal at the grip points. No people, pre-renovation documentation`,
     w: 800, h: 600,
     referenceId: 'v1/projects/medford-cabinet-01-before',
     prompt: `Photorealistic interior photograph of the exact same U-shaped kitchen in the 
-Medford Massachusetts condominium, identical camera position and room geometry, same window 
-above the sink, same vinyl tile floor. All cabinet doors and frames refinished in warm bone 
-white factory-smooth matte 2K polyurethane finish, brushed nickel bar-pull hardware, white 
-quartz countertops, backsplash tile freshly grouted. Clean bright result. No people`,
+Medford Massachusetts condominium, identical camera position at the entry threshold, same 
+three-wall cabinet layout, same window above the sink, same vinyl tile floor.
+BLEMISHES FULLY RESOLVED: the dull cleaning buildup sheen is gone — all surfaces uniformly 
+clean and consistent, the water stain on the cabinet face below the sink has been fully 
+removed with no discoloration remaining, all old worn handles have been replaced and no bare 
+metal is visible anywhere.
+TRANSFORMATION: all cabinet doors and frames refinished in warm bone white factory-smooth 
+matte 2K polyurethane finish, new brushed nickel bar-pull hardware throughout, white quartz 
+countertops, backsplash tile freshly regrouted bright white. Clean bright result. No people`,
   },
 
   // ── Malden cabinet ───────────────────────────────────────────────
@@ -383,10 +419,15 @@ No people, landlord turnover documentation`,
     w: 800, h: 600,
     referenceId: 'v1/projects/malden-cabinet-01-before',
     prompt: `Photorealistic interior photograph of the same rectangular rental kitchen in 
-Malden Massachusetts, identical camera position, same room layout, same window and sink 
-position, same range in the corner, same vinyl sheet floor. All cabinet doors refinished 
-in clean bright white factory-smooth matte finish, new brushed nickel knob hardware, 
-countertop cleaned and re-sealed. Fresh rental-ready result. No people`,
+Malden Massachusetts, identical camera position in the doorway, same room layout, same 
+window and sink position, same range in the corner, same vinyl sheet floor.
+BLEMISHES FULLY RESOLVED: the smoke discoloration near the range on the adjacent cabinet 
+face is completely gone — all cabinet surfaces are uniform with no color variation, the 
+askew drawer front is perfectly aligned flush with all surrounding doors, the worn patch in 
+the floor vinyl in front of the sink is invisible — the floor reads as uniformly clean.
+TRANSFORMATION: all cabinet doors refinished in clean bright white factory-smooth matte 
+finish, new brushed nickel knob hardware, countertop cleaned and re-sealed. Fresh 
+rental-ready result. No people`,
   },
 
   // ── Everett bathroom ─────────────────────────────────────────────
@@ -407,12 +448,17 @@ faucet handle has surface tarnish. Fluorescent tube light above mirror. No peopl
     w: 800, h: 600,
     referenceId: 'v1/projects/everett-bathroom-01-before',
     prompt: `Photorealistic interior photograph of the same small rectangular bathroom in 
-Everett Massachusetts, identical camera position, same tub-shower position on the right, 
-same vanity position on the left, same toilet on the back wall, same window above toilet. 
-Gut-free refresh: tub refinished white and re-caulked, new sliding frameless glass door, 
-12x24 white porcelain tile installed over existing beige tile on all walls, vanity 
-resurfaced with new white top and undermount sink, brushed nickel faucet, new rectangular 
-mirror with LED vanity bar. No people`,
+Everett Massachusetts, identical camera position in the doorway, same tub-shower position 
+on the right, same vanity position on the left, same toilet on the back wall, same frosted 
+window above the toilet.
+BLEMISHES FULLY RESOLVED: all old caulk has been stripped and replaced — no yellowing and 
+no pulled sections at any junction, the moisture spot in the upper corner of the mirror is 
+gone with the mirror fully replaced, no tarnish remains on any fixture — all hardware is 
+uniformly clean brushed nickel.
+TRANSFORMATION: tub refinished white and fully re-caulked with clean white silicone, new 
+frameless sliding glass door, 12x24 white porcelain tile installed over existing beige tile 
+on all walls, vanity resurfaced with new white undermount sink top, brushed nickel faucet, 
+new rectangular mirror with LED vanity bar. No people`,
   },
 
   // ── Woburn interior painting ─────────────────────────────────────
@@ -435,10 +481,14 @@ No people, pre-painting documentation`,
     referenceId: 'v1/projects/woburn-painting-01-before',
     prompt: `Photorealistic interior photograph of the same combined living and dining room 
 in the Woburn Massachusetts colonial, identical camera position in the dining corner, same 
-picture window, same chandelier position, same hardwood floors, same furniture arrangement. 
-Walls and ceiling freshly painted in warm bright white, trim and baseboard in clean 
-semi-gloss white, moisture patch repaired and invisible, warm natural light through picture 
-window. No people`,
+picture window, same chandelier position, same hardwood floors, same furniture arrangement.
+BLEMISHES FULLY RESOLVED: the moisture-related paint bubbling section on the window-adjacent 
+wall has been fully repaired — plaster skimmed smooth, primed and repainted, completely 
+invisible with zero texture variation, the ceiling above the chandelier is uniformly fresh 
+white with no yellowing anywhere, all baseboard trim paint drip buildup has been sanded 
+smooth and the trim repainted to a clean crisp edge.
+TRANSFORMATION: walls and ceiling freshly painted in warm bright white, trim and baseboard 
+in clean semi-gloss white, warm natural light through picture window. No people`,
   },
 
   // ── Winchester kitchen ───────────────────────────────────────────
@@ -460,10 +510,16 @@ cabinet doors near the most-used drawers. No people`,
     referenceId: 'v1/projects/winchester-kitchen-01-before',
     prompt: `Photorealistic interior photograph of the exact same generously sized kitchen in 
 Winchester Massachusetts, identical camera position in the entry corner, same three-wall 
-layout with island, same two windows in the same positions, same stainless appliances, same 
-hardwood floor. All cabinet doors and frames — walls and island — refinished in deep navy 
-blue factory-smooth matte 2K polyurethane finish, brass cup-pull hardware, white quartz 
-countertops replacing granite tile. Warm natural light through both windows. No people`,
+layout with island, same two windows in the same positions, same stainless appliances, 
+same hardwood floor.
+BLEMISHES FULLY RESOLVED: the finish variation near the dishwasher is completely gone — 
+every cabinet door and drawer front across all walls and the island reads as perfectly 
+uniform with no color difference between any two surfaces, all wear marks on the most-used 
+drawer doors are invisible — the finish is consistent and unbroken across every panel.
+TRANSFORMATION: all cabinet doors and frames — walls and island — refinished in deep navy 
+blue factory-smooth matte 2K polyurethane — perfect uniform coverage on every surface. 
+Brass cup-pull hardware. White quartz countertops replacing granite tile. Warm natural 
+light through both windows. No people`,
   },
 
   // ── Cambridge cabinet (extra) ────────────────────────────────────
@@ -485,9 +541,14 @@ the face panel from an impact. No people`,
     prompt: `Photorealistic interior photograph of the exact same compact galley kitchen in 
 Cambridge Massachusetts, identical camera position at the entry end looking down the galley, 
 same single run of cabinet doors along one wall, same open shelving opposite, same window 
-at the far end, same hardwood floor. All cabinet doors refinished in deep navy blue 
-factory-smooth matte 2K polyurethane finish, matte black knob hardware, new white quartz 
-counter replacing butcher block. Crisp natural light. No people`,
+at the far end, same hardwood floor.
+BLEMISHES FULLY RESOLVED: the tacky residue buildup is completely gone — every cabinet 
+surface is uniformly clean and dry with a consistent appearance, the dented lower cabinet 
+face panel has been filled, sanded flush and refinished — completely invisible with no 
+indentation remaining.
+TRANSFORMATION: all cabinet doors refinished in deep navy blue factory-smooth matte 2K 
+polyurethane finish, matte black knob hardware, new white quartz counter replacing butcher 
+block. Crisp natural light. No people`,
   },
 
   // ── Somerville bathroom (extra) ──────────────────────────────────
@@ -510,12 +571,17 @@ No people`,
     referenceId: 'v1/projects/somerville-bathroom-01-before',
     prompt: `Photorealistic interior photograph of the same small rectangular bathroom in 
 the Somerville Massachusetts triple-decker, identical camera position in the doorway, same 
-tub position on the left, same sink position on the right, same toilet on the back wall, 
-same window above the toilet. Gut-free refresh: tub refinished and re-caulked, white 3x6 
-subway tile in running bond installed over the existing pink tile from floor to ceiling in 
-the shower area, fresh white paint on lower drywall sections, new floating white vanity 
-replacing pedestal sink, brushed nickel fixtures and accessories, hexagonal floor tile 
-cleaned and re-grouted white. No people`,
+tub position on the left, same toilet on the back wall, same window above the toilet.
+BLEMISHES FULLY RESOLVED: all grout between any remaining tile surfaces is bright clean 
+white with zero greying anywhere, all old caulk has been fully stripped and replaced with 
+fresh white silicone — no yellowing and no separation gaps at any junction, the chrome 
+towel bar and its wall anchors have been fully replaced — no rust spotting or corrosion 
+visible anywhere.
+TRANSFORMATION: tub refinished and re-caulked with fresh white silicone, white 3x6 subway 
+tile in running bond installed floor to ceiling in the shower area, fresh white paint on 
+all lower drywall sections, new floating white vanity replacing pedestal sink, brushed 
+nickel fixtures and accessories throughout, hexagonal floor tile regrouted bright white. 
+No people`,
   },
 
   // ── Winchester cabinet (extra) ───────────────────────────────────
@@ -534,11 +600,16 @@ No people`,
     id: 'v1/projects/winchester-cabinet-01-after',
     w: 800, h: 600,
     referenceId: 'v1/projects/winchester-cabinet-01-before',
-    prompt: `Photorealistic interior photograph of the same L-shaped kitchen in Winchester 
+    prompt: `Photorealistic interior photograph of the same large L-shaped kitchen in Winchester 
 Massachusetts, identical camera position in the corner, same L layout with peninsula, same 
-built-in oven position, same window above the sink, same hardwood floor. All cabinet doors 
-and frames refinished in charcoal grey factory-smooth matte 2K polyurethane finish, 
-brushed nickel bar-pull hardware, white quartz countertops replacing tile. No people`,
+built-in oven position, same window above the sink, same hardwood floor.
+BLEMISHES FULLY RESOLVED: the staining at the countertop trim grout lines is fully gone — 
+all countertop edges read as clean and uniform, the two oven-adjacent cabinet doors that 
+showed heat-related darkening now match every other door exactly — finish color is 
+completely uniform across all doors and frames with no variation.
+TRANSFORMATION: all cabinet doors and frames refinished in charcoal grey factory-smooth 
+matte 2K polyurethane — uniform coverage across all surfaces including oven-adjacent panels. 
+Brushed nickel bar-pull hardware. White quartz countertops replacing tile. No people`,
   },
 
   // ── Malden painting (extra) ──────────────────────────────────────
@@ -560,9 +631,15 @@ a previous amateur paint job. No people, landlord turnover documentation`,
     referenceId: 'v1/projects/malden-painting-01-before',
     prompt: `Photorealistic interior photograph of the same bedroom in the Malden Massachusetts 
 rental unit, identical camera position in the far corner, same two windows, same closet and 
-door positions, same hardwood floor. Walls and ceiling freshly painted in clean bright white, 
-all scuffs and nail holes repaired and invisible, baseboard trim repainted crisp semi-gloss 
-white, warm natural light through the windows. Rental-ready professional result. No people`,
+door positions, same hardwood floor.
+BLEMISHES FULLY RESOLVED: the scuff marks on the wall beside the door are completely gone 
+with the wall surface smooth and uniform, the nail hole patch is invisible — filled, sanded 
+perfectly flush and repainted with zero texture difference or raised spot remaining, all 
+paint drip buildup has been sanded off the baseboard trim which now has a clean sharp crisp 
+edge with no lumps or irregularities.
+TRANSFORMATION: walls and ceiling freshly painted in clean bright white, baseboard trim 
+repainted in crisp semi-gloss white with clean sharp edges, warm natural light through 
+the windows. Rental-ready professional result. No people`,
   },
 
   // ════════════════════════════════════════════════════════════════

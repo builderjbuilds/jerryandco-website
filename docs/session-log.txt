@@ -1,0 +1,24 @@
+Jerry & Co. Home Improvement — Session Problem/Solution Log
+==============================================================
+Internal build documentation. Add one entry per session.
+Format: [DATE] PROBLEM / SOLUTION / FILES CHANGED
+
+--------------------------------------------------------------
+
+[2026-06-17]
+PROBLEM: generate-media.ts passed --reference-image to the Higgsfield CLI when
+         generating "after" images that reference their "before" pair for spatial
+         conditioning. The seedream_v4_5 model does not accept --reference-image
+         as a parameter — it only accepts: prompt, aspect_ratio, quality,
+         input_images (array).
+         Error: "higgsfield CLI failed: Error: Unknown params: reference-image"
+
+SOLUTION: Replaced --reference-image with --image, which is the correct generic
+          media flag accepted by the Higgsfield CLI. Local file paths passed via
+          --image are auto-uploaded by the CLI and mapped to the model's
+          input_images array parameter.
+          Confirmed fix with a dry-run: both somerville-cabinet images generated
+          successfully (0 failures).
+
+FILES CHANGED: scripts/generate-media.ts (line 116, and matching comment line 9)
+
