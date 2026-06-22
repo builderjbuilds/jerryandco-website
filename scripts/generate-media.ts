@@ -14,7 +14,7 @@
  *
  * KEY CHANGES FROM v1:
  *  - Before/after pairs share a locked spatial anchor (same room geometry)
- *  - After prompts pass --reference-image <before-file> to Higgsfield
+ *  - After prompts pass --image <before-file> to Higgsfield
  *    so the model uses the before state as a spatial conditioning input
  *  - Damage/wear language is specific and localized, not cartoonish
  *  - ASSETS array is ordered: every before always precedes its after
@@ -111,7 +111,7 @@ async function generateImage(
 
   console.log(`  Generating: ${publicId} [${ratio}]${hasRef ? ' [ref: ' + referenceId + ']' : ''}`);
 
-  // Build CLI args — add --reference-image only when before file exists locally
+  // Build CLI args — add --image- only when before file exists locally
   const cliArgs = [
     'generate', 'create', 'seedream_v4_5',
     '--prompt', prompt,
@@ -121,7 +121,7 @@ async function generateImage(
   ];
 
   if (hasRef) {
-    cliArgs.push('--reference-image', refFile!);
+    cliArgs.push('--image', refFile!);
     console.log(`  ↳ reference image: ${refFile}`);
   } else if (referenceId) {
     console.warn(`  ⚠ Reference file not found for ${referenceId} — generating without spatial anchor`);
@@ -212,11 +212,13 @@ const ASSETS: Asset[] = [
     w: 1600, h: 900,
     prompt: `Wide-angle street-level photograph of a dense Boston inner-suburb residential 
 neighborhood, classic triple-decker wood-frame houses and 3-story brick condo buildings lining 
-a tree-lined street in Somerville Massachusetts, late afternoon golden hour light, warm amber 
-tones raking across bay windows and aged brick facades, deep green mature maple trees in full 
-leaf, quiet well-kept residential sidewalk, slight cinematic depth of field with near 
-foreground softly out of focus, architectural photography on 24mm lens, no people prominently 
-visible, no cars in immediate foreground, premium real estate neighborhood photography`,
+a tree-lined street in Somerville Massachusetts, late September trees in peak green just before 
+turning with no bare branches anywhere, late afternoon golden hour light with the sun low from 
+the west raking left-to-right across the building facades, warm amber tones across bay windows 
+and aged brick, deep green mature maple trees in full leaf, quiet well-kept residential sidewalk, 
+slight cinematic depth of field with near foreground softly out of focus, architectural photography 
+on 24mm lens, no people prominently visible, no cars in immediate foreground, premium real estate 
+neighborhood photography`,
   },
   {
     id: 'v1/hero/hero-slide-02-kitchen-before',
@@ -224,9 +226,10 @@ visible, no cars in immediate foreground, premium real estate neighborhood photo
     prompt: `Photorealistic interior photograph of a compact L-shaped condo kitchen in Boston 
 Massachusetts shot from the doorway corner at standing eye-level, two runs of original 1990s 
 raised-panel honey oak cabinet doors — upper row along back wall, lower base cabinets 
-continuous — white ceramic 4x4 tile backsplash, small single window centered above the sink 
-on the back wall letting in natural light, grey vinyl tile floor, no appliances on counters, 
-no people. The oak finish shows age: slightly yellowed near the ceiling from years of cooking 
+continuous — laminate countertops in almond off-white, white ceramic 4x4 tile backsplash, small single 
+window centered above the sink on the back wall letting in natural light, grey vinyl tile floor, 
+freestanding white electric range on the left counter run with no visible range hood above it, 
+no items on counters, no people. The oak finish shows age: slightly yellowed near the ceiling from years of cooking 
 steam, one lower cabinet door has a small scuff at kick height from foot contact, the grout 
 on the tile backsplash has darkened slightly in the corners. Honest before-state documentary 
 interior photography, not staged, no filters`,
@@ -256,8 +259,8 @@ Massachusetts condominium, camera positioned in the doorway at standing eye-leve
 straight in, showing the full width of the room: walk-in shower with ceiling-height white 3x6 
 subway tile in running bond on left wall, white rectangular undermount vanity with brushed 
 nickel single-handle faucet centered on the back wall, toilet tucked right, frameless rectangle 
-mirror above vanity, 3-globe vanity light bar, 12x24 light grey porcelain floor tile laid 
-vertically. Warm soft light from the vanity bar. Gut-free renovation quality. No people`,
+mirror above vanity, 3-globe vanity light bar, 12x24 light grey porcelain floor tile laid in horizontal stacked bond with light grey grout. 
+Warm soft light from the vanity bar. Gut-free renovation quality. No people`,
   },
   {
     id: 'v1/hero/hero-video-poster',
@@ -284,9 +287,9 @@ editorial interior photography`,
     prompt: `Photorealistic interior photograph of a narrow galley kitchen in a Somerville 
 Massachusetts triple-decker apartment unit, camera at the entry end of the galley looking 
 straight down the length of the room, two parallel counter runs with a 36-inch walkway 
-between them, one window at the far end centered above the sink, upper and lower oak 
-raised-panel cabinet doors continuous on both sides, white 4x4 ceramic tile backsplash, 
-linoleum floor in a beige grid pattern. The oak shows natural aging: finish slightly 
+between them, one window at the far end centered above the sink, upper and lower oak raised-panel cabinet doors continuous on both sides reaching nearly to 
+the 8-foot ceiling, laminate countertops in almond off-white on both runs, white 4x4 ceramic 
+tile backsplash, linoleum floor in a beige grid pattern. The oak shows natural aging: finish slightly 
 dull from cleaning, minor yellowing near the vent hood area, one cabinet hinge slightly 
 misaligned on a door mid-run. No people, no staged items on counters. Honest pre-renovation 
 documentary photography shot on a wide-angle lens`,
@@ -297,8 +300,8 @@ documentary photography shot on a wide-angle lens`,
     referenceId: 'v1/projects/somerville-cabinet-01-before',
     prompt: `Photorealistic interior photograph of the exact same narrow galley kitchen in a 
 Somerville Massachusetts triple-decker, identical camera position at the entry end looking 
-straight down the galley, same two parallel counter runs with the same walkway width, same 
-window at the far end above the sink, same linoleum floor.
+straight down the galley, same two parallel counter runs with the same walkway width, same 8-foot ceiling height, 
+same window at the far end above the sink, same linoleum floor.
 BLEMISHES FULLY RESOLVED: the dull surface buildup on all cabinet faces is gone — every door 
 is uniformly clean, the yellowing near the vent hood area has been fully removed with no 
 discoloration remaining on any adjacent surface, the misaligned hinge has been corrected and 
@@ -315,12 +318,13 @@ Immaculate professional result. No people`,
     w: 800, h: 600,
     prompt: `Photorealistic interior photograph of a small rectangular bathroom in a Cambridge 
 Massachusetts condominium, camera in the doorway at standing eye-level looking straight in, 
-showing: cast-iron clawfoot tub along the left wall, pedestal sink centered on the back wall, 
-toilet on the right, single frosted window above the tub, large-format beige 6x6 ceramic wall 
-tile floor to ceiling on all walls, hexagonal white mosaic floor tile. Natural aging: grout 
-lines between wall tiles darkened from moisture in the lower two courses near the floor, 
-chrome fixtures on the pedestal sink showing light surface oxidation near the base, caulk 
-line around the tub base slightly yellowed. Single incandescent globe light above the sink 
+showing: cast-iron alcove tub-shower with a straight chrome curtain rod and white curtain 
+along the left wall, pedestal sink centered on the back wall, toilet on the right, single 
+frosted window above the faucet end of the tub, large-format beige 6x6 ceramic wall tile 
+floor to ceiling on all walls, hexagonal white mosaic floor tile. Natural aging: grout lines 
+between wall tiles darkened from moisture in the lower two courses near the floor, chrome 
+fixtures on the pedestal sink showing light surface oxidation near the base, caulk line 
+along the tub surround base slightly yellowed. Single incandescent globe light above the sink 
 mirror. No people, honest pre-renovation documentation photography`,
   },
   {
@@ -361,8 +365,8 @@ table. No people, honest pre-painting documentation photography`,
     referenceId: 'v1/projects/arlington-painting-01-before',
     prompt: `Photorealistic interior photograph of the same living room in the Arlington 
 Massachusetts colonial, identical camera position in the far corner, same two windows in 
-same positions, same hardwood floor and area rug, same furniture arrangement, same door 
-and baseboard trim positions.
+same positions, same hardwood floor and area rug, same basic sofa and side table in the same positions, 
+same door and baseboard trim positions.
 BLEMISHES FULLY RESOLVED: the ceiling is uniformly fresh white with zero yellowing at any 
 line or edge, the hairline plaster crack at the window corner has been filled, sanded flush 
 and painted — completely invisible with no trace, every baseboard scuff mark is gone with 
@@ -379,8 +383,9 @@ interior painting result. No people`,
     prompt: `Photorealistic interior photograph of a compact U-shaped kitchen in a Medford 
 Massachusetts condominium conversion unit, camera at the entry threshold looking straight 
 in, three walls of original 1990s medium-oak flat-panel cabinet doors — upper and lower 
-continuous runs on back wall and both side walls, small window above the sink on the back 
-wall, black laminate countertops, white subway tile backsplash, vinyl tile floor. Oak finish 
+continuous runs on back wall and both side walls, small window above the sink on the back wall, black laminate countertops, overhead 
+fluorescent tube light on supplementing the natural window light, white subway tile 
+backsplash, vinyl tile floor. Oak finish 
 shows: dull surface sheen from years of cleaning product buildup, minor water staining on 
 the cabinet face below the sink from an old minor leak now repaired, handles worn to bare 
 metal at the grip points. No people, pre-renovation documentation`,
@@ -426,7 +431,7 @@ face is completely gone — all cabinet surfaces are uniform with no color varia
 askew drawer front is perfectly aligned flush with all surrounding doors, the worn patch in 
 the floor vinyl in front of the sink is invisible — the floor reads as uniformly clean.
 TRANSFORMATION: all cabinet doors refinished in clean bright white factory-smooth matte 
-finish, new brushed nickel knob hardware, countertop cleaned and re-sealed. Fresh 
+finish, new brushed nickel knob hardware, laminate countertop cleaned and wiped down. Fresh 
 rental-ready result. No people`,
   },
 
@@ -435,9 +440,9 @@ rental-ready result. No people`,
     id: 'v1/projects/everett-bathroom-01-before',
     w: 800, h: 600,
     prompt: `Photorealistic interior photograph of a small rectangular bathroom in an Everett 
-Massachusetts condominium, camera in the doorway looking straight in, tub-shower combo 
-along the right wall with a sliding glass door, vanity with cultured marble top on the 
-left wall, toilet between them on the back wall, small frosted window above the toilet. 
+Massachusetts condominium, camera in the doorway looking straight in, tub-shower combo along the right wall with a sliding glass door, vanity with cultured 
+marble top on the left wall, toilet centered on the back wall between the tub on the 
+right and the vanity on the left, small frosted window above the toilet. 
 4x4 beige ceramic wall tile from floor to ceiling, matching beige floor tile. Wear: 
 caulk around the tub edge has minor yellowing and one 3-inch section has pulled slightly 
 from the wall, mirror above vanity has a small moisture spot in the upper corner, chrome 
@@ -467,9 +472,10 @@ new rectangular mirror with LED vanity bar. No people`,
     w: 800, h: 600,
     prompt: `Photorealistic interior photograph of a combined living and dining room in a 
 1960s Woburn Massachusetts colonial home, camera in the dining area corner showing both 
-spaces, living room with picture window on the far wall, dining area with a two-light 
-chandelier above the table position, hardwood floors throughout, plaster walls in an 
-aged ivory-white, wood door casings and baseboard trim. Wear: paint on the wall adjacent 
+spaces, living room with a basic upholstered sofa and floor lamp on the far side with a picture 
+window behind it, dining area with a simple wooden table and four chairs beneath a two-light 
+chandelier, hardwood floors throughout, plaster walls in an aged ivory-white, wood door 
+casings and baseboard trim. Wear: paint on the wall adjacent 
 to the exterior window has slight moisture-related bubbling in one lower 8-inch section 
 from an old window seal issue now resolved, ceiling paint slightly yellowed above the 
 chandelier location, baseboard trim shows minor paint buildup from previous coats. 
@@ -481,7 +487,8 @@ No people, pre-painting documentation`,
     referenceId: 'v1/projects/woburn-painting-01-before',
     prompt: `Photorealistic interior photograph of the same combined living and dining room 
 in the Woburn Massachusetts colonial, identical camera position in the dining corner, same 
-picture window, same chandelier position, same hardwood floors, same furniture arrangement.
+picture window, same chandelier position, same sofa and floor lamp in the living area, 
+same dining table and chairs beneath the chandelier, same hardwood floors.
 BLEMISHES FULLY RESOLVED: the moisture-related paint bubbling section on the window-adjacent 
 wall has been fully repaired — plaster skimmed smooth, primed and repainted, completely 
 invisible with zero texture variation, the ceiling above the chandelier is uniformly fresh 
@@ -497,9 +504,9 @@ in clean semi-gloss white, warm natural light through picture window. No people`
     w: 800, h: 600,
     prompt: `Photorealistic interior photograph of a generously sized kitchen in a Winchester 
 Massachusetts colonial single-family home, camera in the entry corner at eye level showing 
-the full kitchen: three-wall layout with an island, original 1990s full-overlay honey oak 
-cabinet doors on all walls and island, granite tile countertops, stainless appliances, 
-hardwood floor, two windows — one above the sink on the back wall, one on the right side 
+the full kitchen: three-wall layout with an island, original 1990s full-overlay honey oak cabinet doors on 
+all walls and island, granite tile countertops on perimeter with matching granite tile on 
+the island top, stainless appliances, hardwood floor, two windows — one above the sink on the back wall, one on the right side 
 wall. The oak finish shows its age: dull surface from years of use, slight variation in 
 color uniformity near the dishwasher from steam exposure, visible wear marks on the 
 cabinet doors near the most-used drawers. No people`,
@@ -529,8 +536,8 @@ light through both windows. No people`,
     prompt: `Photorealistic interior photograph of a compact galley kitchen in a Cambridge 
 Massachusetts condominium near Inman Square, camera at the entry end looking down the 
 galley, single run of upper and lower flat-panel medium-oak cabinet doors along one wall, 
-open shelving on the opposite wall, single window at the far end, butcher block countertop, 
-white subway tile backsplash, hardwood floor. Oak finish shows: cleaning product residue 
+open shelving on the opposite wall painted white with no items displayed, single window at 
+the far end, butcher block countertop, white subway tile backsplash, hardwood floor. Oak finish shows: cleaning product residue 
 buildup on the surface giving a slightly tacky look, one lower cabinet has a small dent in 
 the face panel from an impact. No people`,
   },
@@ -557,8 +564,7 @@ block. Crisp natural light. No people`,
     w: 800, h: 600,
     prompt: `Photorealistic interior photograph of a small rectangular full bathroom in a 
 Somerville Massachusetts triple-decker unit, camera in the doorway looking straight in, 
-tub-shower along the left wall with a shower curtain rod, wall-mount pedestal sink on the 
-right, toilet on the back wall between them, single window above the toilet. Original 
+tub-shower along the left wall with a chrome straight curtain rod, pedestal sink on the right, toilet on the back wall between them, single window above the toilet. Original 
 4x4 pink ceramic wall tile from waist height to ceiling, white painted drywall below, 
 black and white hexagonal floor tile. Honest wear: grout between pink tiles shows greying 
 in the shower area from moisture, caulk at the tub rim has minor yellowing and a small 
@@ -570,8 +576,8 @@ No people`,
     w: 800, h: 600,
     referenceId: 'v1/projects/somerville-bathroom-01-before',
     prompt: `Photorealistic interior photograph of the same small rectangular bathroom in 
-the Somerville Massachusetts triple-decker, identical camera position in the doorway, same 
-tub position on the left, same toilet on the back wall, same window above the toilet.
+the Somerville Massachusetts triple-decker, identical camera position in the doorway, same tub position on the left, same pedestal sink 
+position on the right, same toilet on the back wall, same window above the toilet.
 BLEMISHES FULLY RESOLVED: all grout between any remaining tile surfaces is bright clean 
 white with zero greying anywhere, all old caulk has been fully stripped and replaced with 
 fresh white silicone — no yellowing and no separation gaps at any junction, the chrome 
@@ -591,8 +597,8 @@ No people`,
     prompt: `Photorealistic interior photograph of a large L-shaped kitchen in a Winchester 
 Massachusetts colonial, camera in the corner at eye level showing the full L, original 
 medium-oak full-overlay cabinet doors on both runs plus a peninsula, white tile countertops 
-with oak-trim edge, stainless steel double oven built in, hardwood floor, window above the 
-peninsula sink. Oak wear: countertop trim has minor staining at the grout lines, cabinet 
+with oak-trim edge, double wall oven built into a tall cabinet housing on the right run — not a freestanding 
+range — hardwood floor, window above the peninsula sink. Oak wear: countertop trim has minor staining at the grout lines, cabinet 
 doors near the oven show slight heat-related finish darkening on two adjacent doors. 
 No people`,
   },
@@ -619,8 +625,9 @@ Brushed nickel bar-pull hardware. White quartz countertops replacing tile. No pe
     prompt: `Photorealistic interior photograph of a bedroom in a Malden Massachusetts 
 multi-family building rental unit, camera in the far corner showing the full room: two 
 double-hung windows on the front wall, closet door on the left wall, bedroom door on the 
-right, hardwood floor with no rug, standard 8-foot ceilings. Walls painted in a pale 
-yellow from the previous tenant, end-of-tenancy wear visible: scuff marks on the wall 
+right, hardwood floor with no rug, standard 8-foot ceilings. Walls painted in a pale yellow from the previous tenant, room is empty of furniture except 
+for a bare mattress on the floor left by the previous tenant against the far wall, 
+end-of-tenancy wear visible: scuff marks on the wall 
 beside the door from furniture contact, one 4-inch nail hole patch that was poorly touched 
 up and shows as a slightly raised white spot, baseboard trim has minor paint drips from 
 a previous amateur paint job. No people, landlord turnover documentation`,
@@ -649,54 +656,57 @@ the windows. Rental-ready professional result. No people`,
     id: 'v1/process/step-01-video-estimate',
     w: 800, h: 600,
     prompt: `Photorealistic lifestyle photograph focused on a pair of hands holding a 
-smartphone horizontally showing a FaceTime or video call UI with a kitchen visible on 
-the phone screen, the real kitchen background behind the phone is blurred, warm natural 
-window light from the left, no faces visible, candid and natural composition`,
+smartphone horizontally showing a generic video call interface — green circular avatar, 
+call timer visible at top, no brand logos or recognizable app UI — with a blurred kitchen 
+visible on the phone screen, hands have dark brown skin tone, the real kitchen background 
+behind the phone is softly blurred, warm natural window light from the left, no faces 
+visible, candid and natural composition`,
   },
   {
     id: 'v1/process/step-02-prep-containment',
     w: 800, h: 600,
     prompt: `Photorealistic close-up photograph of 3M ScotchBlue painter's tape being 
-carefully applied along the edge of a wood cabinet frame, fingers pressing the tape edge 
-down precisely, clear poly sheeting draped over the countertop below visible in lower 
-frame, natural window light from the left, hands wearing blue nitrile gloves, no faces, 
-craft trade documentation photography`,
+carefully applied along the edge of a wood cabinet frame, tape applied along the vertical stile edge of the cabinet frame pressed flush to where 
+frame meets wall, fingers pressing the tape edge down precisely, clear poly sheeting 
+draped over the countertop below visible in lower frame, natural window light from the 
+left, hands wearing blue nitrile gloves, no faces, craft trade documentation photography`,
   },
   {
     id: 'v1/process/step-03-hand-sand',
     w: 800, h: 600,
-    prompt: `Photorealistic close-up photograph of a cork sanding block with 220-grit 
-sandpaper being pressed flat against a cabinet door face panel, the sanding motion creating 
-a fine wood-dust haze visible in the side light, gloved hands visible, no power tools in 
-frame, raking natural light from a window at 45 degrees showing the surface texture, craft 
-trade documentation photography`,
+    prompt: `Photorealistic close-up photograph of a cork sanding block with 220-grit sandpaper being 
+pressed flat against a cabinet door face panel laid flat on a drop cloth on the floor, 
+sanding motion from above creating a fine wood-dust haze visible in the side light, gloved 
+hands visible from above, no power tools in frame, raking natural light from a window at 
+45 degrees showing the surface texture, craft trade documentation photography`,
   },
   {
     id: 'v1/process/step-04-spray-finish',
     w: 800, h: 600,
-    prompt: `Photorealistic photograph of a professional HVLP spray gun applying a smooth 
-white finish to a flat cabinet door laid on sawhorses, fine atomized paint mist visible 
-in the side lighting, gloved hand visible holding the gun at the correct distance, the 
-surface showing the smooth finish building up, dramatic side raking light from a single 
-work light, contained professional setup, craft trade photography`,
+    prompt: `Photorealistic photograph of a professional HVLP spray gun applying a smooth white finish 
+to a flat cabinet door laid on a drop cloth on the floor — matching the hand-sanding setup — 
+fine atomized paint mist visible in the side lighting, gloved hand visible holding the gun 
+at the correct 8-inch distance, the surface showing the smooth finish building up, dramatic 
+side raking light from a single work light, contained professional setup, craft trade photography`,
   },
   {
     id: 'v1/process/step-05-final-walkthrough',
     w: 800, h: 600,
     prompt: `Photorealistic interior photograph of a kitchen with freshly refinished deep 
 forest green cabinet doors, the doors reflecting a subtle light showing the perfectly 
-smooth factory matte surface, warm natural light, a blurred human figure visible in the 
-far background suggesting the homeowner present, no faces in focus, editorial interior 
-photography`,
+smooth factory matte surface, warm natural light, a blurred human figure with dark brown skin tone visible in the far 
+background of a galley kitchen layout matching the Somerville project style, no faces in 
+focus, editorial interior photography`,
   },
   {
     id: 'v1/process/process-page-hero',
     w: 1600, h: 600,
     prompt: `Photorealistic wide panoramic photograph of a residential kitchen mid-refinishing 
-operation, upper cabinet doors removed and leaning masked against the wall to the right, 
-blue painter's tape applied precisely to all cabinet frames, clear poly sheeting protecting 
-countertops, HVLP spray equipment visible on the left edge of frame, professional methodical 
-workspace, warm window light, no faces visible`,
+operation, upper cabinet doors removed and leaning masked against the wall to the right, the cabinet 
+frames with blue painter's tape applied are the center focal point filling the middle third 
+of the frame, HVLP spray equipment visible on the left edge of frame, clear poly sheeting 
+protecting countertops in the foreground, professional methodical workspace, warm window 
+light from the right side, no faces visible`,
   },
 
   // ════════════════════════════════════════════════════════════════
@@ -708,8 +718,9 @@ workspace, warm window light, no faces visible`,
     prompt: `Photorealistic close-up photograph of a professional HVLP spray gun, the gun 
 held in a gloved hand with the nozzle pointed at a white primed cabinet door visible at 
 the edge of frame, blue painter's tape masking clearly visible on the cabinet frame behind 
-the door, professional contractor setting, natural window light supplemented by a work 
-light from the right, sharp detail on the gun mechanism, commercial craft photography`,
+the door, shallow depth of field with the spray gun nozzle tip in sharp focus and the cabinet frame 
+and door softly blurred behind, professional contractor setting, natural window light 
+supplemented by a work light from the right, commercial craft photography`,
   },
 
   // ════════════════════════════════════════════════════════════════
@@ -718,8 +729,9 @@ light from the right, sharp detail on the gun mechanism, commercial craft photog
   {
     id: 'v1/pages/vs-replacement-demo-chaos',
     w: 800, h: 600,
-    prompt: `Photorealistic photograph of a residential kitchen mid-cabinet-replacement 
-demolition, the upper wall cabinet boxes have been removed leaving exposed raw drywall 
+    prompt: `Photorealistic photograph of a residential kitchen mid-cabinet-replacement demolition, 
+camera at standing eye-level from the kitchen doorway looking straight in on a slightly 
+wide-angle lens, the upper wall cabinet boxes have been removed leaving exposed raw drywall 
 with visible screw holes and torn paper facing, lower base cabinets still in place with 
 countertops removed, a thin layer of drywall dust on the remaining counters, one electrical 
 box exposed in the upper wall, natural light from the window without window treatment, 
@@ -729,25 +741,29 @@ state, no people`,
   {
     id: 'v1/pages/guarantee-finish-closeup',
     w: 800, h: 800,
-    prompt: `Photorealistic extreme macro close-up of a cabinet door surface refinished in 
-deep forest green (#1E3934) factory-smooth matte finish, raking side light showing 
-absolutely flat even surface with zero brush marks or orange peel texture, the wood 
-grain subtly visible beneath the paint, commercial product photography on a neutral 
-background`,
+    prompt: `Photorealistic extreme macro close-up of a shaker-style flat-panel cabinet door, the 
+recessed center panel surface fills the frame, refinished in deep forest green (#1E3934) 
+factory-smooth matte 2K polyurethane finish, the faint shadow of the routed panel groove 
+visible at one edge confirming this is a cabinet door not a paint chip, raking side light 
+showing absolutely flat even surface with zero brush marks or orange peel texture, the wood 
+grain subtly visible beneath the paint, commercial product photography on a neutral background`,
   },
   {
     id: 'v1/pages/guarantee-touchup-bottle',
     w: 600, h: 600,
-    prompt: `Photorealistic product photograph of a small 2-ounce cylindrical glass touch-up 
-paint bottle with a professional label in forest green and cream, placed on a clean cream 
-linen surface, soft even diffused studio light from above left, isolated product shot with 
-a soft natural shadow directly below, commercial product photography`,
+    prompt: `Photorealistic product photograph of a small 2-ounce cylindrical glass touch-up paint 
+bottle, the label is forest green with cream text reading JERRY & CO. in simple capital 
+letters — no other text visible on the label — placed on a clean cream linen surface, soft 
+even diffused studio light from above left, isolated product shot with a soft natural shadow 
+directly below, commercial product photography`,
   },
   {
     id: 'v1/pages/financing-approval-concept',
     w: 800, h: 600,
     prompt: `Photorealistic lifestyle photograph focused on two hands holding a smartphone 
 showing a financing pre-approval confirmation screen with a green check indicator, 
+generic approval confirmation UI with no brand logos, no recognizable fintech app interface, 
+just a simple screen showing a large green checkmark and generic approval confirmation text, 
 background is a softly blurred bright kitchen interior with white cabinets, warm natural 
 window light, no faces visible, aspirational lifestyle photography`,
   },
@@ -758,59 +774,77 @@ window light, no faces visible, aspirational lifestyle photography`,
   {
     id: 'v1/colors/swatch-deep-forest',
     w: 600, h: 600,
-    prompt: `Extreme macro close-up of a painted wood cabinet door panel surface, deep forest 
-green color (#1E3934), factory-smooth matte 2K polyurethane finish, subtle wood grain 
-visible beneath the paint, even diffused studio lighting, fills entire frame, no text, 
-no labels, commercial paint color sample photography`,
+    prompt: `Extreme macro close-up of a shaker-style flat-panel cabinet door center panel 
+surface, deep forest green color (#1E3934), factory-smooth matte 2K polyurethane finish, 
+subtle wood grain visible beneath shot at 6-8 inches on macro lens, faint shadow of the 
+routed panel groove at one edge confirming cabinet door context, even diffused studio 
+lighting, fills entire frame, no text, no labels, commercial paint color sample photography`,
   },
   {
     id: 'v1/colors/swatch-bone-white',
     w: 600, h: 600,
-    prompt: `Extreme macro close-up of a painted wood cabinet door panel surface, warm bone 
-white color (#F7F3EA), factory-smooth matte finish, subtle wood grain visible beneath, 
-even diffused studio lighting, fills entire frame, no text, no labels`,
+    prompt: `Extreme macro close-up of a shaker-style flat-panel cabinet door center panel 
+surface, warm bone white color (#F7F3EA) with a very slightly cool grey-white character 
+and no warm yellow tint, factory-smooth matte 2K polyurethane finish, subtle wood grain 
+visible beneath shot at 6-8 inches on macro lens, faint shadow of the routed panel groove 
+at one edge confirming cabinet door context, even diffused studio lighting, fills entire 
+frame, no text, no labels`,
   },
   {
     id: 'v1/colors/swatch-soft-sage',
     w: 600, h: 600,
-    prompt: `Extreme macro close-up of a painted wood cabinet door panel surface, soft sage 
-green muted earthy color, factory-smooth matte finish, subtle wood grain beneath, even 
-diffused studio lighting, fills entire frame, no text, no labels`,
+    prompt: `Extreme macro close-up of a shaker-style flat-panel cabinet door center panel 
+surface, soft sage green muted earthy color (#8FAF8A), factory-smooth matte 2K polyurethane 
+finish, subtle wood grain visible beneath shot at 6-8 inches on macro lens, faint shadow of 
+the routed panel groove at one edge confirming cabinet door context, even diffused studio 
+lighting, fills entire frame, no text, no labels`,
   },
   {
     id: 'v1/colors/swatch-charcoal-matte',
     w: 600, h: 600,
-    prompt: `Extreme macro close-up of a painted wood cabinet door panel surface, dark 
-charcoal grey (#2C2C2C) factory-smooth matte finish, subtle wood grain beneath, even 
-diffused studio lighting, fills entire frame, no text, no labels`,
+    prompt: `Extreme macro close-up of a shaker-style flat-panel cabinet door center panel 
+surface, dark charcoal grey (#2C2C2C) factory-smooth matte 2K polyurethane finish, 
+subtle wood grain visible beneath shot at 6-8 inches on macro lens, faint shadow of the 
+routed panel groove at one edge confirming cabinet door context, even diffused studio 
+lighting, fills entire frame, no text, no labels`,
   },
   {
     id: 'v1/colors/swatch-navy-shaker',
     w: 600, h: 600,
-    prompt: `Extreme macro close-up of a painted wood cabinet door panel surface, deep 
-navy blue (#1B2A4A) factory-smooth matte finish, subtle wood grain beneath, even 
-diffused studio lighting, fills entire frame, no text, no labels`,
+    prompt: `Extreme macro close-up of a shaker-style flat-panel cabinet door center panel 
+surface, deep navy blue (#1B2A4A) factory-smooth matte 2K polyurethane finish, subtle 
+wood grain visible beneath shot at 6-8 inches on macro lens, faint shadow of the routed 
+panel groove at one edge confirming cabinet door context, even diffused studio lighting, 
+fills entire frame, no text, no labels`,
   },
   {
     id: 'v1/colors/swatch-warm-taupe',
     w: 600, h: 600,
-    prompt: `Extreme macro close-up of a painted wood cabinet door panel surface, warm 
-taupe greige color (#9E8E7E) factory-smooth matte finish, subtle wood grain beneath, 
-even diffused studio lighting, fills entire frame, no text, no labels`,
+    prompt: `Extreme macro close-up of a shaker-style flat-panel cabinet door center panel 
+surface, warm taupe greige color (#9E8E7E) factory-smooth matte 2K polyurethane finish, 
+subtle wood grain visible beneath shot at 6-8 inches on macro lens, faint shadow of the 
+routed panel groove at one edge confirming cabinet door context, even diffused studio 
+lighting, fills entire frame, no text, no labels`,
   },
   {
     id: 'v1/colors/swatch-matte-black',
     w: 600, h: 600,
-    prompt: `Extreme macro close-up of a painted wood cabinet door panel surface, flat 
-matte black finish, zero sheen, subtle wood grain visible beneath, even diffused studio 
-lighting, fills entire frame, no text, no labels`,
+    prompt: `Extreme macro close-up of a shaker-style flat-panel cabinet door center panel 
+surface, flat matte black finish (#0A0A0A), near-zero reflectivity, extremely faint ghost 
+of wood grain visible only under raking light — not a dominant texture, factory-smooth 2K 
+polyurethane finish, subtle raking studio light from 45 degrees to reveal surface texture, 
+faint shadow of the routed panel groove at one edge confirming cabinet door context, fills 
+entire frame, no text, no labels`,
   },
   {
     id: 'v1/colors/swatch-champagne',
     w: 600, h: 600,
-    prompt: `Extreme macro close-up of a painted wood cabinet door panel surface, champagne 
-warm gold-white color (#E8D9B0) factory-smooth matte finish, subtle wood grain beneath, 
-even diffused studio lighting, fills entire frame, no text, no labels`,
+    prompt: `Extreme macro close-up of a shaker-style flat-panel cabinet door center panel 
+surface, champagne warm gold-beige color (#E8D9B0) with a distinctly warm golden undertone 
+noticeably warmer and more yellow than any white swatch, factory-smooth matte 2K polyurethane 
+finish, subtle wood grain visible beneath shot at 6-8 inches on macro lens, faint shadow of 
+the routed panel groove at one edge confirming cabinet door context, even diffused studio 
+lighting, fills entire frame, no text, no labels`,
   },
 ];
 
