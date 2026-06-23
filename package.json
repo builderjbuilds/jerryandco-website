@@ -19,12 +19,12 @@
     "media:upload-photo": "npx tsx scripts/upload-real-photo.ts"
   },
   "dependencies": {
+    "@astrojs/cloudflare": "^13.7.0",
     "@astrojs/sitemap": "^3.2.1",
     "astro": "^6.4.6",
     "resend": "^6.12.4"
   },
   "devDependencies": {
-    "@astrojs/cloudflare": "^13.7.0",
     "@types/node": "^25.9.3",
     "cloudinary": "^2.10.0",
     "dotenv": "^17.4.2",

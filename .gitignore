@@ -25,3 +25,6 @@ pnpm-debug.log*
 
 # Cloudflare / Wrangler local dev state
 .wrangler/
+
+# Netlify build artifacts (stale — project moved to Cloudflare)
+.netlify/
