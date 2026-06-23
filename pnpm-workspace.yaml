@@ -1,4 +1,7 @@
 allowBuilds:
-  esbuild: set this to true or false
+  esbuild: true
+  sharp: true
+  workerd: true
+  "@parcel/watcher": true
 overrides:
-  wrangler: "4.101.0"
+  wrangler: "<4.103.0"
